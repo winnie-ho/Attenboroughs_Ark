@@ -95,7 +95,7 @@ var UI = function(){
   this.countries = new Countries();
 
   this.countries.allDB(function(result){
-    this.renderBucketList(result);
+    this.renderArk(result);
   }.bind(this));
   
   this.countries.all(function(result){
@@ -126,13 +126,13 @@ UI.prototype = {
     console.log(this.map);
   },
 
-  handleBLButton: function(){
+  handleGoButton: function(){
     var selectedCountry = document.querySelector("select");
     var countryObject = JSON.parse(selectedCountry.value);
     var addedCountry = document.createElement("p");
     addedCountry.innerText = "Country: " + countryObject.name + "\n Capital: " + countryObject.capital;
-    var blDiv = document.querySelector("#bucket-list");
-    blDiv.appendChild(addedCountry);
+    var arkDiv = document.querySelector("#ark");
+    arkDiv.appendChild(addedCountry);
      
     var newCountry = {
       name: countryObject.name,
@@ -149,12 +149,12 @@ UI.prototype = {
     document.location.reload(true);
   },
 
-  renderBucketList: function(bucketList){
-    var blDiv = document.querySelector("#bucket-list");
+  renderArk: function(bucketList){
+    var arkDiv = document.querySelector("#ark");
       for(var country of bucketList){
-        var blCountry = document.createElement("p");
-        blCountry.innerText = "Country: " + country.name + "\n Capital: " + country.capital;
-        blDiv.appendChild(blCountry);
+        var arkCountry = document.createElement("p");
+        arkCountry.innerText = "Country: " + country.name + "\n Capital: " + country.capital;
+        arkDiv.appendChild(arkCountry);
         console.log("Country in the loop:", country.name);
         console.log(this.map);
         this.map.addMarker({lat: country.xcoord, lng: country.ycoord});
@@ -330,8 +330,8 @@ var UI = __webpack_require__(1);
 
 var app = function() {
   var ui = new UI();
-  var addButton = document.querySelector("#bl-button");
-  addButton.onclick = ui.handleBLButton;
+  var goButton = document.querySelector("#go-button");
+  goButton.onclick = ui.handleGoButton;
 }
 
 window.onload = app;
