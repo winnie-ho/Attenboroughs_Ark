@@ -112,7 +112,7 @@ UI.prototype = {
   render: function(countriesList){
     var countriesDiv = document.querySelector("#countries");
     var selectLabel = document.createElement("h3");
-    selectLabel.innerText = "Select a country:"
+    selectLabel.innerText = "SELECT A COUNTRY: "
     var countriesSelect = document.createElement("select");
       for (var country of countriesList){
         var place = document.createElement("option");
