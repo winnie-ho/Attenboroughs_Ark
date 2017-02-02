@@ -1,0 +1,93 @@
+body{
+  background-color: #81BEF7
+}
+
+h1{
+  font-family: Tradizional DEMO;
+  text-align: center;
+  font-size: 80px;
+  color: #06436A;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+h2{
+  font-family: Tradizional DEMO;
+  text-align: center;
+  font-size: 40px;
+  color: #06436A;
+  margin-top: 10px;
+}
+
+h3{
+  font-family: Tradizional DEMO;
+  text-align: center;
+  font-size: 20px;
+  color: #06436A;
+}
+
+p{
+  font-family: futura;
+  font-size: 14px;
+  color: #06436A;
+}
+
+button{
+  height: 20px;
+  width:40px;
+}
+
+select{
+  margin-left: 10px;
+}
+
+#select-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+#countries{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+#button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  padding-top: 24px;
+  padding-left: 10px;
+}
+
+#main-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#bucket-list{
+  border: solid 1px white;
+  border-radius: 3px;
+  width: 320px;
+  height: 530px;
+  margin: 5px;
+  padding-top: -10px;
+  padding-left: 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#mapDiv{
+  border: solid 1px white;
+  border-radius: 3px;
+  width: 920px;
+  height: 530px;
+  margin: 5px;
+}
