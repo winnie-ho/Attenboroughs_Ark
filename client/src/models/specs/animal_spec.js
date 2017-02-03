@@ -21,4 +21,10 @@ describe('Animal', function() {
   it('should get question one', function() {
     assert.equal(panda.getQuestionOne(), "this animal seems to be Black and White.");
   });
+  it('should get question two', function() {
+    assert.equal(panda.getQuestionTwo(), "this animal eats almost only bamboo!");
+  });
+  it('should get question three', function() {
+    assert.equal(panda.getQuestionThree(), "this animal appears to be a species of bear!");
+  });
 });

@@ -8,7 +8,13 @@ var Animal = function(options){
 
 Animal.prototype = {
   getQuestionOne: function() {
-    return this.questions.one
+    return this.questions.one;
+  },
+  getQuestionTwo: function() {
+    return this.questions.two;
+  },
+  getQuestionThree: function() {
+    return this.questions.three;
   }
 }
 
