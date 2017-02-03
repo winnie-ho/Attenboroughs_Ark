@@ -5,13 +5,14 @@ var MapWrapper = require("../models/mapWrapper.js");
 var UI = function(){ 
   this.countries = new Countries();
 
-  this.countries.allDB(function(result){
+  this.countries.allAPI(function(result){
+    this.renderCountriesList(result);
+  }.bind(this));
+
+  this.countries.allVisited(function(result){
     this.renderNotebookCountry(result);
   }.bind(this));
   
-  this.countries.all(function(result){
-    this.renderCountriesList(result);
-  }.bind(this));
 
   mapDiv = document.querySelector("#mapDiv");
   var centre = {lat: 20, lng: 0 };
@@ -68,9 +69,7 @@ UI.prototype = {
      
     var newCountry = {
       name: countryObject.name,
-      capital: countryObject.capital,
-      xcoord: countryObject.latlng[0],
-      ycoord: countryObject.latlng[1]
+      arrivalText: countryObject.arrivalText
     }
 
     console.log("country added to log: ", countryObject.name);
@@ -88,7 +87,7 @@ UI.prototype = {
         var countryVisited = document.createElement("p");
         countryVisited.innerText = "We have visited " + country.name;
         notebookDiv.appendChild(countryVisited);
-        this.map.addMarker({lat: country.xcoord, lng: country.ycoord});
+        this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
       }
   },
 

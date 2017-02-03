@@ -21,29 +21,31 @@ Countries.prototype = {
     request.send(data);
   },
 
-  all: function(callback){
+  allVisited: function(callback){
+    console.log("allVisited started");
   var self = this;
-
-  // change the url request to the own Countries API
-    this.makeRequest("http://localhost:3000/countries/api", function() {
-      if (this.status !== 200){
-        return;
-      }
+    this.makeRequest("http://localhost:3000/countries", function() {
+      if (this.status !== 200)
+        return;      
       var jsonString = this.responseText;
       var result = JSON.parse(jsonString);
       console.log(result);
       callback(result);
+      console.log("allVisited complete");
     });
   }, 
 
-  allDB: function(callback){
+  allAPI: function(callback){
+    console.log("allAPI started");
     var self = this;
     this.makeRequest("http://localhost:3000/countries/api", function(){
-      if(this.status !== 200) return;
+      if(this.status !== 200) 
+        return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
-      var countriesDB = self.populateDropDownList(results);
-      callback(countriesDB);
+      var countriesAPI = self.populateDropDownList(results);
+      callback(countriesAPI);
+      console.log("allAPI complete");
     })
   },
 
