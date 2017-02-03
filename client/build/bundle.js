@@ -95,11 +95,11 @@ var UI = function(){
   this.countries = new Countries();
 
   this.countries.allDB(function(result){
-    this.renderArk(result);
+    this.renderNotebook(result);
   }.bind(this));
   
   this.countries.all(function(result){
-    this.render(result);
+    this.renderCountriesList(result);
   }.bind(this));
 
   mapDiv = document.querySelector("#mapDiv");
@@ -109,7 +109,7 @@ var UI = function(){
 }
 
 UI.prototype = {
-  render: function(countriesList){
+  renderCountriesList: function(countriesList){
     var countriesDiv = document.querySelector("#countries");
     var selectLabel = document.createElement("h3");
     selectLabel.innerText = "SELECT A COUNTRY: "
@@ -129,10 +129,10 @@ UI.prototype = {
   handleGoButton: function(){
     var selectedCountry = document.querySelector("select");
     var countryObject = JSON.parse(selectedCountry.value);
-    var addedCountry = document.createElement("p");
-    addedCountry.innerText = "Country: " + countryObject.name + "\n Capital: " + countryObject.capital;
-    var arkDiv = document.querySelector("#ark");
-    arkDiv.appendChild(addedCountry);
+    var visitedCountry = document.createElement("p");
+    visitedCountry.innerText = "We are off to " + countryObject.name + "! Buckle Up!";
+    var notebookDiv = document.querySelector("#notebook");
+    notebookDiv.appendChild(visitedCountry);
      
     var newCountry = {
       name: countryObject.name,
@@ -141,22 +141,21 @@ UI.prototype = {
       ycoord: countryObject.latlng[1]
     }
 
-    console.log("country added to ark: ", countryObject.name);
+    console.log("country added to log: ", countryObject.name);
     var countries = new Countries();    
-    countries.makePost("/", newCountry, function(data){
+    countries.makePost("/countries", newCountry, function(data){
     });
 
     document.location.reload(true);
   },
 
-  renderArk: function(arkList){
-    var arkDiv = document.querySelector("#ark");
-      for(var country of arkList){
-        var arkCountry = document.createElement("p");
-        arkCountry.innerText = "Country: " + country.name + "\n Capital: " + country.capital;
-        arkDiv.appendChild(arkCountry);
-        console.log("Country in the loop:", country.name);
-        console.log(this.map);
+  renderNotebook: function(countryList){
+    var notebookDiv = document.querySelector("#notebook");
+      for(var country of countryList){
+        var countryVisited = document.createElement("p");
+        countryVisited.innerText = "We have visited " + country.name;
+        notebookDiv.appendChild(countryVisited);
+        console.log(country);
         this.map.addMarker({lat: country.xcoord, lng: country.ycoord});
       }
   }
@@ -208,22 +207,22 @@ Countries.prototype = {
 
   allDB: function(callback){
     var self = this;
-    this.makeRequest("http://localhost:3000/api", function(){
+    this.makeRequest("http://localhost:3000/countries/api", function(){
       if(this.status !== 200) return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
-      var countriesDB = self.populateArk(results);
+      var countriesDB = self.populateDropDownList(results);
       callback(countriesDB);
     })
   },
 
-  populateArk: function(results){
-    var arkCountries = [];
+  populateDropDownList: function(results){
+    var Countries = [];
     for (var result of results){
       var country = new Country (result);
-    arkCountries.push(country);
+    Countries.push(country);
     }
-    return arkCountries;
+    return Countries;
   }
 
 }

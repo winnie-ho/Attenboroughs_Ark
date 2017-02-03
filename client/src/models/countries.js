@@ -38,22 +38,22 @@ Countries.prototype = {
 
   allDB: function(callback){
     var self = this;
-    this.makeRequest("http://localhost:3000/api", function(){
+    this.makeRequest("http://localhost:3000/countries/api", function(){
       if(this.status !== 200) return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
-      var countriesDB = self.populateArk(results);
+      var countriesDB = self.populateDropDownList(results);
       callback(countriesDB);
     })
   },
 
-  populateArk: function(results){
-    var arkCountries = [];
+  populateDropDownList: function(results){
+    var Countries = [];
     for (var result of results){
       var country = new Country (result);
-    arkCountries.push(country);
+    Countries.push(country);
     }
-    return arkCountries;
+    return Countries;
   }
 
 }
