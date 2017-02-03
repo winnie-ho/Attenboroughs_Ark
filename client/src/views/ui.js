@@ -2,8 +2,8 @@ var Countries = require("../models/countries.js");
 var Country = require("../models/country.js");
 var MapWrapper = require("../models/mapWrapper.js");
 
-var UI = function(){  // var map;
-
+var map;
+var UI = function(){ 
   this.countries = new Countries();
 
   this.countries.allDB(function(result){
@@ -16,27 +16,28 @@ var UI = function(){  // var map;
 
   mapDiv = document.querySelector("#mapDiv");
   var centre = {lat: 20, lng: 0 };
-  var map = new MapWrapper(centre, 2);
+  map = new MapWrapper(centre, 2);
+
+
+  var routeCoords = [
+    {lat: 37.772, lng: -122.214},
+    {lat: 21.291, lng: -157.821},
+    {lat: -18.142, lng: 178.431},
+    {lat: -27.467, lng: 153.027}
+  ];
+
+  var journeyPath = new google.maps.Polyline({
+    path: routeCoords,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+  });
+
+  console.log("this is what is being produced", map);
+  journeyPath.setMap(map);
+
   this.map = map;
-
-
-  // var routeCoords = [
-  //   {lat: 56,lng: -3},
-  //   {lat: 6,lng: -30},
-  //   {lat: 5,lng: 23},
-  //   {lat: 62,lng: 15}
-  // ];
-  // var journeyPath = new google.maps.Polyline({
-  //   path: routeCoords,
-  //         geodesic: true,
-  //         strokeColor: '#FF0000',
-  //         strokeOpacity: 1.0,
-  //         strokeWeight: 2
-  // });
-
-  // console.log("this is what is being produced", map);
-  // journeyPath.setMap(map);
-
   // this.renderMapJourney();
 
 }
