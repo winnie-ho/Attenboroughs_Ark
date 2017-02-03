@@ -68,7 +68,8 @@ UI.prototype = {
     var visitedCountry = document.createElement("img");
     console.log(countryObject.stamp);
     visitedCountry.src = countryObject.stamp;
-    visitedCountry.width = 60;
+    visitedCountry.width = 100;
+    visitedCountry.id = "stamp"
     var notebookDiv = document.querySelector("#notebook");
     notebookDiv.appendChild(visitedCountry);
 
@@ -88,23 +89,22 @@ UI.prototype = {
   },
 
   renderNotebookCountry: function(countryList){
-
-    var visitedCountriesNames = [];
+    var visitedCountriesStamps = [];
       for (var country of countryList){
-      visitedCountriesNames.push(country.name);
+      visitedCountriesStamps.push(country.stamp);
       this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
     }
 
-
-    var filterVisitedCountries = visitedCountriesNames.filter(function(country, index, countryList){
-      return visitedCountriesNames.indexOf(country) === index;
+    var filterVisitedCountries = visitedCountriesStamps.filter(function(country, index, countryList){
+      return visitedCountriesStamps.indexOf(country) === index;
     });
 
-    console.log("filterVisitedCountries", filterVisitedCountries);
     var notebookDiv = document.querySelector("#notebook");
       for(var country of filterVisitedCountries){
-        var countryVisited = document.createElement("p");
-        countryVisited.innerText = "We have visited " + country;
+        var countryVisited = document.createElement("img");
+        countryVisited.src = country;
+        countryVisited.width = 100;
+        countryVisited.id = "stamp";
         notebookDiv.appendChild(countryVisited);
       }
   },
