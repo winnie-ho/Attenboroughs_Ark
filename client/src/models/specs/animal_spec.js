@@ -19,6 +19,6 @@ describe('Animal', function() {
   });
 
   it('should get question one', function() {
-    assert.equal(panda.getQuestionOne(quiz), "this animal seems to be Black and White.");
+    assert.equal(panda.getQuestionOne(), "this animal seems to be Black and White.");
   });
 });

@@ -6,12 +6,8 @@ var Animal = function(options){
   this.image = options.image;
 }
 
-Quiz.prototype = {
+Animal.prototype = {
   getQuestionOne: function() {
-    // questionsObject = animal.questions
-    // for (var question of questionsObject){
-      // return question.one
-    // }
     return this.questions.one
   }
 }
