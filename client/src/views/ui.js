@@ -2,11 +2,12 @@ var Countries = require("../models/countries.js");
 var Country = require("../models/country.js");
 var MapWrapper = require("../models/mapWrapper.js");
 
-var UI = function(){
+var UI = function(){  // var map;
+
   this.countries = new Countries();
 
   this.countries.allDB(function(result){
-    this.renderNotebook(result);
+    this.renderNotebookCountry(result);
   }.bind(this));
   
   this.countries.all(function(result){
@@ -14,9 +15,30 @@ var UI = function(){
   }.bind(this));
 
   mapDiv = document.querySelector("#mapDiv");
-  mapDiv.innerHTML = "";
   var centre = {lat: 20, lng: 0 };
-  this.map = new MapWrapper(centre, 2);
+  var map = new MapWrapper(centre, 2);
+  this.map = map;
+
+
+  // var routeCoords = [
+  //   {lat: 56,lng: -3},
+  //   {lat: 6,lng: -30},
+  //   {lat: 5,lng: 23},
+  //   {lat: 62,lng: 15}
+  // ];
+  // var journeyPath = new google.maps.Polyline({
+  //   path: routeCoords,
+  //         geodesic: true,
+  //         strokeColor: '#FF0000',
+  //         strokeOpacity: 1.0,
+  //         strokeWeight: 2
+  // });
+
+  // console.log("this is what is being produced", map);
+  // journeyPath.setMap(map);
+
+  // this.renderMapJourney();
+
 }
 
 UI.prototype = {
@@ -34,7 +56,6 @@ UI.prototype = {
         selectLabel.appendChild(countriesSelect);
         countriesSelect.appendChild(place);
       }
-    console.log(this.map);
   },
 
   handleGoButton: function(){
@@ -58,17 +79,21 @@ UI.prototype = {
     });
 
     document.location.reload(true);
+
   },
 
-  renderNotebook: function(countryList){
+  renderNotebookCountry: function(countryList){
     var notebookDiv = document.querySelector("#notebook");
       for(var country of countryList){
         var countryVisited = document.createElement("p");
         countryVisited.innerText = "We have visited " + country.name;
         notebookDiv.appendChild(countryVisited);
-        console.log(country);
         this.map.addMarker({lat: country.xcoord, lng: country.ycoord});
       }
+  },
+
+  renderMapJourney: function(){
+    
   }
 }
 
