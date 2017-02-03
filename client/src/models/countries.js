@@ -23,6 +23,8 @@ Countries.prototype = {
 
   all: function(callback){
   var self = this;
+
+  // change the url request to the own Countries API
     this.makeRequest("https://restcountries.eu/rest/v1/all", function() {
       if (this.status !== 200){
         return;
@@ -36,22 +38,22 @@ Countries.prototype = {
 
   allDB: function(callback){
     var self = this;
-    this.makeRequest("http://localhost:3000/api", function(){
+    this.makeRequest("http://localhost:3000/countries/api", function(){
       if(this.status !== 200) return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
-      var countriesDB = self.populateBucketList(results);
+      var countriesDB = self.populateDropDownList(results);
       callback(countriesDB);
     })
   },
 
-  populateBucketList: function(results){
-    var blCountries = [];
+  populateDropDownList: function(results){
+    var Countries = [];
     for (var result of results){
       var country = new Country (result);
-      blCountries.push(country);
+    Countries.push(country);
     }
-    return blCountries;
+    return Countries;
   }
 
 }
