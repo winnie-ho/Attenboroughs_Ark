@@ -16,6 +16,23 @@ Animal.prototype = {
   getQuestionThree: function() {
     return this.questions.three;
   }
-}
+
+  answerQuestion: function(buttonValue) {
+    if (this.name == button.value) {
+      return this.answerText } 
+    else if { getQuestionTwo() 
+      this.name = user.input
+      if (this.name2 == button.value) {
+        return this.answerText}
+      else if { getQuestionThree() }
+        if (this.name3 == button.value) {
+          return this.answerText
+        }
+      }
+    }
+  }
+
+  //use on button press do this function, if this happens restart
+
 
 module.exports = Animal;
