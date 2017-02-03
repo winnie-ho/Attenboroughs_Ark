@@ -52,7 +52,7 @@ UI.prototype = {
       ycoord: countryObject.latlng[1]
     }
 
-    console.log("country added to bucket list: ", countryObject.name);
+    console.log("country added to ark: ", countryObject.name);
     var countries = new Countries();    
     countries.makePost("/", newCountry, function(data){
     });
@@ -60,9 +60,9 @@ UI.prototype = {
     document.location.reload(true);
   },
 
-  renderArk: function(bucketList){
+  renderArk: function(arkList){
     var arkDiv = document.querySelector("#ark");
-      for(var country of bucketList){
+      for(var country of arkList){
         var arkCountry = document.createElement("p");
         arkCountry.innerText = "Country: " + country.name + "\n Capital: " + country.capital;
         arkDiv.appendChild(arkCountry);
@@ -71,7 +71,6 @@ UI.prototype = {
         this.map.addMarker({lat: country.xcoord, lng: country.ycoord});
       }
   }
-
 }
 
 module.exports = UI;

@@ -141,7 +141,7 @@ UI.prototype = {
       ycoord: countryObject.latlng[1]
     }
 
-    console.log("country added to bucket list: ", countryObject.name);
+    console.log("country added to ark: ", countryObject.name);
     var countries = new Countries();    
     countries.makePost("/", newCountry, function(data){
     });
@@ -149,9 +149,9 @@ UI.prototype = {
     document.location.reload(true);
   },
 
-  renderArk: function(bucketList){
+  renderArk: function(arkList){
     var arkDiv = document.querySelector("#ark");
-      for(var country of bucketList){
+      for(var country of arkList){
         var arkCountry = document.createElement("p");
         arkCountry.innerText = "Country: " + country.name + "\n Capital: " + country.capital;
         arkDiv.appendChild(arkCountry);
@@ -160,7 +160,6 @@ UI.prototype = {
         this.map.addMarker({lat: country.xcoord, lng: country.ycoord});
       }
   }
-
 }
 
 module.exports = UI;
@@ -194,6 +193,8 @@ Countries.prototype = {
 
   all: function(callback){
   var self = this;
+
+  // change the url request to the own Countries API
     this.makeRequest("https://restcountries.eu/rest/v1/all", function() {
       if (this.status !== 200){
         return;
@@ -211,18 +212,18 @@ Countries.prototype = {
       if(this.status !== 200) return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
-      var countriesDB = self.populateBucketList(results);
+      var countriesDB = self.populateArk(results);
       callback(countriesDB);
     })
   },
 
-  populateBucketList: function(results){
-    var blCountries = [];
+  populateArk: function(results){
+    var arkCountries = [];
     for (var result of results){
       var country = new Country (result);
-      blCountries.push(country);
+    arkCountries.push(country);
     }
-    return blCountries;
+    return arkCountries;
   }
 
 }
