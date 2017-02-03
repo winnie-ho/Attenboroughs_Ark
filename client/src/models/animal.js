@@ -15,14 +15,32 @@ Animal.prototype = {
   },
   getQuestionThree: function() {
     return this.questions.three;
-  }
+  },
 
-  answerQuestion: function(buttonValue, nextQuestion) {
-    getQuestionOne();
+  answerQuestionOne: function(buttonValue) {
+    this.getQuestionOne();
     if (this.name == buttonValue) {
       return this.answerText
     } else {
-      nextQuestion
+      return
+    }
+  },
+
+  answerQuestionTwo: function(buttonValue) {
+    this.getQuestionTwo();
+    if (this.name == buttonValue) {
+      return this.answerText
+    } else {
+      return
+    }
+  },
+
+    answerQuestionThree: function(buttonValue) {
+    this.getQuestionThree()
+    if (this.name == buttonValue) {
+      return this.answerText
+    } else {
+      return "You're an idiot"
       }
     }
   }
