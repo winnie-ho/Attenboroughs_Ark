@@ -29,7 +29,7 @@ Countries.prototype = {
         return;      
       var jsonString = this.responseText;
       var result = JSON.parse(jsonString);
-      console.log(result);
+      console.log("from visited db", result);
       callback(result);
       console.log("allVisited complete");
     });
@@ -43,6 +43,7 @@ Countries.prototype = {
         return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
+      console.log("from API result", results);
       var countriesAPI = self.populateDropDownList(results);
       callback(countriesAPI);
       console.log("allAPI complete");

@@ -31,7 +31,7 @@ CountryQuery.prototype = {
   allVisited: function(onQueryFinished){
     MongoClient.connect(this.url, function(err, db){
           var collection = db.collection("countriesVisited");
-          console.log(collection);
+          console.log("returned from Visited DB", collection);
           collection.find().toArray(function(err, docs){
             onQueryFinished(docs);
       });

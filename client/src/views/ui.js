@@ -66,12 +66,16 @@ UI.prototype = {
     visitedCountry.innerText = "We are off to " + countryObject.name + "! Buckle Up!";
     var notebookDiv = document.querySelector("#notebook");
     notebookDiv.appendChild(visitedCountry);
+
+    console.log("country coords", countryObject.coords[0]);
      
     var newCountry = {
       name: countryObject.name,
+      coords: [countryObject.coords[0], countryObject.coords[1]],
       arrivalText: countryObject.arrivalText
     }
 
+    
     console.log("country added to log: ", countryObject.name);
     var countries = new Countries();    
     countries.makePost("/countries", newCountry, function(data){
@@ -85,6 +89,7 @@ UI.prototype = {
     var notebookDiv = document.querySelector("#notebook");
       for(var country of countryList){
         var countryVisited = document.createElement("p");
+        console.log("returned from visited DB", country);
         countryVisited.innerText = "We have visited " + country.name;
         notebookDiv.appendChild(countryVisited);
         this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
