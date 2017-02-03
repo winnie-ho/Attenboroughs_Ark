@@ -25,7 +25,7 @@ Animals.prototype = {
   var self = this;
 
   // change the url request to the own Animals API
-    this.makeRequest("https://restcountries.eu/rest/v1/all", function() {
+    this.makeRequest("http://localhost:3000/animals/api", function() {
       if (this.status !== 200){
         return;
       }

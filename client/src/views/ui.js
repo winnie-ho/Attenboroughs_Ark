@@ -2,7 +2,6 @@ var Countries = require("../models/countries.js");
 var Country = require("../models/country.js");
 var MapWrapper = require("../models/mapWrapper.js");
 
-var map;
 var UI = function(){ 
   this.countries = new Countries();
 
@@ -16,7 +15,7 @@ var UI = function(){
 
   mapDiv = document.querySelector("#mapDiv");
   var centre = {lat: 20, lng: 0 };
-  map = new MapWrapper(centre, 2);
+  this.map = new MapWrapper(centre, 2);
 
 
   var routeCoords = [
@@ -34,10 +33,10 @@ var UI = function(){
           strokeWeight: 2
   });
 
-  console.log("this is what is being produced", map);
-  journeyPath.setMap(map);
+  console.log("this is what is being produced", this.map);
+  // journeyPath.setMap(map);
 
-  this.map = map;
+  // this.map = map;
   // this.renderMapJourney();
 
 }

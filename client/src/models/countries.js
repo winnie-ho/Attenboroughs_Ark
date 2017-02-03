@@ -25,7 +25,7 @@ Countries.prototype = {
   var self = this;
 
   // change the url request to the own Countries API
-    this.makeRequest("https://restcountries.eu/rest/v1/all", function() {
+    this.makeRequest("http://localhost:3000/countries/api", function() {
       if (this.status !== 200){
         return;
       }
