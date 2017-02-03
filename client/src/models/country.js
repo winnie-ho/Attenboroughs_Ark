@@ -1,7 +1,7 @@
 var Country = function(options){
   this.name = options.name;
-  this.capital = options.capital;
-  this.xcoord = options.xcoord;
+  this.country = options.capital;
+  this.questions = options.xcoord;
   this.ycoord = options.ycoord;
 }
 

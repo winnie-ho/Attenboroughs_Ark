@@ -1,11 +1,11 @@
-var Quiz = require('../quiz');
+var Animal = require('../animal');
 var assert = require('assert');
 
-describe('Quiz', function() {
-  var quiz;
+describe('Animal', function() {
+  var animal;
 
   beforeEach(function() {
-  quiz = new Quiz({
+  panda = new Animal({
   name: "Giant Panda",
   country: "China",
   questions: {
@@ -19,6 +19,6 @@ describe('Quiz', function() {
   });
 
   it('should get question one', function() {
-    assert.equal(quiz.getQuestionOne(quiz), "this animal seems to be Black and White.");
+    assert.equal(panda.getQuestionOne(quiz), "this animal seems to be Black and White.");
   });
 });
