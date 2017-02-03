@@ -34,7 +34,7 @@ var UI = function(){
           strokeWeight: 2
   });
 
-  console.log("this is what is being produced", this.map);
+  // console.log("this is what is being produced", this.map);
   // journeyPath.setMap(map);
 
   // this.map = map;
@@ -76,7 +76,7 @@ UI.prototype = {
     }
 
     
-    console.log("country added to log: ", countryObject.name);
+    console.log("country added to notebook: ", countryObject.name);
     var countries = new Countries();    
     countries.makePost("/countries", newCountry, function(data){
     });
@@ -86,13 +86,24 @@ UI.prototype = {
   },
 
   renderNotebookCountry: function(countryList){
+
+    var visitedCountriesNames = [];
+      for (var country of countryList){
+      visitedCountriesNames.push(country.name);
+    }
+
+
+    var filterVisitedCountries = visitedCountriesNames.filter(function(country, index, countryList){
+      return visitedCountriesNames.indexOf(country) === index;
+    });
+
+    console.log("filterVisitedCountries", filterVisitedCountries);
     var notebookDiv = document.querySelector("#notebook");
-      for(var country of countryList){
+      for(var country of filterVisitedCountries){
         var countryVisited = document.createElement("p");
-        console.log("returned from visited DB", country);
-        countryVisited.innerText = "We have visited " + country.name;
+        countryVisited.innerText = "We have visited " + country;
         notebookDiv.appendChild(countryVisited);
-        this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
+        // this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
       }
   },
 
