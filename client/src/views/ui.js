@@ -3,6 +3,9 @@ var Country = require("../models/country.js");
 var MapWrapper = require("../models/mapWrapper.js");
 
 var UI = function(){ 
+  var goButton = document.querySelector("#go-button");
+  goButton.onclick = this.handleGoButton.bind(this);
+
   this.countries = new Countries();
 
   this.countries.allAPI(function(result){
@@ -62,27 +65,26 @@ UI.prototype = {
   handleGoButton: function(){
     var selectedCountry = document.querySelector("select");
     var countryObject = JSON.parse(selectedCountry.value);
-    var visitedCountry = document.createElement("p");
-    visitedCountry.innerText = "We are off to " + countryObject.name + "! Buckle Up!";
+    var visitedCountry = document.createElement("img");
+    console.log(countryObject.stamp);
+    visitedCountry.src = countryObject.stamp;
+    visitedCountry.width = 60;
     var notebookDiv = document.querySelector("#notebook");
     notebookDiv.appendChild(visitedCountry);
 
-    console.log("country coords", countryObject.coords[0]);
-     
     var newCountry = {
       name: countryObject.name,
       coords: [countryObject.coords[0], countryObject.coords[1]],
-      arrivalText: countryObject.arrivalText
+      arrivalText: countryObject.arrivalText,
+      stamp: countryObject.stamp
     }
 
-    
-    console.log("country added to notebook: ", countryObject.name);
     var countries = new Countries();    
     countries.makePost("/countries", newCountry, function(data){
     });
 
-    document.location.reload(true);
-
+    this.map.addMarker({lat: countryObject.coords[0], lng: countryObject.coords[1]});
+    // document.location.reload(true);
   },
 
   renderNotebookCountry: function(countryList){
@@ -90,6 +92,7 @@ UI.prototype = {
     var visitedCountriesNames = [];
       for (var country of countryList){
       visitedCountriesNames.push(country.name);
+      this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
     }
 
 
@@ -103,7 +106,6 @@ UI.prototype = {
         var countryVisited = document.createElement("p");
         countryVisited.innerText = "We have visited " + country;
         notebookDiv.appendChild(countryVisited);
-        // this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
       }
   },
 
