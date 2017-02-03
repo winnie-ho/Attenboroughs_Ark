@@ -1,10 +1,10 @@
-var Country = require("./country");
+var Animal = require("./animal");
 
-var Countries = function(){
+var Animals = function(){
 
 }
 
-Countries.prototype = {
+Animals.prototype = {
   makeRequest: function(url, callback){
     var request = new XMLHttpRequest();
     request.open("GET", url);
@@ -24,7 +24,7 @@ Countries.prototype = {
   all: function(callback){
   var self = this;
 
-  // change the url request to the own Countries API
+  // change the url request to the own Animals API
     this.makeRequest("https://restcountries.eu/rest/v1/all", function() {
       if (this.status !== 200){
         return;
@@ -38,24 +38,24 @@ Countries.prototype = {
 
   allDB: function(callback){
     var self = this;
-    this.makeRequest("http://localhost:3000/countries/api", function(){
+    this.makeRequest("http://localhost:3000/animals/api", function(){
       if(this.status !== 200) return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
-      var countriesDB = self.populateDropDownList(results);
-      callback(countriesDB);
+      var animalsDB = self.populateArk(results);
+      callback(animalsDB);
     })
   },
 
-  populateDropDownList: function(results){
-    var Countries = [];
+  populateAnimalsList: function(results){
+    var animals = [];
     for (var result of results){
-      var country = new Country (result);
-    Countries.push(country);
+      var animal = new Animal (result);
+    animals.push(animal);
     }
-    return Countries;
+    return animals;
   }
 
 }
 
-module.exports = Countries;
+module.exports = Animals;
