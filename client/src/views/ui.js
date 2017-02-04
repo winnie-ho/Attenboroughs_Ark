@@ -125,7 +125,6 @@ UI.prototype = {
   },
 
   handleNextButton: function(){
-
       var animals = new Animals();
       animals.allAPI(function(result){ 
       console.log(result);
@@ -145,6 +144,12 @@ UI.prototype = {
       question.innerText = animalObject.questions.one;
       console.log("animalObject", animalObject.questions.one);
       attDiv.appendChild(question);
+
+      var notebookDiv = document.querySelector("#notebook");
+      var photo = document.createElement("img");
+      photo.src = animalObject.image;
+      photo.width = 100;
+      notebookDiv.appendChild(photo);
       });
  },
 
