@@ -73,60 +73,14 @@ select{
     justify-content: center;
 }
 
-#sub-container{
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
-  border: 1px white solid;
-  width: 620px;
-  height: 530px;
-  margin: 5px;
-  padding-top: -10px;
-}
-
-#att-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 5px;
-  border: 1px white solid;
-  margin: 5px;
-  padding: 10px;
-}
-
-#attenborough{
-  display: inline-flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
-  border-radius: 5px;
-  border: 1px white solid;
-  margin: 5px;
-  padding: 10px;
-  height: 300px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-#control-container{
-  border-radius: 5px;
-  border: 1px white solid;
-  display: grid;
-  justify-content: space-around;
-  align-content: center;
-}
-
-#quiz-button{
-  width: 200px;
-  margin: 2px;
-}
-
-
 #notebook{
   border: solid 1px white;
   border-radius: 3px;
+  width: 320px;
+  height: 530px;
   margin: 5px;
-  height: 300px;
+  padding-top: -10px;
+  padding-left: 20px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
