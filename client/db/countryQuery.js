@@ -5,7 +5,7 @@ var CountryQuery = function(){
 };
 
 CountryQuery.prototype = {
-  allFromdb: function(onQueryFinished){
+  allFromAPI: function(onQueryFinished){
     MongoClient.connect(this.url, function(err, db){
       var collection = db.collection("countries");
       console.log(collection);
@@ -18,13 +18,23 @@ CountryQuery.prototype = {
   add: function(countryToAdd, onQueryFinished){
     MongoClient.connect(this.url, function(err, db){
       if(db){
-      var collection = db.collection("countries");
+      var collection = db.collection("countriesVisited");
       collection.insert(countryToAdd);
       collection.find().toArray(function(err, docs){
         console.log(docs);
         onQueryFinished(docs);
       });
     };
+    });
+  },
+  
+  allVisited: function(onQueryFinished){
+    MongoClient.connect(this.url, function(err, db){
+          var collection = db.collection("countriesVisited");
+          console.log("returned from Visited DB", collection);
+          collection.find().toArray(function(err, docs){
+            onQueryFinished(docs);
+      });
     });
   }
 };

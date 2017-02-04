@@ -74,24 +74,6 @@ select{
     justify-content: center;
 }
 
-#sub-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#attenborough{
-  border: solid 1px white;
-  border-radius: 3px;
-  width: 600px;
-  height: 370px;
-  margin: 5px;
-  padding-top: -10px;
-  padding-left: 20px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
 #notebook{
   border: solid 1px white;
   border-radius: 3px;

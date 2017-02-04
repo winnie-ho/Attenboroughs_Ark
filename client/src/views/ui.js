@@ -1,42 +1,49 @@
 var Countries = require("../models/countries.js");
 var Country = require("../models/country.js");
+var Animals = require("../models/animals.js");
+var Animal = require("../models/animal.js");
 var MapWrapper = require("../models/mapWrapper.js");
 
-var UI = function(){  // var map;
+var UI = function(){ 
+  var goButton = document.querySelector("#go-button");
+  goButton.onclick = this.handleGoButton.bind(this);
+
 
   this.countries = new Countries();
 
-  this.countries.allDB(function(result){
-    this.renderNotebookCountry(result);
-  }.bind(this));
-  
-  this.countries.all(function(result){
+  this.countries.allAPI(function(result){
     this.renderCountriesList(result);
   }.bind(this));
 
+  this.countries.allVisited(function(result){
+    this.renderNotebookCountry(result);
+  }.bind(this));
+  
+
   mapDiv = document.querySelector("#mapDiv");
   var centre = {lat: 20, lng: 0 };
-  var map = new MapWrapper(centre, 2);
-  this.map = map;
+  this.map = new MapWrapper(centre, 2);
 
 
-  // var routeCoords = [
-  //   {lat: 56,lng: -3},
-  //   {lat: 6,lng: -30},
-  //   {lat: 5,lng: 23},
-  //   {lat: 62,lng: 15}
-  // ];
-  // var journeyPath = new google.maps.Polyline({
-  //   path: routeCoords,
-  //         geodesic: true,
-  //         strokeColor: '#FF0000',
-  //         strokeOpacity: 1.0,
-  //         strokeWeight: 2
-  // });
+  var routeCoords = [
+    {lat: 37.772, lng: -122.214},
+    {lat: 21.291, lng: -157.821},
+    {lat: -18.142, lng: 178.431},
+    {lat: -27.467, lng: 153.027}
+  ];
 
-  // console.log("this is what is being produced", map);
+  var journeyPath = new google.maps.Polyline({
+    path: routeCoords,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+  });
+
+  // console.log("this is what is being produced", this.map);
   // journeyPath.setMap(map);
 
+  // this.map = map;
   // this.renderMapJourney();
 
 }
@@ -61,36 +68,90 @@ UI.prototype = {
   handleGoButton: function(){
     var selectedCountry = document.querySelector("select");
     var countryObject = JSON.parse(selectedCountry.value);
-    var visitedCountry = document.createElement("p");
-    visitedCountry.innerText = "We are off to " + countryObject.name + "! Buckle Up!";
-    var notebookDiv = document.querySelector("#notebook");
-    notebookDiv.appendChild(visitedCountry);
-     
+    // var visitedCountry = document.createElement("img");
+    // visitedCountry.src = countryObject.stamp;
+    // visitedCountry.width = 100;
+    // visitedCountry.id = "stamp"
+    // var notebookDiv = document.querySelector("#notebook");
+    // notebookDiv.appendChild(visitedCountry);
+
+    var attDiv = document.querySelector("#attenborough");
+    var arrivalText = document.createElement("p");
+    arrivalText.innerText = countryObject.arrivalText;
+    attDiv.appendChild(arrivalText);
+
     var newCountry = {
       name: countryObject.name,
-      capital: countryObject.capital,
-      xcoord: countryObject.latlng[0],
-      ycoord: countryObject.latlng[1]
+      coords: [countryObject.coords[0], countryObject.coords[1]],
+      arrivalText: countryObject.arrivalText,
+      stamp: countryObject.stamp
     }
 
-    console.log("country added to log: ", countryObject.name);
     var countries = new Countries();    
     countries.makePost("/countries", newCountry, function(data){
     });
 
-    document.location.reload(true);
+    this.map.addMarker({lat: countryObject.coords[0], lng: countryObject.coords[1]});
+    // document.location.reload(true);
+
+  },
+
+  handleResetButton: function(){
 
   },
 
   renderNotebookCountry: function(countryList){
+    var visitedCountriesStamps = [];
+      for (var country of countryList){
+      visitedCountriesStamps.push(country.stamp);
+      this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
+
+    }
+
+    var filterVisitedCountries = visitedCountriesStamps.filter(function(country, index, countryList){
+      return visitedCountriesStamps.indexOf(country) === index;
+    });
+
     var notebookDiv = document.querySelector("#notebook");
-      for(var country of countryList){
-        var countryVisited = document.createElement("p");
-        countryVisited.innerText = "We have visited " + country.name;
+      for(var country of filterVisitedCountries){
+        var countryVisited = document.createElement("img");
+        countryVisited.src = country;
+        countryVisited.width = 100;
+        countryVisited.id = "stamp";
         notebookDiv.appendChild(countryVisited);
-        this.map.addMarker({lat: country.xcoord, lng: country.ycoord});
+
       }
+
   },
+
+  handleNextButton: function(){
+      var animals = new Animals();
+      animals.allAPI(function(result){ 
+      console.log(result);
+
+      var selectedCountry = document.querySelector("select");
+      var countryObject = JSON.parse(selectedCountry.value);
+        
+        for(var animal of result){
+          if (animal.country === countryObject.name) {
+            var animalObject = animal; 
+          }
+        }
+
+      var attDiv = document.querySelector("#attenborough");
+      var question = document.createElement("p");
+      attDiv.innerHTML = "";
+      question.innerText = animalObject.questions.one;
+      console.log("animalObject", animalObject.questions.one);
+      attDiv.appendChild(question);
+
+      var notebookDiv = document.querySelector("#notebook");
+      var photo = document.createElement("img");
+      photo.src = animalObject.image;
+      photo.width = 100;
+      notebookDiv.appendChild(photo);
+      });
+ },
 
   renderMapJourney: function(){
     
