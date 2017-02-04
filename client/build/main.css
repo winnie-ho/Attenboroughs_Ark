@@ -5,10 +5,10 @@ body{
 h1{
   font-family: Afrika T Ubuntu;
   text-align: center;
-  font-size: 45px;
+  font-size: 43px;
   color: #06436A;
   margin-bottom: 0px;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 h2{
@@ -46,13 +46,39 @@ select{
   margin-left: 10px;
 }
 
+
+
+#main-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#lhs{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 700px;
+}
+
+#rhs{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 600px;
+}
+
+#bottom-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 #select-container{
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: center;
-  height: 40px;
-  margin-bottom: 10px;
 }
 
 #countries{
@@ -67,21 +93,14 @@ select{
   padding-left: 10px;
 }
 
-#main-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
 
 #sub-container{
   display: flex;
   flex-direction: column;
   border-radius: 5px;
   border: 1px white solid;
-  width: 620px;
-  height: 530px;
-  margin: 5px;
-  padding-top: -10px;
+  height: 635px;
+  margin: 2px;
 }
 
 #att-container{
@@ -91,7 +110,8 @@ select{
   border-radius: 5px;
   border: 1px white solid;
   margin: 5px;
-  padding: 10px;
+  height: 563px;
+  padding: 5px;
 }
 
 #attenborough{
@@ -101,20 +121,30 @@ select{
   justify-content: center;
   border-radius: 5px;
   border: 1px white solid;
-  margin: 5px;
+  margin: 2px;
   padding: 10px;
-  height: 300px;
+  height:400px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 #control-container{
-  border-radius: 5px;
-  border: 1px white solid;
+
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+
+}
+
+#QButtons{
+  margin: 2px;
   display: grid;
   justify-content: space-around;
   align-content: center;
 }
+
 
 #quiz-button{
   width: 200px;
@@ -124,8 +154,8 @@ select{
 #notebook{
   border: solid 1px white;
   border-radius: 3px;
-  margin: 5px;
-  height: 300px;
+  margin: 2px;
+  height: 330px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -133,9 +163,8 @@ select{
 #mapDiv{
   border: solid 1px white;
   border-radius: 3px;
-  width: 620px;
-  height: 530px;
-  margin: 5px;
+  height: 300px;
+  margin: 2px;
 }
 
 #stamp{
