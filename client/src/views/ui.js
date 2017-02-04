@@ -116,7 +116,9 @@ UI.prototype = {
     var visitedCountriesStamps = [];
       for (var country of countryList){
       visitedCountriesStamps.push(country.stamp);
-      this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
+      var marker = this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
+      //add the info window to the map
+      this.map.addInfoWindow(this.map, marker, country.name);
     }
 
     var filterVisitedCountries = visitedCountriesStamps.filter(function(country, index, countryList){
@@ -131,6 +133,8 @@ UI.prototype = {
         countryVisited.width = 100;
         countryVisited.id = "stamp";
         notebookDiv.appendChild(countryVisited);
+
+
       }
 
       //add the polyline to the map
@@ -140,6 +144,7 @@ UI.prototype = {
         }
   
       this.map.addPolyline(pathCoords);
+
   },
 
   handleResetButton: function(){

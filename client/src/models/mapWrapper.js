@@ -29,28 +29,14 @@ MapWrapper.prototype = {
     path.setMap(this.googleMap);
   },
 
-  // addClickEvent: function(){
-  //   google.maps.event.addListener(this.googleMap, "click", function(event){
-  //     console.log("map has been clicked!");
-
-  //     console.log(event);
-
-  //     console.log("coords selected are: " + event.latLng.lat(), event.latLng.lng());
-  //     var coordsSelected = {lat: event.latLng.lat(), lng: event.latLng.lng()};
-
-  //     this.addMarker(coordsSelected);
-
-  //   }.bind(this));
-  // },
-
-  // addInfoWindow: function(map, marker, contentString){
-  //   var infoWindow = new google.maps.InfoWindow({
-  //         content: contentString
-  //       });
-  //     marker.addListener("click", function(){
-  //     infoWindow.open(this.googleMap, marker);
-  //   })
-  // }, 
+  addInfoWindow: function(map, marker, contentString){
+    var infoWindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+      marker.addListener("click", function(){
+      infoWindow.open(this.googleMap, marker);
+    })
+  }, 
 
   // geoLocate: function(runArray){
 
