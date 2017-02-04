@@ -1,10 +1,17 @@
 var Countries = require("../models/countries.js");
 var Country = require("../models/country.js");
+// var Animal = require("../models/animal.js");
+var Animals = require("../models/animal.js");
 var MapWrapper = require("../models/mapWrapper.js");
 
 var UI = function(){ 
   var goButton = document.querySelector("#go-button");
   goButton.onclick = this.handleGoButton.bind(this);
+
+  this.animals = new Animals();
+  this.animals.allAPI(function(result){
+    console.log(result);
+  });
 
   this.countries = new Countries();
 
@@ -65,13 +72,12 @@ UI.prototype = {
   handleGoButton: function(){
     var selectedCountry = document.querySelector("select");
     var countryObject = JSON.parse(selectedCountry.value);
-    var visitedCountry = document.createElement("img");
-    console.log(countryObject.stamp);
-    visitedCountry.src = countryObject.stamp;
-    visitedCountry.width = 100;
-    visitedCountry.id = "stamp"
-    var notebookDiv = document.querySelector("#notebook");
-    notebookDiv.appendChild(visitedCountry);
+    // var visitedCountry = document.createElement("img");
+    // visitedCountry.src = countryObject.stamp;
+    // visitedCountry.width = 100;
+    // visitedCountry.id = "stamp"
+    // var notebookDiv = document.querySelector("#notebook");
+    // notebookDiv.appendChild(visitedCountry);
 
     var newCountry = {
       name: countryObject.name,
@@ -85,7 +91,11 @@ UI.prototype = {
     });
 
     this.map.addMarker({lat: countryObject.coords[0], lng: countryObject.coords[1]});
-    // document.location.reload(true);
+    document.location.reload(true);
+  },
+
+  handleResetButton: function(){
+
   },
 
   renderNotebookCountry: function(countryList){

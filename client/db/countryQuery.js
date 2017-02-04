@@ -27,7 +27,7 @@ CountryQuery.prototype = {
     };
     });
   },
-
+  
   allVisited: function(onQueryFinished){
     MongoClient.connect(this.url, function(err, db){
           var collection = db.collection("countriesVisited");

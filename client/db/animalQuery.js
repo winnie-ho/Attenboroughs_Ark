@@ -5,7 +5,7 @@ var AnimalQuery = function(){
 };
 
 AnimalQuery.prototype = {
-  allFromdb: function(onQueryFinished){
+  allFromAPI: function(onQueryFinished){
     MongoClient.connect(this.url, function(err, db){
       var collection = db.collection("animals");
       console.log(collection);
