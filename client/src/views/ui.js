@@ -25,25 +25,24 @@ var UI = function(){
   this.map = new MapWrapper(centre, 2);
 
 //Creates the map polyline
-  var routeCoords = [
-    {lat: 37.772, lng: -122.214},
-    {lat: 21.291, lng: -157.821},
-    {lat: -18.142, lng: 178.431},
-    {lat: -27.467, lng: 153.027}
-  ];
+  // var routeCoords = [
+  //   {lat: 37.772, lng: -122.214},
+  //   {lat: 21.291, lng: -157.821},
+  //   {lat: -18.142, lng: 178.431},
+  //   {lat: -27.467, lng: 153.027}
+  // ];
 
-  var journeyPath = new google.maps.Polyline({
-    path: routeCoords,
-          geodesic: true,
-          strokeColor: '#FF0000',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-  });
+  // var journeyPath = new google.maps.Polyline({
+  //   path: routeCoords,
+  //         geodesic: true,
+  //         strokeColor: '#FF0000',
+  //         strokeOpacity: 1.0,
+  //         strokeWeight: 2
+  // });
 
   // console.log("this is what is being produced", this.map);
-  // journeyPath.setMap(map);
+  // journeyPath.setMap(this.map);
 
-  // this.map = map;
   // this.renderMapJourney();
 
 }
@@ -67,14 +66,24 @@ UI.prototype = {
 
   handleGoButton: function(){
     var selectedCountry = document.querySelector("#selector");
-    console.log(selectedCountry);
     var countryObject = JSON.parse(selectedCountry.value);
-    // var visitedCountry = document.createElement("img");
-    // visitedCountry.src = countryObject.stamp;
-    // visitedCountry.width = 100;
-    // visitedCountry.id = "stamp"
-    // var notebookDiv = document.querySelector("#notebook");
-    // notebookDiv.appendChild(visitedCountry);
+
+    //add the country stamp to notebook
+    var visitedCountry = document.createElement("img");
+    visitedCountry.src = countryObject.stamp;
+    visitedCountry.width = 100;
+    visitedCountry.id = "stamp"
+    var notebookDiv = document.querySelector("#notebook");
+    // notebookDiv.innerHTML = "";
+    notebookDiv.appendChild(visitedCountry);
+    
+    // var countries = new Countries();
+    // countries.allVisited(function(countriesVisited){ 
+    //   for(var country of countriesVisited){
+    //     if (country.name !== countryObject.name) {
+    //     }
+    //   }
+    // })
 
     // initiate arrival text
     var attDiv = document.querySelector("#attenborough");
@@ -103,41 +112,38 @@ UI.prototype = {
       for(var animal of animalsAPI){
         if (animal.country === countryObject.name) {
           var animalObject = animal;
+        }
       }
-    }
 
-    var newAnimal = {
-      name: animalObject.name,
-      country: animalObject.country,
-      questions: animalObject.questions,
-      answerText: animalObject.answerText,
-      image: animalObject.image,
-      finishingText: animalObject.finishingText
-    }
+      var newAnimal = {
+        name: animalObject.name,
+        country: animalObject.country,
+        questions: animalObject.questions,
+        answerText: animalObject.answerText,
+        image: animalObject.image,
+        finishingText: animalObject.finishingText
+      }
 
-    animals.makePost("/animals", newAnimal, function(data){
-      console.log("new animals added to db", newAnimal);
+      animals.makePost("/animals", newAnimal, function(data){
+        console.log("new animals added to db", newAnimal);
+      });
     });
-  });
     // document.location.reload(true);
   },
 
-  handleResetButton: function(){
-
-  },
-
   renderNotebookCountry: function(countryList){
+    // filtering out the unique visited countries for stamps and markers(may have been visited more than once).
     var visitedCountriesStamps = [];
       for (var country of countryList){
       visitedCountriesStamps.push(country.stamp);
       this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
-
     }
 
     var filterVisitedCountries = visitedCountriesStamps.filter(function(country, index, countryList){
       return visitedCountriesStamps.indexOf(country) === index;
     });
 
+    //filling the notebook with visitedCountries stamps
     var notebookDiv = document.querySelector("#notebook");
       for(var country of filterVisitedCountries){
         var countryVisited = document.createElement("img");
@@ -147,6 +153,11 @@ UI.prototype = {
         notebookDiv.appendChild(countryVisited);
       }
   },
+
+  handleResetButton: function(){
+
+  },
+
   //this is a test, this should be in LM's attenbourgh's UI file.
   handleNextButton: function(){
       var animals = new Animals();
