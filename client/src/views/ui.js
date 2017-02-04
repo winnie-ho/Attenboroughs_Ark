@@ -8,12 +8,7 @@ var UI = function(){
   var goButton = document.querySelector("#go-button");
   goButton.onclick = this.handleGoButton.bind(this);
 
-//------animals API call this will go in LMs Attenborough UI
-  this.animals = new Animals();
-  this.animals.allAPI(function(result){
-    console.log(result);
-  });
-//-------
+
   this.countries = new Countries();
 
   this.countries.allAPI(function(result){
@@ -129,14 +124,29 @@ UI.prototype = {
 
   },
 
-  quizText: function(animalResults){
-    var attDiv = document.querySelector("#attenborough");
-    var question = document.createElement("p");
-      for (var animal of animalResults){
-        question.innerText = animal.questions[0];
-        attDiv.appendChild(question);
-      }
-  },
+  handleNextButton: function(){
+
+      var animals = new Animals();
+      animals.allAPI(function(result){ 
+      console.log(result);
+
+      var selectedCountry = document.querySelector("select");
+      var countryObject = JSON.parse(selectedCountry.value);
+        
+        for(var animal of result){
+          if (animal.country === countryObject.name) {
+            var animalObject = animal; 
+          }
+        }
+
+      var attDiv = document.querySelector("#attenborough");
+      var question = document.createElement("p");
+      attDiv.innerHTML = "";
+      question.innerText = animalObject.questions.one;
+      console.log("animalObject", animalObject.questions.one);
+      attDiv.appendChild(question);
+      });
+ },
 
   renderMapJourney: function(){
     

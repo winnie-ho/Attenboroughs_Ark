@@ -3,7 +3,9 @@ var UI = require("./views/ui");
 var app = function() {
   var ui = new UI();
 
-  // var resetButton = document.querySelector("reset-button");
+  var nextButton = document.querySelector("#next-button");
+  nextButton.onclick = ui.handleNextButton;
+  // var resetButton = document.querySelector("#reset-button");
   // resetButton.onclick = ui.handleResetButton;
   // var quizButton = document.querySelector("#quiz-button");
   // var quizButton.onclick = ui.handleQuizButton

@@ -84,6 +84,16 @@ select{
   padding-top: -10px;
 }
 
+#att-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 5px;
+  border: 1px white solid;
+  margin: 5px;
+  padding: 10px;
+}
+
 #attenborough{
   display: inline-flex;
   flex-wrap: wrap;
@@ -97,6 +107,20 @@ select{
   overflow-y: scroll;
   overflow-x: hidden;
 }
+
+#control-container{
+  border-radius: 5px;
+  border: 1px white solid;
+  display: grid;
+  justify-content: space-around;
+  align-content: center;
+}
+
+#quiz-button{
+  width: 200px;
+  margin: 2px;
+}
+
 
 #notebook{
   border: solid 1px white;
