@@ -144,7 +144,7 @@ UI.prototype = {
         }
   
       this.map.addPolyline(pathCoords);
-
+      this.map.panTo(country.coords[0], country.coords[1]);
   },
 
   handleResetButton: function(){

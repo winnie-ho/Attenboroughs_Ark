@@ -29,6 +29,10 @@ MapWrapper.prototype = {
     path.setMap(this.googleMap);
   },
 
+  panTo: function(lat, lng){
+    this.googleMap.panTo(new google.maps.LatLng(lat,lng));
+  },
+
   addInfoWindow: function(map, marker, contentString){
     var infoWindow = new google.maps.InfoWindow({
           content: contentString
