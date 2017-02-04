@@ -17,6 +17,18 @@ MapWrapper.prototype = {
     return marker;
   },
 
+  addPolyline: function(pathCoords){
+    var path = new google.maps.Polyline({
+      path: pathCoords,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+    });
+
+    path.setMap(this.googleMap);
+  },
+
   // addClickEvent: function(){
   //   google.maps.event.addListener(this.googleMap, "click", function(event){
   //     console.log("map has been clicked!");

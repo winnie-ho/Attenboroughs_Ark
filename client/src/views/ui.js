@@ -23,28 +23,6 @@ var UI = function(){
   mapDiv = document.querySelector("#mapDiv");
   var centre = {lat: 20, lng: 0 };
   this.map = new MapWrapper(centre, 2);
-
-//Creates the map polyline
-  // var routeCoords = [
-  //   {lat: 37.772, lng: -122.214},
-  //   {lat: 21.291, lng: -157.821},
-  //   {lat: -18.142, lng: 178.431},
-  //   {lat: -27.467, lng: 153.027}
-  // ];
-
-  // var journeyPath = new google.maps.Polyline({
-  //   path: routeCoords,
-  //         geodesic: true,
-  //         strokeColor: '#FF0000',
-  //         strokeOpacity: 1.0,
-  //         strokeWeight: 2
-  // });
-
-  // console.log("this is what is being produced", this.map);
-  // journeyPath.setMap(this.map);
-
-  // this.renderMapJourney();
-
 }
 
 UI.prototype = {
@@ -106,6 +84,8 @@ UI.prototype = {
     //add the country marker to the map
     this.map.addMarker({lat: countryObject.coords[0], lng: countryObject.coords[1]});
 
+
+
     //add animal to animalsVisited collection in db
     var animals = new Animals();
     animals.allAPI(function(animalsAPI){ 
@@ -128,7 +108,7 @@ UI.prototype = {
         console.log("new animals added to db", newAnimal);
       });
     });
-    // document.location.reload(true);
+    document.location.reload(true);
   },
 
   renderNotebookCountry: function(countryList){
@@ -152,6 +132,14 @@ UI.prototype = {
         countryVisited.id = "stamp";
         notebookDiv.appendChild(countryVisited);
       }
+
+      //add the polyline to the map
+      var pathCoords = [];
+        for (var country of countryList){
+          pathCoords.push({lat: country.coords[0], lng: country.coords[1]});
+        }
+  
+      this.map.addPolyline(pathCoords);
   },
 
   handleResetButton: function(){
@@ -186,6 +174,8 @@ UI.prototype = {
       photo.width = 100;
       notebookDiv.appendChild(photo);
       });
+
+
  },
 
   renderMapJourney: function(){
