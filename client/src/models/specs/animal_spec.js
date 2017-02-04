@@ -30,4 +30,10 @@ describe('Animal', function() {
   it('should get answerText', function() {
     assert.equal(panda.answerQuestionOne("Giant Panda"), "I seem to remember coming across this vast creature upon my previous travels in the mountains of central China, It seems to be a Giant Panda! Let's take them back to our boat to take care");
   });
+  it('should get answerText', function() {
+    assert.equal(panda.answerQuestionTwo("Giant Panda"), "I seem to remember coming across this vast creature upon my previous travels in the mountains of central China, It seems to be a Giant Panda! Let's take them back to our boat to take care");
+  });
+  it('should get answerText', function() {
+    assert.equal(panda.answerQuestionThree("Giant Panda"), "I seem to remember coming across this vast creature upon my previous travels in the mountains of central China, It seems to be a Giant Panda! Let's take them back to our boat to take care");
+  });
 });

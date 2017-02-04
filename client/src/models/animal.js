@@ -22,7 +22,8 @@ Animal.prototype = {
     if (this.name == buttonValue) {
       return this.answerText
     } else {
-      return
+      // this.wrongAnswerMessage
+      // this.nextButtonAppearss
     }
   },
 
