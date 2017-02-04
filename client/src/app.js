@@ -6,7 +6,7 @@ var app = function() {
   // var quizButton = document.querySelector("#quiz-button");
   // var quizButton.onclick = ui.handleQuizButton
   goButton.onclick = ui.handleGoButton;
-  // var mountainSounds = document.querySelector("#savannah")
+  // var mountainSounds = document.querySelector("#chinaMountain")
   // mountainSounds.play();
 }
 
