@@ -3,6 +3,8 @@ var Country = require("../models/country.js");
 var Animals = require("../models/animals.js");
 var Animal = require("../models/animal.js");
 var MapWrapper = require("../models/mapWrapper.js");
+var AttenUI = require("./attenUI.js");
+var attenUI = new AttenUI();
 
 var UI = function(){ 
   var goButton = document.querySelector("#go-button");
@@ -12,10 +14,12 @@ var UI = function(){
   this.countries = new Countries();
 
   this.countries.allAPI(function(result){
+    // console.log("HI" + result);
     this.renderCountriesList(result);
   }.bind(this));
 
   this.countries.allVisited(function(result){
+    
     this.renderNotebookCountry(result);
   }.bind(this));
   
@@ -53,7 +57,8 @@ UI.prototype = {
     var countriesDiv = document.querySelector("#countries");
     var selectLabel = document.createElement("h3");
     selectLabel.innerText = "SELECT A COUNTRY: "
-    var countriesSelect = document.createElement("select");
+    var countriesSelect = document.querySelector("#countriesList");
+    // countriesSelect.innerHTML = "";
       for (var country of countriesList){
         var place = document.createElement("option");
         place.innerText = country.name;
@@ -68,30 +73,31 @@ UI.prototype = {
   handleGoButton: function(){
     var selectedCountry = document.querySelector("select");
     var countryObject = JSON.parse(selectedCountry.value);
-    // var visitedCountry = document.createElement("img");
-    // visitedCountry.src = countryObject.stamp;
-    // visitedCountry.width = 100;
-    // visitedCountry.id = "stamp"
-    // var notebookDiv = document.querySelector("#notebook");
-    // notebookDiv.appendChild(visitedCountry);
+    attenUI.goButton(countryObject);
+    // // var visitedCountry = document.createElement("img");
+    // // visitedCountry.src = countryObject.stamp;
+    // // visitedCountry.width = 100;
+    // // visitedCountry.id = "stamp"
+    // // var notebookDiv = document.querySelector("#notebook");
+    // // notebookDiv.appendChild(visitedCountry);
 
-    var attDiv = document.querySelector("#attenborough");
-    var arrivalText = document.createElement("p");
-    arrivalText.innerText = countryObject.arrivalText;
-    attDiv.appendChild(arrivalText);
+    // var attDiv = document.querySelector("#attenborough");
+    // 
+    // arrivalText.innerText = countryObject.arrivalText;
+    // attDiv.appendChild(arrivalText);
 
-    var newCountry = {
-      name: countryObject.name,
-      coords: [countryObject.coords[0], countryObject.coords[1]],
-      arrivalText: countryObject.arrivalText,
-      stamp: countryObject.stamp
-    }
+    // var newCountry = {
+    //   name: countryObject.name,
+    //   coords: [countryObject.coords[0], countryObject.coords[1]],
+    //   arrivalText: countryObject.arrivalText,
+    //   stamp: countryObject.stamp
+    // }
 
-    var countries = new Countries();    
-    countries.makePost("/countries", newCountry, function(data){
-    });
-
-    this.map.addMarker({lat: countryObject.coords[0], lng: countryObject.coords[1]});
+    // var countries = new Countries();    
+    // countries.makePost("/countries", newCountry, function(data){
+    // });
+    // console.log( this.map)
+    // this.map.addMarker({lat: countryObject.coords[0], lng: countryObject.coords[1]});
     // document.location.reload(true);
 
   },

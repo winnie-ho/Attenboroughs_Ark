@@ -39,6 +39,7 @@ Countries.prototype = {
         return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
+      // console.log("HI");
       var countriesAPI = self.populateDropDownList(results);
       callback(countriesAPI);
       // console.log("allAPI complete");
