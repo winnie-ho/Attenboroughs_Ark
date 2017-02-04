@@ -40,7 +40,6 @@ Animals.prototype = {
       }
       var jsonString = this.responseText;
       var result = JSON.parse(jsonString);
-      console.log(result);
       callback(result);
     });
   }, 

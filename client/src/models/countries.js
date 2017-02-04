@@ -22,28 +22,23 @@ Countries.prototype = {
   },
 
   allVisited: function(callback){
-    // console.log("allVisited started");
   var self = this;
     this.makeRequest("http://localhost:3000/countries", function() {
       if (this.status !== 200)
         return;      
       var jsonString = this.responseText;
       var result = JSON.parse(jsonString);
-      // console.log("from visited db", result);
       callback(result);
-      // console.log("allVisited complete");
     });
   }, 
 
   allAPI: function(callback){
-    // console.log("allAPI started");
     var self = this;
     this.makeRequest("http://localhost:3000/countries/api", function(){
       if(this.status !== 200) 
         return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
-      // console.log("from API result", results);
       var countriesAPI = self.populateDropDownList(results);
       callback(countriesAPI);
       // console.log("allAPI complete");

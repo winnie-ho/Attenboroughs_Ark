@@ -1,18 +1,19 @@
 var Countries = require("../models/countries.js");
 var Country = require("../models/country.js");
-// var Animal = require("../models/animal.js");
-var Animals = require("../models/animal.js");
+var Animals = require("../models/animals.js");
+var Animal = require("../models/animal.js");
 var MapWrapper = require("../models/mapWrapper.js");
 
 var UI = function(){ 
   var goButton = document.querySelector("#go-button");
   goButton.onclick = this.handleGoButton.bind(this);
 
+//------animals API call this will go in LMs Attenborough UI
   this.animals = new Animals();
   this.animals.allAPI(function(result){
     console.log(result);
   });
-
+//-------
   this.countries = new Countries();
 
   this.countries.allAPI(function(result){
@@ -79,6 +80,11 @@ UI.prototype = {
     // var notebookDiv = document.querySelector("#notebook");
     // notebookDiv.appendChild(visitedCountry);
 
+    var attDiv = document.querySelector("#attenborough");
+    var arrivalText = document.createElement("p");
+    arrivalText.innerText = countryObject.arrivalText;
+    attDiv.appendChild(arrivalText);
+
     var newCountry = {
       name: countryObject.name,
       coords: [countryObject.coords[0], countryObject.coords[1]],
@@ -91,7 +97,8 @@ UI.prototype = {
     });
 
     this.map.addMarker({lat: countryObject.coords[0], lng: countryObject.coords[1]});
-    document.location.reload(true);
+    // document.location.reload(true);
+
   },
 
   handleResetButton: function(){
@@ -103,6 +110,7 @@ UI.prototype = {
       for (var country of countryList){
       visitedCountriesStamps.push(country.stamp);
       this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
+
     }
 
     var filterVisitedCountries = visitedCountriesStamps.filter(function(country, index, countryList){
@@ -116,6 +124,17 @@ UI.prototype = {
         countryVisited.width = 100;
         countryVisited.id = "stamp";
         notebookDiv.appendChild(countryVisited);
+
+      }
+
+  },
+
+  quizText: function(animalResults){
+    var attDiv = document.querySelector("#attenborough");
+    var question = document.createElement("p");
+      for (var animal of animalResults){
+        question.innerText = animal.questions[0];
+        attDiv.appendChild(question);
       }
   },
 
