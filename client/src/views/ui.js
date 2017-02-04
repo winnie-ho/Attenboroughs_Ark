@@ -8,8 +8,8 @@ var UI = function(){
   var goButton = document.querySelector("#go-button");
   goButton.onclick = this.handleGoButton.bind(this);
 
-
   this.countries = new Countries();
+  this.animals = new Animals();
 
   this.countries.allAPI(function(result){
     this.renderCountriesList(result);
@@ -19,12 +19,12 @@ var UI = function(){
     this.renderNotebookCountry(result);
   }.bind(this));
   
-
+//creates the map
   mapDiv = document.querySelector("#mapDiv");
   var centre = {lat: 20, lng: 0 };
   this.map = new MapWrapper(centre, 2);
 
-
+//Creates the map polyline
   var routeCoords = [
     {lat: 37.772, lng: -122.214},
     {lat: 21.291, lng: -157.821},
@@ -49,24 +49,25 @@ var UI = function(){
 }
 
 UI.prototype = {
-  renderCountriesList: function(countriesList){
+  renderCountriesList: function(countriesAPI){
     var countriesDiv = document.querySelector("#countries");
     var selectLabel = document.createElement("h3");
-    selectLabel.innerText = "SELECT A COUNTRY: "
+    selectLabel.innerText = "SELECT A COUNTRY: ";
     var countriesSelect = document.createElement("select");
-      for (var country of countriesList){
-        var place = document.createElement("option");
-        place.innerText = country.name;
-        place.value = JSON.stringify(country);
-
+    countriesSelect.id = "selector";
+      for (var country of countriesAPI){
+        var countryChoice = document.createElement("option");
+        countryChoice.innerText = country.name;
+        countryChoice.value = JSON.stringify(country);
         countriesDiv.appendChild(selectLabel);
         selectLabel.appendChild(countriesSelect);
-        countriesSelect.appendChild(place);
+        countriesSelect.appendChild(countryChoice);
       }
   },
 
   handleGoButton: function(){
-    var selectedCountry = document.querySelector("select");
+    var selectedCountry = document.querySelector("#selector");
+    console.log(selectedCountry);
     var countryObject = JSON.parse(selectedCountry.value);
     // var visitedCountry = document.createElement("img");
     // visitedCountry.src = countryObject.stamp;
@@ -75,11 +76,14 @@ UI.prototype = {
     // var notebookDiv = document.querySelector("#notebook");
     // notebookDiv.appendChild(visitedCountry);
 
+    // initiate arrival text
     var attDiv = document.querySelector("#attenborough");
+    attDiv.innerHTML = "";
     var arrivalText = document.createElement("p");
     arrivalText.innerText = countryObject.arrivalText;
     attDiv.appendChild(arrivalText);
 
+    // add country to countriesVisited collection in db
     var newCountry = {
       name: countryObject.name,
       coords: [countryObject.coords[0], countryObject.coords[1]],
@@ -87,13 +91,35 @@ UI.prototype = {
       stamp: countryObject.stamp
     }
 
-    var countries = new Countries();    
-    countries.makePost("/countries", newCountry, function(data){
+    this.countries.makePost("/countries", newCountry, function(data){
     });
 
+    //add the country marker to the map
     this.map.addMarker({lat: countryObject.coords[0], lng: countryObject.coords[1]});
-    // document.location.reload(true);
 
+    //add animal to animalsVisited collection in db
+    var animals = new Animals();
+    animals.allAPI(function(animalsAPI){ 
+      for(var animal of animalsAPI){
+        if (animal.country === countryObject.name) {
+          var animalObject = animal;
+      }
+    }
+
+    var newAnimal = {
+      name: animalObject.name,
+      country: animalObject.country,
+      questions: animalObject.questions,
+      answerText: animalObject.answerText,
+      image: animalObject.image,
+      finishingText: animalObject.finishingText
+    }
+
+    animals.makePost("/animals", newAnimal, function(data){
+      console.log("new animals added to db", newAnimal);
+    });
+  });
+    // document.location.reload(true);
   },
 
   handleResetButton: function(){
@@ -119,11 +145,9 @@ UI.prototype = {
         countryVisited.width = 100;
         countryVisited.id = "stamp";
         notebookDiv.appendChild(countryVisited);
-
       }
-
   },
-
+  //this is a test, this should be in LM's attenbourgh's UI file.
   handleNextButton: function(){
       var animals = new Animals();
       animals.allAPI(function(result){ 

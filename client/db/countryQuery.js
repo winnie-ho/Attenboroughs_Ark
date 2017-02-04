@@ -14,8 +14,8 @@ CountryQuery.prototype = {
       });
     });
   },
-  //onQueryFinished is used as doing a simple return would be stuck inside the connection function. The onQueryFinished function is a shortcut to return the information that you are wanting. In this case it is the information on films.
-  add: function(countryToAdd, onQueryFinished){
+
+  addVisited: function(countryToAdd, onQueryFinished){
     MongoClient.connect(this.url, function(err, db){
       if(db){
       var collection = db.collection("countriesVisited");
@@ -31,7 +31,7 @@ CountryQuery.prototype = {
   allVisited: function(onQueryFinished){
     MongoClient.connect(this.url, function(err, db){
           var collection = db.collection("countriesVisited");
-          console.log("returned from Visited DB", collection);
+          console.log("returned from countriesVisited DB", collection);
           collection.find().toArray(function(err, docs){
             onQueryFinished(docs);
       });

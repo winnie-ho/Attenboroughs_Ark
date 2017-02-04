@@ -14,19 +14,27 @@ AnimalQuery.prototype = {
       });
     });
   },
-  //onQueryFinished is used as doing a simple return would be stuck inside the connection function. The onQueryFinished function is a shortcut to return the information that you are wanting. In this case it is the information on films.
 
-  //App is unlikely to use the add query function
-  add: function(animalToAdd, onQueryFinished){
+  addVisited: function(animalToAdd, onQueryFinished){
     MongoClient.connect(this.url, function(err, db){
       if(db){
-      var collection = db.collection("animals");
+      var collection = db.collection("animalsVisited");
       collection.insert(animalToAdd);
       collection.find().toArray(function(err, docs){
         console.log(docs);
         onQueryFinished(docs);
       });
     };
+    });
+  },
+
+  allVisited: function(onQueryFinished){
+    MongoClient.connect(this.url, function(err, db){
+          var collection = db.collection("animalsVisited");
+          console.log("returned from animalsVisited DB", collection);
+          collection.find().toArray(function(err, docs){
+            onQueryFinished(docs);
+      });
     });
   }
 };

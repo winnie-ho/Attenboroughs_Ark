@@ -7,14 +7,12 @@ var countries = require("../client/src/models/countries");
 var CountryQuery = require("../client/db/countryQuery.js");
 var query = new CountryQuery();
 
-
 // API index
 countryRouter.get('/countries/api', function(req, res) {
   query.allFromAPI(function(results){
     res.json(results);
   })
 });
-
 
 // index
 countryRouter.get('/countries', function(req, res) {
@@ -23,8 +21,7 @@ countryRouter.get('/countries', function(req, res) {
   })
 });
 
-
-//add new visited country
+//add new visited country to notebook
 countryRouter.post('/countries', function(req, res) {
   var country = new Country({
     name: req.body.name,
@@ -32,7 +29,7 @@ countryRouter.post('/countries', function(req, res) {
     arrivalText: req.body.arrivalText,
     stamp: req.body.stamp,
   });
-  query.add(country, function(results){
+  query.addVisited(country, function(results){
     // res.json(results);
     res.redirect("/");
   })
@@ -41,7 +38,7 @@ countryRouter.post('/countries', function(req, res) {
 
 
 
-
+//--------may not need to use the following functions:
 
 //country by id
 countryRouter.get('/countries/:id', function(req, res){

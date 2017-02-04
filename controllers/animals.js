@@ -14,14 +14,32 @@ animalRouter.get('/animals/api', function(req, res) {
   })
 });
 
-
 // index
 animalRouter.get('/animals', function(req, res) {
-  query.allFromdb(function(results){
+  query.allVisited(function(results){
     res.json(results);
   })
 });
 
+//add new visited animal to notebook
+animalRouter.post('/animals', function(req, res) {
+  var animal = new Animal({
+    name: req.body.name,
+    country: req.body.country,
+    questions: req.body.questions,
+    answerText: req.body.answerText,
+    image: req.body.image,
+    finishingText: req.body.finishingText
+  });
+  query.addVisited(animal, function(results){
+    // res.json(results);
+    res.redirect("/");
+  })
+});
+
+
+
+//--------may not need to use the following functions:
 
 //animal by id
 animalRouter.get('/animals/:id', function(req, res){
@@ -42,20 +60,6 @@ animalRouter.put('/animals/:id', function(req, res) {
   res.json({data: countries});
 });
 
-//add new animal
-animalRouter.post('/animals', function(req, res) {
-  var animal = new Animal({
-    name: req.body.name,
-    country: req.body.country,
-    questions: req.body.questions,
-    answerText: req.body.answerText,
-    image: req.body.image
-  });
-  query.add(animal, function(results){
-    // res.json(results);
-    res.redirect("/");
-  })
-});
 
 //delete animal
 animalRouter.delete('/animals/:id', function(req, res) {

@@ -13,6 +13,7 @@ Animals.prototype = {
   },
 
   makePost: function(url, newData, callback){
+    console.log("makePost started");
     var data = JSON.stringify(newData);
     var request = new XMLHttpRequest();
     request.open("POST", url);
@@ -23,11 +24,11 @@ Animals.prototype = {
 
   allVisited: function(callback){
     var self = this;
-    this.makeRequest("http://localhost:3000/animals/api", function(){
+    this.makeRequest("http://localhost:3000/animals", function(){
       if(this.status !== 200) return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
-      var animalsDB = self.populateArk(results);
+      var animalsDB = self.populateAnimalsList(results);
       callback(animalsDB);
     })
   },
