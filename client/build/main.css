@@ -85,7 +85,7 @@ hr{
   flex-direction: column;
   justify-content: flex-start;
   width: 650px;
-  padding-top: 10px;
+  padding-top: 5px;
 
 }
 
@@ -94,7 +94,7 @@ hr{
   flex-direction: column;
   justify-content: flex-start;
   width: 650px;
-  padding-top: 10px;
+  padding-top: 5px;
 }
 
 #bottom-container{
@@ -198,11 +198,11 @@ hr{
 
 #notebook-frame{
   background-image: url("./resources/notebook.png");
-  background-size: 618px;
+  background-size: 634px;
   background-repeat: no-repeat;
   overflow: hidden;
   padding-right: 3px;
-  padding-top: 1px;
+  padding-top: 2px;
   margin-left:-10px;
   margin-top: -10px;
 }
