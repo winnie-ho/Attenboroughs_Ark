@@ -7,8 +7,7 @@ h1{
   text-align: center;
   font-size: 43px;
   color: #06436A;
-  margin-bottom: 0px;
-  margin-top: 15px;
+  margin: 0px;
 }
 
 h2{
@@ -24,6 +23,13 @@ h3{
   text-align: center;
   font-size: 15px;
   color: #06436A;
+}
+
+h4{
+  font-family: Andale Mono;
+  color: #2B5A23;
+  margin-top: 0px;
+  font-size: 14px;
 }
 
 p{
@@ -45,8 +51,21 @@ button{
 select{
   margin-left: 10px;
 }
+#header{
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-end;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 5px;
+}
 
-
+hr{
+  border-width: 1px;
+  border-top: 2px solid #06436A;
+  border-bottom: none;
+}
 
 #main-container{
     display: flex;
@@ -54,18 +73,21 @@ select{
     justify-content: center;
 }
 
-#lhs{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 700px;
-}
-
 #rhs{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 600px;
+  justify-content: flex-start;
+  width: 650px;
+  padding-top: 10px;
+
+}
+
+#lhs{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 650px;
+  padding-top: 10px;
 }
 
 #bottom-container{
@@ -79,6 +101,7 @@ select{
   flex-direction: row;
   justify-content: center;
   align-content: center;
+  height: 40px;
 }
 
 #countries{
@@ -97,33 +120,59 @@ select{
 #sub-container{
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
+  border-radius: 3px;
   border: 1px white solid;
-  height: 635px;
+  height: 596px;
   margin: 2px;
+}
+
+#notebook{
+/*  border: solid 1px white;
+  border-radius: 3px;*/
+  z-index: -1; 
+  position:relative;
+  background-image: url("./resources/notebook.png");
+  background-size: 620px;
+  background-repeat: no-repeat;
+  margin: 2px;
+  padding-left: 50px;
+  height: 300px;
+  margin-left: -10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #att-container{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  border-radius: 5px;
-  border: 1px white solid;
+  align-content: flex-start;
+  border-radius: 3px;
   margin: 5px;
   height: 563px;
   padding: 5px;
+  border: 1px white solid;
+}
+
+#att-display{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-left: -50px;
+  justify-content: space-between;
 }
 
 #attenborough{
+  border: white 1px dashed;
+  border-radius: 3px;
   display: inline-flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  border-radius: 5px;
-  border: 1px white solid;
+  border-radius: 3px;
   margin: 2px;
   padding: 10px;
-  height:400px;
+  height:430px;
+  width: 480px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -134,6 +183,7 @@ select{
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
+  align-items: center;
 }
 
 #QButtons{
@@ -149,19 +199,10 @@ select{
   margin: 2px;
 }
 
-#notebook{
-  border: solid 1px white;
-  border-radius: 3px;
-  margin: 2px;
-  height: 330px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
 #mapDiv{
   border: solid 1px white;
   border-radius: 3px;
-  height: 300px;
+  height: 290px;
   margin: 2px;
 }
 
