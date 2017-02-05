@@ -129,24 +129,23 @@ select{
 }
 
 #control-container{
-
   margin: 2px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
-
 }
 
 #QButtons{
   margin: 2px;
-  display: grid;
+  display: inline-flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   align-content: center;
 }
 
 #quiz-button{
-  width: 200px;
+  width: 150px;
   margin: 2px;
 }
 
