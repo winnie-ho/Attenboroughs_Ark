@@ -6,6 +6,8 @@ var Animal = function(options){
   this.image = options.image;
 }
 
+var wrongAnswerMessage = "Wrong!"
+
 Animal.prototype = {
   getQuestionOne: function() {
     return this.questions.one;
@@ -22,8 +24,7 @@ Animal.prototype = {
     if (this.name == buttonValue) {
       return this.answerText
     } else {
-      // this.wrongAnswerMessage
-      // this.nextButtonAppearss
+      return wrongAnswerMessage
     }
   },
 
@@ -32,7 +33,7 @@ Animal.prototype = {
     if (this.name == buttonValue) {
       return this.answerText
     } else {
-      return
+      return wrongAnswerMessage
     }
   },
 
@@ -41,12 +42,13 @@ Animal.prototype = {
     if (this.name == buttonValue) {
       return this.answerText
     } else {
-      return "You're an idiot"
+      return wrongAnswerMessage
       }
     }
+
+    
   }
 
-  //use on button press do this function, if this happens restart
 
 
 module.exports = Animal;

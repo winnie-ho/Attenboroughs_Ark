@@ -9,27 +9,27 @@ var query = new CountryQuery();
 
 
 // index
-countryRouter.get('/countries', function(req, res) {
+countryRouter.get('/', function(req, res) {
   query.allFromdb(function(results){
     res.json(results);
   })
 });
 
 // API index
-countryRouter.get('/countries/api', function(req, res) {
+countryRouter.get('/api', function(req, res) {
   query.allFromdb(function(results){
     res.json(results);
   })
 });
 
 //country by id
-countryRouter.get('/countries/:id', function(req, res){
+countryRouter.get('/:id', function(req, res){
   res.json(countries[req.params.id]);
 });
 
 
 //country update
-countryRouter.put('/countries/:id', function(req, res) {
+countryRouter.put('/:id', function(req, res) {
   var country = new Country({
     name: req.body.name,
     capital: req.body.capital
@@ -39,7 +39,7 @@ countryRouter.put('/countries/:id', function(req, res) {
 });
 
 //add new country
-countryRouter.post('/countries', function(req, res) {
+countryRouter.post('/', function(req, res) {
   var country = new Country({
     name: req.body.name,
     capital: req.body.capital,
@@ -53,7 +53,7 @@ countryRouter.post('/countries', function(req, res) {
 });
 
 //delete country
-countryRouter.delete('/countries/:id', function(req, res) {
+countryRouter.delete('/:id', function(req, res) {
   countries.splice(req.params.id, 1);
   res.json({data: countries});
 });

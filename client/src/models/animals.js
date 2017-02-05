@@ -13,6 +13,7 @@ Animals.prototype = {
   },
 
   makePost: function(url, newData, callback){
+    console.log("makePost started");
     var data = JSON.stringify(newData);
     var request = new XMLHttpRequest();
     request.open("POST", url);
@@ -21,31 +22,28 @@ Animals.prototype = {
     request.send(data);
   },
 
-  all: function(callback){
-  var self = this;
+  allVisited: function(callback){
+    var self = this;
+    this.makeRequest("http://localhost:3000/animals", function(){
+      if(this.status !== 200) return;
+      var jsonString = this.responseText;
+      var results = JSON.parse(jsonString);
+      var animalsDB = self.populateAnimalsList(results);
+      callback(animalsDB);
+    })
+  },
 
-  // change the url request to the own Animals API
-    this.makeRequest("https://restcountries.eu/rest/v1/all", function() {
+  allAPI: function(callback){
+  var self = this;
+    this.makeRequest("http://localhost:3000/animals/api", function() {
       if (this.status !== 200){
         return;
       }
       var jsonString = this.responseText;
       var result = JSON.parse(jsonString);
-      console.log(result);
       callback(result);
     });
   }, 
-
-  allDB: function(callback){
-    var self = this;
-    this.makeRequest("http://localhost:3000/animals/api", function(){
-      if(this.status !== 200) return;
-      var jsonString = this.responseText;
-      var results = JSON.parse(jsonString);
-      var animalsDB = self.populateArk(results);
-      callback(animalsDB);
-    })
-  },
 
   populateAnimalsList: function(results){
     var animals = [];

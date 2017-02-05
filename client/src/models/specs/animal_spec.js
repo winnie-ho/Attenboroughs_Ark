@@ -27,6 +27,8 @@ describe('Animal', function() {
   it('should get question three', function() {
     assert.equal(panda.getQuestionThree(), "this animal appears to be a species of bear!");
   });
+
+  //Correct Answers
   it('should get answerText', function() {
     assert.equal(panda.answerQuestionOne("Giant Panda"), "I seem to remember coming across this vast creature upon my previous travels in the mountains of central China, It seems to be a Giant Panda! Let's take them back to our boat to take care");
   });
@@ -35,5 +37,17 @@ describe('Animal', function() {
   });
   it('should get answerText', function() {
     assert.equal(panda.answerQuestionThree("Giant Panda"), "I seem to remember coming across this vast creature upon my previous travels in the mountains of central China, It seems to be a Giant Panda! Let's take them back to our boat to take care");
+  });
+
+  //Incorrect answers
+
+  it('should get incorrect answerText 1', function() {
+    assert.equal(panda.answerQuestionOne("Lion"), "Wrong!");
+  });
+  it('should get incorrect answerText 2', function() {
+    assert.equal(panda.answerQuestionTwo("Lion"), "Wrong!");
+  });
+  it('should get incorrect answerText 3', function() {
+    assert.equal(panda.answerQuestionThree("Lion"), "Wrong!");
   });
 });
