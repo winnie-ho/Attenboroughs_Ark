@@ -29,7 +29,7 @@ h4{
   font-family: Andale Mono;
   color: #2B5A23;
   margin-top: 0px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 h5{
@@ -133,20 +133,6 @@ hr{
   margin: 2px;
 }
 
-#notebook{
-  z-index: -1; 
-  position:relative;
-  background-image: url("./resources/notebook.png");
-  background-size: 620px;
-  background-repeat: no-repeat;
-  margin: 2px;
-  padding-left: 60px;
-  padding-top: 10px;
-  height: 300px;
-  margin-left: -10px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
 
 #att-container{
   display: flex;
@@ -163,7 +149,7 @@ hr{
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  margin-left: -50px;
+  margin-left: -16px;
   justify-content: space-between;
 }
 
@@ -179,8 +165,6 @@ hr{
   padding: 10px;
   height:430px;
   width: 480px;
-  overflow-y: scroll;
-  overflow-x: hidden;
 }
 
 #control-container{
@@ -212,6 +196,26 @@ hr{
   margin: 2px;
 }
 
+#notebook-frame{
+  background-image: url("./resources/notebook.png");
+  background-size: 618px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  padding-right: 3px;
+  padding-top: 1px;
+  margin-left:-10px;
+  margin-top: -10px;
+}
+
+#notebook{
+  margin-top: 15px;
+  padding-left: 60px;
+  padding-top: 5px;
+  padding-right: 0px;
+  height: 293px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 #stamp{
   margin: 3px;
   width: 70px;
