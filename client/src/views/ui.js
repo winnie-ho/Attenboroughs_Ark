@@ -174,10 +174,14 @@ UI.prototype = {
       attDiv.appendChild(question);
 
       var notebookDiv = document.querySelector("#notebook");
+      var animalNote = document.createElement("h5");
+      animalNote.innerText = animalObject.name + "\n";
       var photo = document.createElement("img");
+      photo.id = "photo"
       photo.src = animalObject.image;
-      photo.width = 100;
-      notebookDiv.appendChild(photo);
+      notebookDiv.appendChild(animalNote);
+      animalNote.appendChild(photo);
+
       });
 
 

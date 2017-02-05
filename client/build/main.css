@@ -32,10 +32,17 @@ h4{
   font-size: 14px;
 }
 
+h5{
+  font-family: futura;
+  font-size: 10px;
+  color: #06436A;
+}
+
 p{
   font-family: futura;
   font-size: 14px;
   color: #06436A;
+  text-align: center;
 }
 
 button{
@@ -127,15 +134,14 @@ hr{
 }
 
 #notebook{
-/*  border: solid 1px white;
-  border-radius: 3px;*/
   z-index: -1; 
   position:relative;
   background-image: url("./resources/notebook.png");
   background-size: 620px;
   background-repeat: no-repeat;
   margin: 2px;
-  padding-left: 50px;
+  padding-left: 60px;
+  padding-top: 10px;
   height: 300px;
   margin-left: -10px;
   overflow-y: scroll;
@@ -207,5 +213,11 @@ hr{
 }
 
 #stamp{
-  margin: 5px;
+  margin: 3px;
+  width: 70px;
+}
+
+#photo{
+  margin: 3px;
+  width: 70px;
 }
