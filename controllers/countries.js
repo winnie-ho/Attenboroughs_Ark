@@ -36,6 +36,12 @@ countryRouter.post('/countries', function(req, res) {
 });
 
 
+//delete visited countries to reset the app
+countryRouter.delete('/countries', function(req, res) {
+  query.deleteVisitedCountries();
+  countries.splice(req.params.id, 1);
+  res.json({data: countries});
+});
 
 
 //--------may not need to use the following functions:
@@ -56,8 +62,7 @@ countryRouter.put('/countries/:id', function(req, res) {
   res.json({data: countries});
 });
 
-
-//delete country
+//delete specific country
 countryRouter.delete('/countries/:id', function(req, res) {
   countries.splice(req.params.id, 1);
   res.json({data: countries});

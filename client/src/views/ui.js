@@ -8,6 +8,9 @@ var UI = function(){
   var goButton = document.querySelector("#go-button");
   goButton.onclick = this.handleGoButton.bind(this);
 
+  var resetButton = document.querySelector("#reset-button");
+  resetButton.onclick = this.handleResetButton.bind(this);
+
   this.countries = new Countries();
   this.animals = new Animals();
 
@@ -148,7 +151,9 @@ UI.prototype = {
   },
 
   handleResetButton: function(){
-
+    this.countries.makeDeleteRequest("/countries", function(){
+      console.log("visited countries collection has been dropped");
+    });
   },
 
   //this is a test, this should be in LM's attenbourgh's UI file.

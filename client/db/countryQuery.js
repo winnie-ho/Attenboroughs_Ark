@@ -36,6 +36,13 @@ CountryQuery.prototype = {
             onQueryFinished(docs);
       });
     });
+  },
+
+  deleteVisitedCountries: function(){
+    MongoClient.connect(this.url, function(err, db){
+          var collection = db.collection("countriesVisited");
+          collection.drop("countriesVisited");
+      });
   }
 };
 
