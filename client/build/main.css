@@ -128,8 +128,8 @@ hr{
   display: flex;
   flex-direction: column;
   border-radius: 3px;
-  border: 1px white solid;
-  height: 596px;
+/*  border: 1px white solid;
+*/  height: 596px;
   margin: 2px;
 }
 
@@ -142,14 +142,14 @@ hr{
   margin: 5px;
   height: 563px;
   padding: 5px;
-  border: 1px white solid;
-}
+/*  border: 1px white solid;
+*/}
 
 #att-display{
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  margin-left: -16px;
+  margin-left: -12px;
   justify-content: space-between;
 }
 
@@ -169,6 +169,7 @@ hr{
 
 #control-container{
   margin: 2px;
+  margin-top: 17px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

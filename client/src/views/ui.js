@@ -181,15 +181,8 @@ UI.prototype = {
       photo.src = animalObject.image;
       notebookDiv.appendChild(animalNote);
       animalNote.appendChild(photo);
-
       });
-
-
- },
-
-  renderMapJourney: function(){
-    
-  }
+ }
 }
 
 module.exports = UI;
