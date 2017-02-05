@@ -74,6 +74,11 @@ UI.prototype = {
     var selectedCountry = document.querySelector("select");
     var countryObject = JSON.parse(selectedCountry.value);
     attenUI.goButton(countryObject);
+    // var animalButton = document.querySelector("#quiz-button")
+    // console.log(animalButton);
+    // animalButton.onclick = function(){
+    //   attenUI.wrongText();
+    // }
     // // var visitedCountry = document.createElement("img");
     // // visitedCountry.src = countryObject.stamp;
     // // visitedCountry.width = 100;
