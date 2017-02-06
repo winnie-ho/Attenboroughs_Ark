@@ -7,7 +7,7 @@ var Animals = function(){
 Animals.prototype = {
   makeRequest: function(url, callback){
     var request = new XMLHttpRequest();
-    request.open("GET", url);
+    request.open("GET", url, false);
     request.onload = callback;
     request.send();
   },
