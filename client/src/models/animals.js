@@ -7,12 +7,13 @@ var Animals = function(){
 Animals.prototype = {
   makeRequest: function(url, callback){
     var request = new XMLHttpRequest();
-    request.open("GET", url, false);
+    request.open("GET", url);
     request.onload = callback;
     request.send();
   },
 
   makePost: function(url, newData, callback){
+    console.log("makePost started");
     var data = JSON.stringify(newData);
     var request = new XMLHttpRequest();
     request.open("POST", url);
