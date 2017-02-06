@@ -209,6 +209,9 @@ hr{
 }
 
 #notebook{
+/*  border: red dashed 1px;
+*/  display: flex;
+  flex-direction: column;
   margin-top: 15px;
   padding-left: 60px;
   padding-top: 5px;
@@ -217,6 +220,28 @@ hr{
   overflow-y: scroll;
   overflow-x: hidden;
 }
+
+#contentDiv{
+/*  border: blue dashed 1px;
+*/  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#flagsDiv{
+/*  border: red dashed 1px;
+*/
+  display: flex;
+  flex-direction: column;
+}
+
+#photosDiv{
+/*  border: red dashed 1px;
+*/
+  display: flex;
+  flex-direction: column;
+}
+
 #flag{
   margin: 3px;
   width: 70px;
