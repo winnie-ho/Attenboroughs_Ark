@@ -7,6 +7,8 @@ var animal = null;
 
 var app = function() {
   var ui = new UI();
+  var goButton = document.querySelector("#go-button");
+  goButton.onclick = ui.handleGoButton;
 
   var attenUI = new AttenUI();
   var quizUI = new QuizUI();
@@ -18,6 +20,7 @@ var app = function() {
   })
 
   attenUI.startText();
+
 
   var nextButton = document.querySelector("#next-button");
   // nextButton.onclick = ui.handleNextButton();
