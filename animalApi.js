@@ -39,6 +39,19 @@ db.animals.insert([
   image: "http://orig12.deviantart.net/9a07/f/2013/324/b/d/snow_leopard_png_by_laki10-d6v11th.png",
   finishingText: "We've found ourselves a Snow Leopard! This big cat spends its entire life high up in the mountains, about 9'800 - 17'000 feet up. Up here the air is so thin that this big cat has to breathe deep to get enough air to survive. When hunting, a snow leopard can jump around 9 meters, thats almost the length of a bus! Let us take a picture and leave her in peace to go and hunt.",
   buttonValues: ["Tahr", "Marmot", "Brown Bear", "Red Panda", this.name, "Yak"]
+},
+{
+  name: "Jaguar",
+  country: "Mexico",
+  questions: {
+    "one": "This animal appears to be a type of large Cat",
+    "two": "This big cat loves playing in the water!",
+    "three": "this cat will sometimes be seen climbing a tree so as to leap down onto it's prey."
+  },
+  answerText:"I remember seeing this animal on a trip into the forest once, it's a Jaguar! This big cat lives mostly alone, roaming around its territory. When it roars it sounds almost like a chesty cough",
+  image: "",
+  finishingText: "We've found ourselves a Jaguar! This big cat lives mostly alone, roaming through its territory. It has powerful jaws which it uses to bite through the skulls of most of the animals which are to become its prey. It can live in a variety of habitats, from the forests and rainforests to the swamps and grasslands. Normally the jaguar has a yellow and tan coat, however they can have much darker coats as well, almost black in some instances.",
+  buttonValues: ["Porcupine", "Capybara", "Llama", this.name, "Tapir", "Coatimundi"]
 }
 ]);
 
