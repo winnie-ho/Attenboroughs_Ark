@@ -3,6 +3,8 @@ var Country = require("../models/country.js");
 var Animals = require("../models/animals.js");
 var Animal = require("../models/animal.js");
 var MapWrapper = require("../models/mapWrapper.js");
+var AttenUI = require("./attenUI.js");
+var attenUI = new AttenUI();
 
 var UI = function(){ 
   var goButton = document.querySelector("#go-button");
@@ -48,74 +50,107 @@ UI.prototype = {
   handleGoButton: function(){
     var selectedCountry = document.querySelector("#selector");
     var countryObject = JSON.parse(selectedCountry.value);
-
-    //add the country stamp to notebook
-    var visitedCountry = document.createElement("img");
-    visitedCountry.src = countryObject.stamp;
-    visitedCountry.width = 100;
-    visitedCountry.id = "stamp"
-    var notebookDiv = document.querySelector("#notebook");
-    // notebookDiv.innerHTML = "";
-    notebookDiv.appendChild(visitedCountry);
     
-    // var countries = new Countries();
-    // countries.allVisited(function(countriesVisited){ 
-    //   for(var country of countriesVisited){
-    //     if (country.name !== countryObject.name) {
-    //     }
-    //   }
-    // })
+    // this.addStamp();
+    this.addCountryToDb();
 
-    // initiate arrival text
-    var attDiv = document.querySelector("#attenborough");
-    attDiv.innerHTML = "";
-    var arrivalText = document.createElement("p");
-    arrivalText.innerText = countryObject.arrivalText;
-    attDiv.appendChild(arrivalText);
+    this.countries.allVisited(function(result){
+      this.renderNotebookCountry(result);
+    }.bind(this));
 
-    // add country to countriesVisited collection in db
-    var newCountry = {
-      name: countryObject.name,
-      coords: [countryObject.coords[0], countryObject.coords[1]],
-      arrivalText: countryObject.arrivalText,
-      stamp: countryObject.stamp
-    }
-
-    this.countries.makePost("/countries", newCountry, function(data){
-    });
+    this.map.panTo(countryObject.coords[0], countryObject.coords[1]);
 
     //add the country marker to the map
-    this.map.addMarker({lat: countryObject.coords[0], lng: countryObject.coords[1]});
-
-
+    // this.map.addMarker({lat: countryObject.coords[0], lng: countryObject.coords[1]});
+        
+    // // initiate arrival text
+    // var attDiv = document.querySelector("#attenborough");
+    // attDiv.innerHTML = "";
+    // var arrivalText = document.createElement("p");
+    // arrivalText.innerText = countryObject.arrivalText;
+    // attDiv.appendChild(arrivalText);
 
     //add animal to animalsVisited collection in db
-    var animals = new Animals();
-    animals.allAPI(function(animalsAPI){ 
-      for(var animal of animalsAPI){
-        if (animal.country === countryObject.name) {
-          var animalObject = animal;
-        }
-      }
+        var animals = new Animals();
+        animals.allAPI(function(animalsAPI){ 
+          for(var animal of animalsAPI){
+            if (animal.country === countryObject.name) {
+              var animalObject = animal;
+            }
+          }
 
-      var newAnimal = {
-        name: animalObject.name,
-        country: animalObject.country,
-        questions: animalObject.questions,
-        answerText: animalObject.answerText,
-        image: animalObject.image,
-        finishingText: animalObject.finishingText
-      }
+          var newAnimal = {
+            name: animalObject.name,
+            country: animalObject.country,
+            questions: animalObject.questions,
+            answerText: animalObject.answerText,
+            image: animalObject.image,
+            finishingText: animalObject.finishingText
+          }
 
-      animals.makePost("/animals", newAnimal, function(data){
-        console.log("new animals added to db", newAnimal);
-      });
-    });
-    document.location.reload(true);
+          animals.makePost("/animals", newAnimal, function(data){
+            console.log("new animals added to db", newAnimal);
+          });    
+    })
+    
+    // document.location.reload(true);
   },
+
+  addCountryToDb: function(){
+    var selectedCountry = document.querySelector("#selector");
+    var countryObject = JSON.parse(selectedCountry.value);
+    var countries = new Countries;
+    countries.allVisited(function(countriesVisited){
+        if (countriesVisited.length === 0){
+          console.log("first country added to db");
+
+          // add country to countriesVisited collection in db
+          var newCountry = {
+            name: countryObject.name,
+            coords: [countryObject.coords[0], countryObject.coords[1]],
+            arrivalText: countryObject.arrivalText,
+            stamp: countryObject.stamp
+          }
+
+          countries.makePost("/countries", newCountry, function(data){
+          });
+        };
+
+      for(var country of countriesVisited){
+        if (country.name === countryObject.name) {
+          console.log(countryObject.name + " has been visited before. Not added to DB");
+        }else if (countryObject.name !== country.name){
+          // add country to countriesVisited collection in db
+          var newCountry = {
+            name: countryObject.name,
+            coords: [countryObject.coords[0], countryObject.coords[1]],
+            arrivalText: countryObject.arrivalText,
+            stamp: countryObject.stamp
+          }
+
+          countries.makePost("/countries", newCountry, function(data){
+          });
+          console.log(newCountry.name, "has been added to db");
+        }
+      }        
+    });  
+  },
+
+  // addStamp: function(){
+  //   //add the country stamp to notebook
+  //   var selectedCountry = document.querySelector("#selector");
+  //   var countryObject = JSON.parse(selectedCountry.value);
+  //   var visitedCountry = document.createElement("img");
+  //   visitedCountry.src = countryObject.stamp;
+  //   visitedCountry.width = 100;
+  //   visitedCountry.id = "stamp"
+  //   var notebookDiv = document.querySelector("#notebook");
+  //   notebookDiv.appendChild(visitedCountry);
+  // },
 
   renderNotebookCountry: function(countryList){
     // filtering out the unique visited countries for stamps and markers(may have been visited more than once).
+    console.log("countryList", countryList);
     var visitedCountriesStamps = [];
       for (var country of countryList){
       visitedCountriesStamps.push(country.stamp);
@@ -136,18 +171,15 @@ UI.prototype = {
         countryVisited.width = 100;
         countryVisited.id = "stamp";
         notebookDiv.appendChild(countryVisited);
-
-
       }
 
-      //add the polyline to the map
-      var pathCoords = [];
-        for (var country of countryList){
-          pathCoords.push({lat: country.coords[0], lng: country.coords[1]});
-        }
-  
-      this.map.addPolyline(pathCoords);
-      this.map.panTo(country.coords[0], country.coords[1]);
+    //add the polyline to the map
+    var pathCoords = [];
+      for (var country of countryList){
+        pathCoords.push({lat: country.coords[0], lng: country.coords[1]});
+      } 
+    this.map.addPolyline(pathCoords);
+    // this.map.panTo(country.coords[0], country.coords[1]);
   },
 
   handleResetButton: function(){
