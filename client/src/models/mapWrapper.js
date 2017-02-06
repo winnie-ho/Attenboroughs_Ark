@@ -40,7 +40,7 @@ MapWrapper.prototype = {
       marker.addListener("click", function(){
       infoWindow.open(this.googleMap, marker);
     })
-  }, 
+  }
 
   // geoLocate: function(runArray){
 

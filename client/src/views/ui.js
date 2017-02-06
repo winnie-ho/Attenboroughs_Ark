@@ -251,6 +251,7 @@ UI.prototype = {
     },
 
     handleResetButton: function(){
+      window.location.reload();
       var self = this;
 
       this.countries.makeDeleteRequest("/countries", function(){
@@ -268,9 +269,9 @@ UI.prototype = {
           self.renderNotebookAnimal(result);
         }.bind(this));
       });
+      this.map.refreshMap(this.map);
 
-
-    },
+},
 
   //this is a test, this should be in LM's attenbourgh's UI file.
  //  handleNextButton: function(){
