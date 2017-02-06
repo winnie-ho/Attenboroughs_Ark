@@ -4,8 +4,8 @@ var AttenUI = require("./views/attenUI.js");
 
 var app = function() {
   var ui = new UI();
-  var attenUI = new AttenUI();
-  attenUI.startText();
+  // var attenUI = new AttenUI();
+  // attenUI.startText();
 
   var nextButton = document.querySelector("#next-button");
   nextButton.onclick = ui.handleNextButton;

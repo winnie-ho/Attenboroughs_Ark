@@ -7,7 +7,7 @@ var Countries = function(){
 Countries.prototype = {
   makeRequest: function(url, callback){
     var request = new XMLHttpRequest();
-    request.open("GET", url);
+    request.open("GET", url, false);
     request.onload = callback;
     request.send();
   },
@@ -35,7 +35,10 @@ Countries.prototype = {
       if (this.status !== 200)
         return;      
       var jsonString = this.responseText;
+      console.log(jsonString);
       var result = JSON.parse(jsonString);
+      console.log("this is the result");
+      console.log(result);
       callback(result);
     });
   }, 
