@@ -33,6 +33,8 @@ CountryQuery.prototype = {
           var collection = db.collection("countriesVisited");
           console.log("returned from countriesVisited DB", collection);
           collection.find().toArray(function(err, docs){
+            console.log(docs);
+            console.log("hello docs should appear" );
             onQueryFinished(docs);
       });
     });
@@ -42,6 +44,7 @@ CountryQuery.prototype = {
     MongoClient.connect(this.url, function(err, db){
           var collection = db.collection("countriesVisited");
           collection.drop("countriesVisited");
+          // createCollection("countriesVisited");
       });
   }
 };

@@ -30,6 +30,7 @@ db.animals.insert([
 {
   name: "Snow Leopard",
   country: "Nepal",
+<<<<<<< HEAD
   questions: {
     "one": "This animal appears to be a type of large cat",
     "two": "This animal has a thick white coat, with black or brown spots",
@@ -54,4 +55,5 @@ db.animals.insert([
   buttonValues: ["Porcupine", "Capybara", "Llama", this.name, "Tapir", "Coatimundi"]
 }
 ]);
+
 

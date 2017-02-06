@@ -27,7 +27,7 @@ countryRouter.post('/countries', function(req, res) {
     name: req.body.name,
     coords: req.body.coords,
     arrivalText: req.body.arrivalText,
-    stamp: req.body.stamp,
+    countryFlag: req.body.countryFlag,
   });
   query.addVisited(country, function(results){
     // res.json(results);

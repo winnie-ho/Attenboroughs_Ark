@@ -14,6 +14,7 @@ AttenUI.prototype = {
   goButton: function(countryObject){
     console.log(this.buttons)
     // this.buttons.style.display = "initial";
+
     // var newCountry = {
     //   name: countryObject.name,
     //   coords: [countryObject.coords[0], countryObject.coords[1]],
