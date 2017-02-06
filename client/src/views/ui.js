@@ -113,13 +113,14 @@ UI.prototype = {
             }
 
             animals.makePost("/animals", newAnimal, function(data){
-              console.log("new animals added to db", newAnimal);
+              console.log("new animals added to db", newAnimal.name);
             }); 
           };
 
           for(var animal of animalsVisited){
             if (animal.name === animalObject.name) {
               console.log(animalObject.name + " has been visited before. Not added to DB");
+              return;
             }else if (animalObject.name !== animal.name){
             // add country to countriesVisited collection in db
             var newAnimal = {
@@ -133,7 +134,6 @@ UI.prototype = {
 
             animals.makePost("/animals", newAnimal, function(data){
             });
-            console.log(newAnimal.name, "has been added to db");
           }
         }        
       }); 
@@ -146,36 +146,40 @@ UI.prototype = {
     var countries = new Countries;
     countries.allVisited(function(countriesVisited){
       if (countriesVisited.length === 0){
+        // add country to countriesVisited collection in db
+        var newCountry = {
+          name: countryObject.name,
+          coords: [countryObject.coords[0], countryObject.coords[1]],
+          arrivalText: countryObject.arrivalText,
+          countryFlag: countryObject.countryFlag
+        }
+        countries.makePost("/countries", newCountry, function(data){
+        });
+      };
+    });
 
-              // add country to countriesVisited collection in db
-              var newCountry = {
-                name: countryObject.name,
-                coords: [countryObject.coords[0], countryObject.coords[1]],
-                arrivalText: countryObject.arrivalText,
-                countryFlag: countryObject.countryFlag
-              }
+    countries.allVisited(function(countriesVisited){
+      var matches = 0;
+      var arrayLength = countriesVisited.length;
 
-              countries.makePost("/countries", newCountry, function(data){
-              });
-            };
+      for(var country of countriesVisited){
+          if (country.name !== countryObject.name){
+            matches ++ ;
+          }
+        }
 
-            for(var country of countriesVisited){
-              if (country.name === countryObject.name) {
-                console.log(countryObject.name + " has been visited before. Not added to DB");
-              }else if (countryObject.name !== country.name){
-              // add country to countriesVisited collection in db
-              var newCountry = {
-                name: countryObject.name,
-                coords: [countryObject.coords[0], countryObject.coords[1]],
-                arrivalText: countryObject.arrivalText,
-                countryFlag: countryObject.countryFlag
-              }
-
-              countries.makePost("/countries", newCountry, function(data){
-              });
+      if(matches === arrayLength){
+          // add country to countriesVisited collection in db
+            var newCountry = {
+              name: countryObject.name,
+              coords: [countryObject.coords[0], countryObject.coords[1]],
+              arrivalText: countryObject.arrivalText,
+              countryFlag: countryObject.countryFlag
             }
-          }        
-        }); 
+          countries.makePost("/countries", newCountry, function(data){
+          });
+      }       
+    }); 
     callback(); 
   },
 
@@ -194,7 +198,6 @@ UI.prototype = {
 
        var filterVisitedCountries = visitedCountriesFlags.filter(function(country, index, countryList){
          return visitedCountriesFlags.indexOf(country) === index;
-         console.log(filteredVisited);
        });
 
        //filling the notebook with visitedCountries flags
