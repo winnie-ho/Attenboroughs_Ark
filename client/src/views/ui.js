@@ -8,8 +8,7 @@ var attenUI = new AttenUI();
 // var QuizUI = new QuizUI();
 
 var UI = function(){ 
-  var goButton = document.querySelector("#go-button");
-  goButton.onclick = this.handleGoButton.bind(this);
+  
 
   var resetButton = document.querySelector("#reset-button");
   resetButton.onclick = this.handleResetButton.bind(this);
@@ -155,7 +154,7 @@ UI.prototype = {
 
   renderNotebookCountry: function(countryList){
     // filtering out the unique visited countries for stamps and markers(may have been visited more than once).
-    console.log("countryList", countryList);
+    // console.log("countryList", countryList);
     var visitedCountriesStamps = [];
       for (var country of countryList){
       visitedCountriesStamps.push(country.stamp);

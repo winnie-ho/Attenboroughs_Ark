@@ -10,6 +10,7 @@ var QuizUI = function(){
   // var next = document.querySelector("#next-button");
   // nextButton.onclick = this.handleNextButton.bind(this);
 
+
 }
 QuizUI.prototype = {
   createAnswerButtons: function(){
