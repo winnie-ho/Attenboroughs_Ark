@@ -5,10 +5,9 @@ body{
 h1{
   font-family: Afrika T Ubuntu;
   text-align: center;
-  font-size: 45px;
+  font-size: 43px;
   color: #06436A;
-  margin-bottom: 0px;
-  margin-top: 10px;
+  margin: 0px;
 }
 
 h2{
@@ -26,15 +25,28 @@ h3{
   color: #06436A;
 }
 
+h4{
+  font-family: Andale Mono;
+  color: #2B5A23;
+  margin-top: 0px;
+  font-size: 16px;
+}
+
+h5{
+  font-family: futura;
+  font-size: 10px;
+  color: #06436A;
+}
+
 p{
   font-family: futura;
   font-size: 14px;
   color: #06436A;
+  text-align: center;
 }
 
 button{
   height: 25px;
-  width:40px;
   font-family: Afrika T Ubuntu;
   font-size: 15px;
   border: 0;
@@ -46,6 +58,50 @@ button{
 select{
   margin-left: 10px;
 }
+#header{
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-end;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+hr{
+  border-width: 1px;
+  border-top: 2px solid #06436A;
+  border-bottom: none;
+}
+
+#main-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#rhs{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 650px;
+  padding-top: 5px;
+
+}
+
+#lhs{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 650px;
+  padding-top: 5px;
+}
+
+#bottom-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 #select-container{
   display: flex;
@@ -53,7 +109,6 @@ select{
   justify-content: center;
   align-content: center;
   height: 40px;
-  margin-bottom: 10px;
 }
 
 #countries{
@@ -68,28 +123,106 @@ select{
   padding-left: 10px;
 }
 
-#main-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+
+#sub-container{
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+/*  border: 1px white solid;
+*/  height: 596px;
+  margin: 2px;
 }
 
-#notebook{
-  border: solid 1px white;
+
+#att-container{
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
   border-radius: 3px;
-  width: 320px;
-  height: 530px;
   margin: 5px;
-  padding-top: -10px;
-  padding-left: 20px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  height: 563px;
+  padding: 5px;
+/*  border: 1px white solid;
+*/}
+
+#att-display{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-left: -12px;
+  justify-content: space-between;
+}
+
+#attenborough{
+  border: white 1px dashed;
+  border-radius: 3px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 3px;
+  margin: 2px;
+  padding: 10px;
+  height:430px;
+  width: 480px;
+}
+
+#control-container{
+  margin: 2px;
+  margin-top: 17px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+#QButtons{
+  margin: 2px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
+}
+
+#quiz-button{
+  width: 150px;
+  margin: 2px;
 }
 
 #mapDiv{
   border: solid 1px white;
   border-radius: 3px;
-  width: 920px;
-  height: 530px;
-  margin: 5px;
+  height: 290px;
+  margin: 2px;
+}
+
+#notebook-frame{
+  background-image: url("./resources/notebook.png");
+  background-size: 625px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  padding-right: 12px;
+  padding-top: 1px;
+  margin-left:-10px;
+  margin-top: -10px;
+}
+
+#notebook{
+  margin-top: 15px;
+  padding-left: 60px;
+  padding-top: 5px;
+  padding-right: 0px;
+  height: 293px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+#stamp{
+  margin: 3px;
+  width: 70px;
+}
+
+#photo{
+  margin: 3px;
+  width: 70px;
 }

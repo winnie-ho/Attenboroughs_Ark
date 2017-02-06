@@ -17,28 +17,30 @@ MapWrapper.prototype = {
     return marker;
   },
 
-  // addClickEvent: function(){
-  //   google.maps.event.addListener(this.googleMap, "click", function(event){
-  //     console.log("map has been clicked!");
+  addPolyline: function(pathCoords){
+    var path = new google.maps.Polyline({
+      path: pathCoords,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+    });
 
-  //     console.log(event);
+    path.setMap(this.googleMap);
+  },
 
-  //     console.log("coords selected are: " + event.latLng.lat(), event.latLng.lng());
-  //     var coordsSelected = {lat: event.latLng.lat(), lng: event.latLng.lng()};
+  panTo: function(lat, lng){
+    this.googleMap.panTo(new google.maps.LatLng(lat,lng));
+  },
 
-  //     this.addMarker(coordsSelected);
-
-  //   }.bind(this));
-  // },
-
-  // addInfoWindow: function(map, marker, contentString){
-  //   var infoWindow = new google.maps.InfoWindow({
-  //         content: contentString
-  //       });
-  //     marker.addListener("click", function(){
-  //     infoWindow.open(this.googleMap, marker);
-  //   })
-  // }, 
+  addInfoWindow: function(map, marker, contentString){
+    var infoWindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+      marker.addListener("click", function(){
+      infoWindow.open(this.googleMap, marker);
+    })
+  }, 
 
   // geoLocate: function(runArray){
 

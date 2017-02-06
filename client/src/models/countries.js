@@ -21,27 +21,7 @@ Countries.prototype = {
     request.send(data);
   },
 
-  all: function(callback){
-  var self = this;
-    this.makeRequest("https://restcountries.eu/rest/v1/all", function() {
-      if (this.status !== 200){
-        return;
-      }
-      var jsonString = this.responseText;
-      var result = JSON.parse(jsonString);
-      console.log(result);
-      callback(result);
-    });
-  }, 
 
-  allDB: function(callback){
-    var self = this;
-    this.makeRequest("http://localhost:3000/api", function(){
-      if(this.status !== 200) return;
-      var jsonString = this.responseText;
-      var results = JSON.parse(jsonString);
-      var countriesDB = self.populateBucketList(results);
-      callback(countriesDB);
     })
   },
 
