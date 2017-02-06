@@ -5,6 +5,7 @@ var Animal = require("../models/animal.js");
 var MapWrapper = require("../models/mapWrapper.js");
 var AttenUI = require("./attenUI.js");
 var attenUI = new AttenUI();
+// var QuizUI = new QuizUI();
 
 var UI = function(){ 
   var goButton = document.querySelector("#go-button");

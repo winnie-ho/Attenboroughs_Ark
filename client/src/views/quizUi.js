@@ -10,53 +10,36 @@ var QuizUI = function(){
   // var next = document.querySelector("#next-button");
   // nextButton.onclick = this.handleNextButton.bind(this);
 
-  // this.countries = new Countries();
-  this.animals = new Animals();
+}
+QuizUI.prototype = {
+  createAnswerButtons: function(){
+    var animals = new Animals();
+    animals.allAPI(function(result){ 
+      console.log(result);
 
-  this.animals.allAPI(function(result){
-    // console.log("HI" + result);
-    this.createAnswerButtons(result);
-  }.bind(this));
+      var qAnswers = result.buttonValues;
 
-  var answerButton = document.querySelector("#button");
-  answerButton.onclick = this.handleButtonClick.bind(this);
+      var answerButtons = document.querySelector("#QButtons");
 
-quizUI.prototype = {
-  createAnswerButtons = function(animal){
-    var answerButtons = document.querySelector("#QButtons");
-    var qAnswers = animal.buttonValues;
-    for (var animal of qAnswers) {
-      var answerButton = createElement("button")
-      answerButton.innerText = animal;
-      quizButtons.appendElement('answerButton')
-    }
+      for (var answer of qAnswers) {
+        var answerButton = createElement("button")
+        answerButton.id = "Button_" + answer;
+        answerButton.classname = animalNameButton
+        answerButton.innerText = answer;
+        quizButtons.appendElement('answerButton')
+      }
+    })
   },
 
-  handleButtonClick = function (event) {
-    var buttonValue = document.querySelector('answerbutton');
-    answerQuestionOne(buttonValue)
-  },
-
-  answerQuestionOne = function(animal, buttonValue) {
+  answerQuestionOne: function(animal, buttonValue) {
     if (name == buttonValue) {
       return "string of attenUI.answerCorrectText"
     } else {
       return "string of attenUI.wrongText"
     }
   },
-
-  questionOneAnswer = function(){
-   buttons = document.querySelector("quiz-button")
-   answerQuestionOne(buttons.value)
- }
-
- attenboroughRender = function() {
-   var attenough = document.querySelector("attenboroughBox")
-   if(answerQuestionOne() == true) {
-     return this.answerText 
-   } else { 
-     return wrongAnswerMessage
-   },
- }
-
+  
 }
+
+
+module.exports = QuizUI;
