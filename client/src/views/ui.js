@@ -9,10 +9,8 @@ var attenUI = new AttenUI();
 // var QuizUI = new QuizUI();
 
 var UI = function(){ 
-  // var goButton = document.querySelector("#go-button");
-  // console.log(this);
-  // goButton.onclick = this.handleGoButton;
-  // console.log(this);
+  var goButton = document.querySelector("#go-button");
+  goButton.onclick = this.handleGoButton.bind(this);
 
 
   var resetButton = document.querySelector("#reset-button");
@@ -59,9 +57,9 @@ UI.prototype = {
   handleGoButton: function(){
     var selectedCountry = document.querySelector("#selector");
     var countryObject = JSON.parse(selectedCountry.value);
-    console.log(this);
     var self = this;
 
+    console.log(this);
     this.addCountryToDb(function(){
 
       var countries = new Countries;
@@ -70,7 +68,9 @@ UI.prototype = {
       }.bind(this));
 
     });
-      this.map.panTo(countryObject.coords[0], countryObject.coords[1]);
+
+
+  this.map.panTo(countryObject.coords[0], countryObject.coords[1]);
 
     
     // attenUI.goButton(countryObject);
@@ -108,7 +108,6 @@ UI.prototype = {
     //       });    
     // })
     
-    // document.location.reload(true);
   },
 
   addCountryToDb: function(callback){
