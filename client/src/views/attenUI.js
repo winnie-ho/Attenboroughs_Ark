@@ -11,7 +11,6 @@ var AttenUI = function(){
 }
 
 AttenUI.prototype = {
-
   goButton: function(countryObject){
     console.log(this.buttons)
     this.buttons.style.display = "initial";
