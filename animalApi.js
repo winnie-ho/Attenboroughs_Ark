@@ -49,7 +49,7 @@ db.animals.insert([
     "three": "this cat will sometimes be seen climbing a tree so as to leap down onto it's prey."
   },
   answerText:"I remember seeing this animal on a trip into the forest once, it's a Jaguar! This big cat lives mostly alone, roaming around its territory. When it roars it sounds almost like a chesty cough",
-  image: "",
+  image: "http://www.pngall.com/wp-content/uploads/2016/04/Jaguar-PNG-Picture.png",
   finishingText: "We've found ourselves a Jaguar! This big cat lives mostly alone, roaming through its territory. It has powerful jaws which it uses to bite through the skulls of most of the animals which are to become its prey. It can live in a variety of habitats, from the forests and rainforests to the swamps and grasslands. Normally the jaguar has a yellow and tan coat, however they can have much darker coats as well, almost black in some instances.",
   buttonValues: ["Porcupine", "Capybara", "Llama", this.name, "Tapir", "Coatimundi"]
 }
