@@ -7,7 +7,7 @@ var MapWrapper = require("../models/mapWrapper.js");
 var AttenUI = function(){
   var attenTalk = document.querySelector("#attenTalk");
   this.buttons = document.querySelector("#control-container");
-  console.log(this.buttons)
+  // console.log(this.buttons)
 }
 
 AttenUI.prototype = {
