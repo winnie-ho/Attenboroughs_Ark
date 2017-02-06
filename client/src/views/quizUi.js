@@ -13,23 +13,19 @@ var QuizUI = function(){
 
 }
 QuizUI.prototype = {
-  createAnswerButtons: function(){
-    var animals = new Animals();
-    animals.allAPI(function(result){ 
-      console.log(result);
+  createAnswerButtons: function(animal){
 
-      var qAnswers = result.buttonValues;
-
-      var answerButtons = document.querySelector("#QButtons");
+      var qAnswers = animal.buttonValues;
+      console.log (qAnswers)
 
       for (var answer of qAnswers) {
-        var answerButton = createElement("button")
+        var answerButtons = document.querySelector("#QButtons");
+        var answerButton = document.createElement("button");
         answerButton.id = "Button_" + answer;
-        answerButton.classname = animalNameButton
+        answerButton.classname = "animalNameButton";
         answerButton.innerText = answer;
-        quizButtons.appendElement('answerButton')
+        answerButtons.appendChild(answerButton);
       }
-    })
   },
 
   answerQuestionOne: function(animal, buttonValue) {
