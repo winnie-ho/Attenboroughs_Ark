@@ -24,6 +24,18 @@ db.animals.insert([
   answerText: "I remember encountering this animal before, and I'm sure that she remembers me too! an African Elephant has an exceptional memory after all! Lets take a picture and leave her to catch up with her heard.",
   image: "http://www.pngall.com/wp-content/uploads/2016/06/Elephant-PNG.png",
   finishingText: "We've found an African Elephant! Did you know that elephants are some of the largest land animals on the entire planet? The African Elephant uses its long trunk to pick up water, then it sprays the water into its mouth for a drink, or if the Elephant isn't thirsty, it can use it's trunk as a large hose, and will cool itself off with the spray of water. Let us take a picture of her and leave her to catch up with her heard."
+},
+{
+  name: "Snow Leopard",
+  country: "Nepal",
+  questions: {
+    "one": "This animal appears to be a type of large cat",
+    "two": "This animal has a thick white coat, with black or brown spots",
+    "three": "This animal makes its home high in the mountains, in the snowy landscapes"
+  },
+  answerText: "I have seen this animal before! This reclusive animal is a Snow Leopard, it's thick fur helps protect it in the cold climates where it lives, this is a vary difficult animal to find, let us take a picture and quietly walk away so we can leave her to go and hunt.",
+  image: "http://orig12.deviantart.net/9a07/f/2013/324/b/d/snow_leopard_png_by_laki10-d6v11th.png",
+  finishingText: "We've found ourselves a Snow Leopard! This big cat spends its entire life high up in the mountains, about 9'800 - 17'000 feet up. Up here the air is so thin that this big cat has to breathe deep to get enough air to survive. When hunting, a snow leopard can jump around 9 meters, thats almost the length of a bus! Let us take a picture and leave her in peace to go and hunt."
 }
 ]);
 

@@ -17,10 +17,12 @@ var UI = function(){
   this.animals = new Animals();
 
   this.countries.allAPI(function(result){
+    // console.log("HI" + result);
     this.renderCountriesList(result);
   }.bind(this));
 
   this.countries.allVisited(function(result){
+    
     this.renderNotebookCountry(result);
   }.bind(this));
   
@@ -41,6 +43,7 @@ UI.prototype = {
         var countryChoice = document.createElement("option");
         countryChoice.innerText = country.name;
         countryChoice.value = JSON.stringify(country);
+
         countriesDiv.appendChild(selectLabel);
         selectLabel.appendChild(countriesSelect);
         countriesSelect.appendChild(countryChoice);
@@ -50,7 +53,7 @@ UI.prototype = {
   handleGoButton: function(){
     var selectedCountry = document.querySelector("#selector");
     var countryObject = JSON.parse(selectedCountry.value);
-    
+
     // this.addStamp();
     this.addCountryToDb();
 
@@ -59,6 +62,7 @@ UI.prototype = {
     }.bind(this));
 
     this.map.panTo(countryObject.coords[0], countryObject.coords[1]);
+    attenUI.goButton(countryObject);
 
     //add the country marker to the map
     // this.map.addMarker({lat: countryObject.coords[0], lng: countryObject.coords[1]});
