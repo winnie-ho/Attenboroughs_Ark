@@ -7,8 +7,7 @@ var AttenUI = require("./attenUI.js");
 var attenUI = new AttenUI();
 
 var UI = function(){ 
-  var goButton = document.querySelector("#go-button");
-  goButton.onclick = this.handleGoButton.bind(this);
+  
 
   var resetButton = document.querySelector("#reset-button");
   resetButton.onclick = this.handleResetButton.bind(this);

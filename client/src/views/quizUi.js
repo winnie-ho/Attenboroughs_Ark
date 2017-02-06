@@ -11,21 +11,18 @@ var QuizUI = function(){
   // nextButton.onclick = this.handleNextButton.bind(this);
 
   // this.countries = new Countries();
-  this.animals = new Animals();
-
-  this.animals.allAPI(function(result){
-    // console.log("HI" + result);
-    this.createAnswerButtons(result);
-  }.bind(this));
 
   var answerButton = document.querySelector("#button");
   answerButton.onclick = this.handleButtonClick.bind(this);
 
 quizUI.prototype = {
   createAnswerButtons = function(animal){
-    var answerButtons = document.querySelector("#QButtons");
+    var animals = new Animals();
+    animals.allAPI(function(result){ 
+    console.log(result);
+
     var qAnswers = animal.buttonValues;
-    for (var animal of qAnswers) {
+    for (var animal of result) {
       var answerButton = createElement("button")
       answerButton.innerText = animal;
       quizButtons.appendElement('answerButton')
