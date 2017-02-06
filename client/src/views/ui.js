@@ -17,6 +17,7 @@ var UI = function(){
   resetButton.onclick = this.handleResetButton.bind(this);
 
   this.countries = new Countries();
+  this.animals = new Animals();
 
   this.countries.allAPI(function(result){
     this.renderCountriesList(result);
@@ -254,15 +255,19 @@ UI.prototype = {
 
       this.countries.makeDeleteRequest("/countries", function(){
         console.log("countriesVisited dropped");
-
         var countries = new Countries;
         countries.allVisited(function(result){
           self.renderNotebookCountry(result);
         }.bind(this));
-
-
       });
 
+      this.animals.makeDeleteRequest("/animals", function(){
+        console.log("animalsVisited dropped");
+        var animals = new Animals;
+        animals.allVisited(function(result){
+          self.renderNotebookAnimal(result);
+        }.bind(this));
+      });
 
 
     },

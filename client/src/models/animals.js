@@ -22,6 +22,14 @@ Animals.prototype = {
     request.send(data);
   },
 
+  makeDeleteRequest: function(url, callback){
+    var request = new XMLHttpRequest();
+    request.open("DELETE", url);
+    request.setRequestHeader("Content-type", "application/json");
+    request.onload = callback;
+    request.send();
+  },
+
   allVisited: function(callback){
     var self = this;
     this.makeRequest("http://localhost:3000/animals", function(){

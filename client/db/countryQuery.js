@@ -46,7 +46,7 @@ CountryQuery.prototype = {
           collection.drop("countriesVisited");
           db.createCollection("countriesVisited");
       });
-  }
+    }
 };
 
 
