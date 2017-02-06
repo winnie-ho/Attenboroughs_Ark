@@ -220,6 +220,7 @@ UI.prototype = {
          pathCoords.push({lat: country.coords[0], lng: country.coords[1]});
        } 
        this.map.addPolyline(pathCoords);
+       console.log("the journey coords", pathCoords);
   },
 
   renderNotebookAnimal: function(animalList){
@@ -249,9 +250,21 @@ UI.prototype = {
     },
 
     handleResetButton: function(){
+      var self = this;
+
       this.countries.makeDeleteRequest("/countries", function(){
-        console.log("visited countries collection has been dropped");
+        console.log("countriesVisited dropped");
+
+        var countries = new Countries;
+        countries.allVisited(function(result){
+          self.renderNotebookCountry(result);
+        }.bind(this));
+
+
       });
+
+
+
     },
 
   //this is a test, this should be in LM's attenbourgh's UI file.
