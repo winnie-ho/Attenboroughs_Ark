@@ -96,12 +96,10 @@ UI.prototype = {
           animalObject = animal;
         }
       }
-    })
+    });
 
     animals.allVisited(function(animalsVisited){
-
       if (animalsVisited.length === 0){
-
             // add animal to animalsVisited collection in db
             var newAnimal = {
               name: animalObject.name,
@@ -115,13 +113,20 @@ UI.prototype = {
             animals.makePost("/animals", newAnimal, function(data){
               console.log("new animals added to db", newAnimal.name);
             }); 
-          };
+          }
+        });
 
+        animals.allVisited(function(animalsVisited){
+          var matches = 0;
+          var arrayLength = animalsVisited.length
           for(var animal of animalsVisited){
-            if (animal.name === animalObject.name) {
-              console.log(animalObject.name + " has been visited before. Not added to DB");
-              return;
-            }else if (animalObject.name !== animal.name){
+            if (animal.name !== animalObject.name) {
+              matches ++;
+            }
+          }
+
+          if (matches === arrayLength){
+            console.log(animalObject.name + " has been visited before. Not added to DB");
             // add country to countriesVisited collection in db
             var newAnimal = {
               name: animalObject.name,
@@ -131,11 +136,9 @@ UI.prototype = {
               image: animalObject.image,
               finishingText: animalObject.finishingText
             }
-
             animals.makePost("/animals", newAnimal, function(data){
             });
           }
-        }        
       }); 
     callback(); 
   },
