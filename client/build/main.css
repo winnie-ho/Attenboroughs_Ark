@@ -151,17 +151,18 @@ hr{
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  margin-left: -12px;
+  margin-left: -21px;
   justify-content: space-between;
 }
 
 #attenborough{
 /*  border: white 1px dashed;
-*/  border-radius: 3px;
-  display: inline-flex;
+*/  display: inline-flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
+  align-content: center;
+  align-items: center;
   border-radius: 3px;
   margin: 2px;
   padding: 10px;
@@ -180,7 +181,6 @@ hr{
 }
 
 #QButtons{
-
   margin: 2px;
   display: flex;
   flex-direction: row;
@@ -220,12 +220,12 @@ left: 280px;
   padding-right: 12px;
   padding-top: 1px;
   margin-left:-10px;
-  margin-top: -10px;
+  margin-top: 0px;
 }
 
 #notebook-frame:hover {
 transform: scale(1.5);
-height: 300px;
+height: 400px;
 margin: 120px;
 margin-right: -200px;
 position: relative;
@@ -240,7 +240,7 @@ bottom: 200px;
   padding-left: 60px;
   padding-top: 5px;
   padding-right: 0px;
-  height: 293px;
+  height: 400px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
