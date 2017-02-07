@@ -7,8 +7,6 @@ var animal = null;
 
 var app = function() {
   var ui = new UI();
-
-
   var attenUI = new AttenUI();
   var quizUI = new QuizUI();
 
@@ -44,10 +42,6 @@ var app = function() {
       answerButton[i].onclick = answerButtonsClickBehavour;
     }
   }
-
-
-  // var mountainSounds = document.querySelector("#savannah")
-  // mountainSounds.play();
 
   
 }

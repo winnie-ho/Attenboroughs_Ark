@@ -44,18 +44,19 @@ QuizUI.prototype = {
       attenTalk.innerText = questionsObject.three
     }
     else { console.log("finished!")
-    addAnimalToDb();
+    // addAnimalToDb();
     }
   },
 
   answerQuestion: function(animal, button) {
+    attenUI = new AttenUI()
     if (animal.name == button) {
-      attenTalk.innerText = "Correct";
+      attenUI.answerCorrectText(animal);
       // addAnimalToDb();
       // renderNotebookAnimal();
     } else {
-      this.changeAttenTalk(animal);
-      console.log("string of attenUI.wrongText");
+      // this.changeAttenTalk(animal);
+      attenUI.wrongText()
     }
   }
 }
