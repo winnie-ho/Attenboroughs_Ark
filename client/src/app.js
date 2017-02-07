@@ -1,13 +1,14 @@
 var UI = require("./views/ui");
 var AttenUI = require("./views/attenUI.js");
-var QuizUI = require("./views/quizUi.js");
+var QuizUI = require("./views/quizUI.js");
 var Animals = require("./models/animals.js");
 
 var animal = null;
 
 var app = function() {
-  var ui = new UI();
+  console.log(UI);
 
+  var ui = new UI();
 
   var attenUI = new AttenUI();
   var quizUI = new QuizUI();
@@ -46,8 +47,8 @@ var app = function() {
 //   }
 
 
-  var answerQuestionOne = document.querySelector(".animalNameButton");
-  answerQuestionOne.onclick = quizUI.answerQuestionOne();
+  // var answerQuestionOne = document.querySelector(".animalNameButton");
+  // answerQuestionOne.onclick = quizUI.answerQuestionOne();
 
 
   var mountainSounds = document.querySelector("#savannah")

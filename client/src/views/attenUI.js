@@ -3,6 +3,9 @@ var Country = require("../models/country.js");
 var Animals = require("../models/animals.js");
 var Animal = require("../models/animal.js");
 var MapWrapper = require("../models/mapWrapper.js");
+// var UI = require("./ui");
+
+
 
 var AttenUI = function(){
   var attenTalk = document.querySelector("#attenTalk");
