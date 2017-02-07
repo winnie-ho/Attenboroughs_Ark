@@ -29,11 +29,11 @@ var app = function() {
   }
   console.log("3")
 
-  // var answerQuestionOne = document.querySelector(".animalNameButton");
-  // answerQuestionOne.onclick = quizUI.answerQuestionOne();
+  var answerQuestionOne = document.querySelector(".animalNameButton");
+  answerQuestionOne.onclick = quizUI.answerQuestionOne();
 
-  // var mountainSounds = document.querySelector("#savannah")
-  // mountainSounds.play();
+  var mountainSounds = document.querySelector("#savannah")
+  mountainSounds.play();
 
   
 }
