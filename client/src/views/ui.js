@@ -36,29 +36,19 @@ this.map = new MapWrapper(centre, 2);
 UI.prototype = {
   renderCountriesList: function(countriesAPI){
 
-    // console.log(this)
-
-    // var countriesDiv = document.querySelector("#countries");
-    // var selectLabel = document.createElement("h3");
-    // selectLabel.innerText = "SELECT A COUNTRY: ";
     var countriesSelect = document.querySelector("#selector");
     countriesSelect.innerHTML = ""
-    // countriesSelect.id = "selector";
+
     var unselectable = document.createElement("option");
     unselectable.innerText = "Country:"
     unselectable.disabled = true;
     unselectable.selected = true;
-    // countriesDiv.appendChild(selectLabel);
-    // countriesDiv.appendChild(countriesSelect);
     countriesSelect.appendChild(unselectable);
 
     for (var country of countriesAPI){
       var countryChoice = document.createElement("option");
       countryChoice.innerText = country.name;
       countryChoice.value = JSON.stringify(country);
-
-      // countriesDiv.appendChild(selectLabel);
-      // selectLabel.appendChild(countriesSelect);
       countriesSelect.appendChild(countryChoice);
     }
   },
@@ -69,7 +59,6 @@ UI.prototype = {
     var self = this;
     attenUI.goButton(countryObject)
     var animals = new Animals();
-    // console.log(this);
     var animalObject = null;
 
     animals.allAPI(function(animalsAPI){ 
@@ -83,24 +72,19 @@ UI.prototype = {
     var nextButton = document.querySelector("#next-button");
     var buttonDiv = document.querySelector("#QButtons");
     buttonDiv.style.visibility = "hidden";
-      // nextButton.onclick = ui.handleNextButton();
-      // console.log("1")
-      nextButton.onclick = function(){
-        // console.log(this)
+    nextButton.onclick = function(){
 
-        quizUI.createAnswerButtons(animalObject);
-        quizUI.changeAttenTalk(animalObject);
-        // console.log("3")
+      quizUI.createAnswerButtons(animalObject);
+      quizUI.changeAttenTalk(animalObject);
 
     ////////////Question Buttons
 
     var answerButton = document.querySelectorAll(".animalNameButton");
-        // console.log(answerButton)
 
-        var answerButtonsClickBehavour = function() {
-          var firedButton = this.innerText;
-          buttonDiv.style.visibility = "hidden";
-          nextButton.style.visibility = "visible";
+    var answerButtonsClickBehavour = function() {
+      var firedButton = this.innerText;
+      buttonDiv.style.visibility = "hidden";
+      nextButton.style.visibility = "visible";
           // console.log(firedButton)
           quizUI.answerQuestion(animalObject, firedButton);
 
@@ -111,7 +95,6 @@ UI.prototype = {
         }
       }
 
-
     // add country to countriesVisited collection in db
     this.addCountryToDb(function(){
       var countries = new Countries;
@@ -120,26 +103,8 @@ UI.prototype = {
       }.bind(this));
     });
 
-    // add animal to animalsVisited collection in db
-    // this.addAnimalToDb(function(){
-    //   var animals = new Animals;
-    //   animals.allVisited(function(result){
-    //     self.renderNotebookAnimal(result);
-    //   }.bind(this));
-    // });    
-
     // pan to the selected country on the map
     this.map.panTo(countryObject.coords[0], countryObject.coords[1]);
-
-    
-    // attenUI.goButton(countryObject);
-
-    // // initiate arrival text
-    // var attDiv = document.querySelector("#attenborough");
-    // attDiv.innerHTML = "";
-    // var arrivalText = document.createElement("p");
-    // arrivalText.innerText = countryObject.arrivalText;
-    // attDiv.appendChild(arrivalText);
 
   },
 
@@ -282,52 +247,52 @@ UI.prototype = {
        this.map.addPolyline(pathCoords);
      },
 
-     renderNotebookAnimal: function(animalList){
-      // filtering out the unique visited animals for photos (may have been visited more than once).
-      var visitedAnimals = [];
-      for (var animal of animalList){
-       visitedAnimals.push(animal);
-     }
-     console.log("animals visited", visitedAnimals);
-
-     var filterVisitedAnimals = visitedAnimals.filter(function(animal, index, animalList){
-       return visitedAnimals.indexOf(animal) === index;
-     });
-
-         //filling the notebook with visitedAnimals images
-         var notebookPhotos = document.querySelector("#photosDiv");
-         notebookPhotos.innerHTML = "";
-         for(var animal of filterVisitedAnimals){
-           var animalNote = document.createElement("h5");
-           animalNote.innerText = animal.name + "\n";
-           var photo = document.createElement("img");
-           photo.id = "photo"
-           photo.src = animal.image;
-           notebookPhotos.appendChild(animalNote);
-           animalNote.appendChild(photo);
-         }
-       },
-
-       handleResetButton: function(){
-        window.location.reload();
-        var self = this;
-
-        this.countries.makeDeleteRequest("/countries", function(){
-          console.log("countriesVisited dropped");
-          var countries = new Countries;
-          countries.allVisited(function(result){
-            self.renderNotebookCountry(result);
-          }.bind(this));
-        });
-
-        this.animals.makeDeleteRequest("/animals", function(){
-          console.log("animalsVisited dropped");
-          var animals = new Animals;
-          animals.allVisited(function(result){
-            self.renderNotebookAnimal(result);
-          }.bind(this));
-        });
-      }
+  renderNotebookAnimal: function(animalList){
+   // filtering out the unique visited animals for photos (may have been visited more than once).
+    var visitedAnimals = [];
+    for (var animal of animalList){
+      visitedAnimals.push(animal);
     }
+    console.log("animals visited", visitedAnimals);
+
+    var filterVisitedAnimals = visitedAnimals.filter(function(animal, index, animalList){
+      return visitedAnimals.indexOf(animal) === index;
+    });
+
+    //filling the notebook with visitedAnimals images
+    var notebookPhotos = document.querySelector("#photosDiv");
+    notebookPhotos.innerHTML = "";
+    for(var animal of filterVisitedAnimals){
+      var animalNote = document.createElement("h5");
+      animalNote.innerText = animal.name + "\n";
+      var photo = document.createElement("img");
+      photo.id = "photo"
+      photo.src = animal.image;
+      notebookPhotos.appendChild(animalNote);
+      animalNote.appendChild(photo);
+    }
+  },
+
+  handleResetButton: function(){
+    window.location.reload();
+    var self = this;
+
+    this.countries.makeDeleteRequest("/countries", function(){
+      console.log("countriesVisited dropped");
+      var countries = new Countries;
+      countries.allVisited(function(result){
+        self.renderNotebookCountry(result);
+      }.bind(this));
+    });
+
+    this.animals.makeDeleteRequest("/animals", function(){
+      console.log("animalsVisited dropped");
+      var animals = new Animals;
+      animals.allVisited(function(result){
+        self.renderNotebookAnimal(result);
+      }.bind(this));
+    });
+  }
+}
 
     module.exports = UI;

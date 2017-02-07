@@ -3,19 +3,13 @@ var Countries = require("../models/countries.js");
 var Country = require("../models/country.js");
 var Animals = require("../models/animals.js");
 var Animal = require("../models/animal.js");
-// console.log(UI);
-// var MasterUI = require("./masterUI");
 var AttenUI = require("./attenUI.js");
-
-// var masterUI = new MasterUI();
 var counter = 0;
 var finalQuestion = false;
 
 
 var QuizUI = function(){
 
-  // var next = document.querySelector("#next-button");
-  // nextButton.onclick = this.handleNextButton.bind(this);
 }
 
 QuizUI.prototype = {
@@ -64,56 +58,54 @@ QuizUI.prototype = {
     }
     else { console.log("problem!")
     // addAnimalToDb();
-}
-},
+    }
+  },
 
-answerQuestion: function(animal, button) {
-  var UI = require("./ui");
-  var nextButton = document.querySelector("#next-button");
-  var attenUI = new AttenUI();
-  var ui = new UI();
+  answerQuestion: function(animal, button) {
+    var UI = require("./ui");
+    var nextButton = document.querySelector("#next-button");
+    var attenUI = new AttenUI();
+    var ui = new UI();
+
   
-  console.log(AttenUI)
-  if (animal.name === button && !finalQuestion) {
-    attenUI.answerCorrectText(animal);
-    nextButton.style.visibility = "hidden";
-
-    masterUI.ui.addAnimalToDb(function(){
-      var animals = new Animals;
-      animals.allVisited(function(result){
-        ui.renderNotebookAnimal(result);
-      });
-    });  
-
-  } else if (animal.name !== button && !finalQuestion){
-
-    attenUI.wrongText();
-
-      // console.log(this)
-      // this.changeAttenTalk(animal);
-      // console.log("string of attenUI.wrongText");
-    } else if (animal.name !== button && finalQuestion){
-      attenUI.finalWrongText(animal);
-      nextButton.style.visibility = "hidden";
-
-      masterUI.ui.addAnimalToDb(function(){
-        var animals = new Animals;
-        animals.allVisited(function(result){
-          ui.renderNotebookAnimal(result);
-        });
-      });  
-
-    } else if (animal.name === button && finalQuestion){
+    console.log(AttenUI)
+    if (animal.name === button && !finalQuestion) {
       attenUI.answerCorrectText(animal);
       nextButton.style.visibility = "hidden";
-
-      masterUI.ui.addAnimalToDb(function(){
+  
+      ui.addAnimalToDb(function(){
         var animals = new Animals;
         animals.allVisited(function(result){
           ui.renderNotebookAnimal(result);
         });
       });  
+    } else if (animal.name !== button && !finalQuestion){
+  
+      attenUI.wrongText();
+    } else if (animal.name !== button && finalQuestion){
 
+      attenUI.finalWrongText(animal);
+      nextButton.style.visibility = "hidden";
+  
+      ui.addAnimalToDb(function(){
+        var animals = new Animals;
+        animals.allVisited(function(result){
+          ui.renderNotebookAnimal(result);
+        });
+      });  
+  
+    } else if (animal.name === button && finalQuestion){
+
+      attenUI.answerCorrectText(animal);
+      nextButton.style.visibility = "hidden";
+  
+      ui.addAnimalToDb(function(){
+        var animals = new Animals;
+        animals.allVisited(function(result){
+          ui.renderNotebookAnimal(result);
+        });
+      });  
+  
     }
   }
 }
