@@ -9,16 +9,8 @@ var MapWrapper = function(coords, zoom) {
 
 MapWrapper.prototype = {
   addMarker: function(coords){
-    // var icon = {
-    //     url: "/resources/Plane-icon.png",
-    //     scaledSize: new google.maps.Size(40, 40),
-    //     origin: new google.maps.Point(0, 10),
-    //     anchor: new google.maps.Point(30, 10)
-    // };
-
     var marker = new google.maps.Marker({
       position: coords,
-      // icon: icon,
       map: this.googleMap
     });
     console.log("marker added");
@@ -34,7 +26,7 @@ MapWrapper.prototype = {
        strokeColor: "red",
        fillColor: "red",
        fillOpacity: 1,
-       strokeWeight: 1,
+       strokeWeight: 0.5,
        rotation: 270
      };
 
@@ -48,7 +40,7 @@ MapWrapper.prototype = {
       geodesic: true,
       strokeColor: '#FF0000',
       strokeOpacity: 1.0,
-      strokeWeight: 2,
+      strokeWeight: 1,
       icons: [iconPlane],
       map: this.googleMap
     });
@@ -70,58 +62,27 @@ MapWrapper.prototype = {
 
   panTo: function(lat, lng){
     this.googleMap.panTo(new google.maps.LatLng(lat,lng));
+    this.googleMap.setZoom(2);
   },
 
   addInfoWindow: function(map, marker, contentString){
     var infoWindow = new google.maps.InfoWindow({
-          content: contentString
+          content: contentString,
         });
       marker.addListener("click", function(){
       infoWindow.open(this.googleMap, marker);
     })
+  },
+
+  geoLocate: function(){
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var centre = {lat: position.coords.latitude, lng: position.coords.longitude}; 
+      this.googleMap.setCenter(centre); 
+      var marker = this.addMarker(centre);
+      var infoWindow = this.addInfoWindow(this.googleMap, marker, "<h2>Home</h2>");
+      infoWindow.open(this.googleMap, marker);
+    }.bind(this));
   }
-
-  // geoLocate: function(runArray){
-
-  //   console.log(runArray);
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     var centre = {lat: position.coords.latitude, lng: position.coords.longitude}; 
-  //     this.googleMap.setCenter(centre); 
-  //     var marker = this.addMarker(centre);
-  //     var nearRuns = document.querySelector("#near-runs");
-  //     this.addInfoWindow(this.googleMap, marker, "You Are Here")
-  //     for (var run of runArray){
-  //       if (Math.sqrt(Math.pow((run.start_latlng[0] - position.coords.latitude),2))< 0.005){
-  //         var runMarker = this.addMarker({lat: run.start_latlng[0], lng: run.start_latlng[1]});
-  //         this.addInfoWindow(this.googleMap, runMarker, run.name);
-  //         var nearRunsInfo = document.createElement("p");
-  //         nearRunsInfo.innerText = run.name + " | " + ((run.distance/1000).toFixed(2)) + "km";
-  //         nearRuns.appendChild(nearRunsInfo);
-  //         var division = document.createElement("hr");
-  //         nearRuns.appendChild(division);
-  //         console.log(run.start_latlng[0])
-  //         console.log(position.coords.latitude);
-  //         console.log(run.start_latlng[0]-position.coords.latitude)
-  //         console.log(run.name + "added");
-
-  //       } else if (Math.sqrt(Math.pow((run.start_latlng[1] - position.coords.longitude),2)) < 0.005){
-  //         var runMarker = this.addMarker({lat: run.start_latlng[0], lng: run.start_latlng[1]});
-  //         this.addInfoWindow(this.googleMap, runMarker, run.name);
-  //         var nearRunsInfo = document.createElement("p");
-  //         nearRunsInfo.innerText = run.name + " | " + ((run.distance/1000).toFixed(2)) + "km";
-  //         nearRuns.appendChild(nearRunsInfo);
-  //         var division = document.createElement("hr");
-  //         nearRuns.appendChild(division);
-  //         console.log(run.start_latlng[1])
-  //         console.log(position.coords.longitude);
-  //         console.log(run.start_latlng[1]-position.coords.longitude);
-  //         console.log(run.name + "added");
-  //       }
-  //     }
-  //   }.bind(this)); 
-  // }
-
-
 }
 
 module.exports = MapWrapper;

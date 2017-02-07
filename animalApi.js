@@ -25,7 +25,7 @@ db.animals.insert([
   answerText: "I remember encountering this animal before, and I'm sure that she remembers me too! an African Elephant has an exceptional memory after all! Lets take a picture and leave her to catch up with her heard.",
   image: "http://www.pngall.com/wp-content/uploads/2016/06/Elephant-PNG.png",
   finishingText: "We've found an African Elephant! Did you know that elephants are some of the largest land animals on the entire planet? The African Elephant uses its long trunk to pick up water, then it sprays the water into its mouth for a drink, or if the Elephant isn't thirsty, it can use it's trunk as a large hose, and will cool itself off with the spray of water. Let us take a picture of her and leave her to catch up with her heard.",
-  buttonValues: ["Impala", "African Elephant", "Zebra", "Crested Porcupine", "Lion", "Tiger", "Hyena"]
+  buttonValues: ["Impala", "African Elephant", "Zebra", "Crested Porcupine", "Lion", "Tiger"]
 },
 {
   name: "Snow Leopard",

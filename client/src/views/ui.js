@@ -25,14 +25,37 @@ var UI = function(){
     this.renderCountriesList(result);
   }.bind(this));
 
-  
+
 //creates the map
 mapDiv = document.querySelector("#mapDiv");
-var centre = {lat: 20, lng: 0 };
-this.map = new MapWrapper(centre, 2);
+var centre = {lat: 56, lng: -3 };
+this.map = new MapWrapper(centre, 3);
+this.map.geoLocate();
+this.addHereToDB();
 }
 
 UI.prototype = {
+  addHereToDB: function(){
+    var countries = new Countries;
+    countries.allVisited(function(countriesVisited){
+      if (countriesVisited.length === 0){
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+        // add dummy country "here" to countriesVisited collection in db
+        var here = {
+          name: "here",
+          coords: [position.coords.latitude, position.coords.longitude],
+          arrivalText: "",
+          countryFlag: ""
+        }
+
+        countries.makePost("/countries", here, function(data){
+        });
+      });
+      }
+    })
+  },
+
   renderCountriesList: function(countriesAPI){
     var countriesDiv = document.querySelector("#countries");
     var selectLabel = document.createElement("h3");
@@ -236,7 +259,7 @@ UI.prototype = {
      var marker = this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
 
          // add the info window to the map
-         this.map.addInfoWindow(this.map, marker, country.name);
+         this.map.addInfoWindow(this.map, marker, "<h2>" + country.name + "</h2>");
        }
 
        var filterVisitedCountries = visitedCountriesFlags.filter(function(country, index, countryList){
@@ -255,7 +278,7 @@ UI.prototype = {
        }
 
        //add the polyline to the map
-       var pathCoords = [];
+      var pathCoords = [];
        for (var country of countryList){
          pathCoords.push({lat: country.coords[0], lng: country.coords[1]});
        } 

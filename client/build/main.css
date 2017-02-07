@@ -180,34 +180,36 @@ hr{
 }
 
 #QButtons{
+
   margin: 2px;
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
   align-content: center;
 }
 
-#quiz-button{
+#answerButton{
   width: 150px;
-  margin: 2px;
+  margin: 5px;
 }
 
 #mapDiv{
   border: solid 1px white;
   border-radius: 3px;
-  height: 290px;
+  height: 280px;
   margin: 2px;
   transition: all .4s ease-in-out;
 }
 
 
 #mapDiv:hover {
-transform: scale(1.5);
-height: 300px;
-margin: 120px;
-margin-right: -200px;
+transform: scale(1);
+height: 500px;
+margin: -50px;
+margin-right: -150px;
 position: relative;
-left: 150px;
+left: 280px;
 }
 
 #notebook-frame{
