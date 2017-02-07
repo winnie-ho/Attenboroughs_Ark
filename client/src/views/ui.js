@@ -221,7 +221,6 @@ UI.prototype = {
          pathCoords.push({lat: country.coords[0], lng: country.coords[1]});
        } 
        this.map.addPolyline(pathCoords);
-       console.log("the journey coords", pathCoords);
   },
 
   renderNotebookAnimal: function(animalList){
