@@ -35,10 +35,7 @@ Countries.prototype = {
       if (this.status !== 200)
         return;      
       var jsonString = this.responseText;
-      console.log(jsonString);
       var result = JSON.parse(jsonString);
-      console.log("this is the result");
-      console.log(result);
       callback(result);
     });
   }, 
@@ -50,10 +47,8 @@ Countries.prototype = {
         return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
-      // console.log("HI");
       var countriesAPI = self.populateDropDownList(results);
       callback(countriesAPI);
-      // console.log("allAPI complete");
     })
   },
 

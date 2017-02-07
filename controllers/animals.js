@@ -37,6 +37,11 @@ animalRouter.post('/animals', function(req, res) {
   })
 });
 
+//delete visited animals to reset the app
+animalRouter.delete('/animals', function(req, res) {
+  query.deleteVisitedAnimals();
+  res.json({data: animals});
+});
 
 
 //--------may not need to use the following functions:
@@ -61,7 +66,7 @@ animalRouter.put('/animals/:id', function(req, res) {
 });
 
 
-//delete animal
+//delete specific animal
 animalRouter.delete('/animals/:id', function(req, res) {
   countries.splice(req.params.id, 1);
   res.json({data: countries});

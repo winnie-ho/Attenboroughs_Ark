@@ -36,7 +36,22 @@ AnimalQuery.prototype = {
             onQueryFinished(docs);
       });
     });
-  }
+  },
+
+  deleteVisitedAnimals: function(){
+    console.log("HIT DELETE VISITED ANIMALS")
+    MongoClient.connect(this.url, function(err, db){
+      if (err){
+        console.log("error returned", err);
+      }else{
+          console.log("NO ERROR IN REQ")
+          var collection = db.collection("animalsVisited");
+          collection.drop("animalsVisited");
+          db.createCollection("animalsVisited");
+        }
+      });
+    }
+
 };
 
 

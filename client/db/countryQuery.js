@@ -42,11 +42,15 @@ CountryQuery.prototype = {
 
   deleteVisitedCountries: function(){
     MongoClient.connect(this.url, function(err, db){
+      if(err){
+        console.log(err);
+      }else{
           var collection = db.collection("countriesVisited");
           collection.drop("countriesVisited");
-          // createCollection("countriesVisited");
+          db.createCollection("countriesVisited");
+        }
       });
-  }
+    }
 };
 
 

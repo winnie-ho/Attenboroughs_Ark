@@ -195,6 +195,17 @@ hr{
   border-radius: 3px;
   height: 290px;
   margin: 2px;
+  transition: all .3s ease-in-out;
+}
+
+
+#mapDiv:hover {
+transform: scale(1.5);
+height: 300px;
+margin: 120px;
+margin-right: -200px;
+position: relative;
+left: 150px;
 }
 
 #notebook-frame{
@@ -208,7 +219,20 @@ hr{
   margin-top: -10px;
 }
 
+#notebook-frame:hover {
+transform: scale(1.5);
+height: 300px;
+margin: 120px;
+margin-right: -200px;
+position: relative;
+left: 180px;
+bottom: 200px;
+}
+
 #notebook{
+/*  border: red dashed 1px;
+*/  display: flex;
+  flex-direction: column;
   margin-top: 15px;
   padding-left: 60px;
   padding-top: 5px;
@@ -217,6 +241,28 @@ hr{
   overflow-y: scroll;
   overflow-x: hidden;
 }
+
+#contentDiv{
+/*  border: blue dashed 1px;
+*/  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#flagsDiv{
+/*  border: red dashed 1px;
+*/
+  display: flex;
+  flex-direction: column;
+}
+
+#photosDiv{
+/*  border: red dashed 1px;
+*/
+  display: flex;
+  flex-direction: column;
+}
+
 #flag{
   margin: 3px;
   width: 70px;

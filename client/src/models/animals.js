@@ -7,7 +7,7 @@ var Animals = function(){
 Animals.prototype = {
   makeRequest: function(url, callback){
     var request = new XMLHttpRequest();
-    request.open("GET", url);
+    request.open("GET", url, false);
     request.onload = callback;
     request.send();
   },
@@ -20,6 +20,14 @@ Animals.prototype = {
     request.setRequestHeader("Content-type", "application/json");
     request.onload = callback;
     request.send(data);
+  },
+
+  makeDeleteRequest: function(url, callback){
+    var request = new XMLHttpRequest();
+    request.open("DELETE", url);
+    request.setRequestHeader("Content-type", "application/json");
+    request.onload = callback;
+    request.send();
   },
 
   allVisited: function(callback){
