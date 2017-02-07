@@ -63,8 +63,10 @@ QuizUI.prototype = {
       // console.log(this)
       // this.changeAttenTalk(animal);
       // console.log("string of attenUI.wrongText");
-    } else {
+    } else if (animal.name !== button && finalQuestion){
       attenUI.finalWrongText(animal);
+    } else if (animal.name === button && finalQuestion){
+      attenUI.answerCorrectText(animal);
     }
   }
 }
