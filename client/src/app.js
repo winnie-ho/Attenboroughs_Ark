@@ -37,10 +37,10 @@ var app = function() {
     var answerButtonsClickBehavour = function() {
       var firedButton = this.innerText;
       console.log(firedButton)
-      quizUI.answerQuestionOne(animal, firedButton);
+      quizUI.answerQuestion(animal, firedButton);
     }
 
-    for (var i =0; i < answerButton.length; i++) {
+    for (var i = 0; i < answerButton.length; i++) {
       answerButton[i].onclick = answerButtonsClickBehavour;
     }
   }

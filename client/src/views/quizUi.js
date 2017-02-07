@@ -51,8 +51,8 @@ QuizUI.prototype = {
   answerQuestion: function(animal, button) {
     if (animal.name == button) {
       attenTalk.innerText = "Correct";
-      addAnimalToDb();
-      renderNotebookAnimal();
+      // addAnimalToDb();
+      // renderNotebookAnimal();
     } else {
       this.changeAttenTalk(animal);
       console.log("string of attenUI.wrongText");
