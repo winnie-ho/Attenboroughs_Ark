@@ -270,41 +270,7 @@ UI.prototype = {
         }.bind(this));
       });
       this.map.refreshMap(this.map);
-
-},
-
-  //this is a test, this should be in LM's attenbourgh's UI file.
- //  handleNextButton: function(){
- //      var animals = new Animals();
- //      animals.allAPI(function(result){ 
- //      console.log(result);
-
- //      var selectedCountry = document.querySelector("select");
- //      var countryObject = JSON.parse(selectedCountry.value);
-
- //        for(var animal of result){
- //          if (animal.country === countryObject.name) {
- //            var animalObject = animal; 
- //          }
- //        }
-
- //      var attDiv = document.querySelector("#attenborough");
- //      var question = document.createElement("p");
- //      attDiv.innerHTML = "";
- //      question.innerText = animalObject.questions.one;
- //      console.log("animalObject", animalObject.questions.one);
- //      attDiv.appendChild(question);
-
- //      var notebookDiv = document.querySelector("#notebook");
- //      var animalNote = document.createElement("h5");
- //      animalNote.innerText = animalObject.name + "\n";
- //      var photo = document.createElement("img");
- //      photo.id = "photo"
- //      photo.src = animalObject.image;
- //      notebookDiv.appendChild(animalNote);
- //      animalNote.appendChild(photo);
- //      });
- // }
+  }
 }
 
 module.exports = UI;
