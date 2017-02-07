@@ -6,6 +6,7 @@ var AttenUI = require("./attenUI.js");
 var UI = require("./ui.js");
 
 var counter = 0;
+var finalQuestion = false;
 
 var QuizUI = function(){
 
@@ -33,7 +34,7 @@ QuizUI.prototype = {
   changeAttenTalk: function(animal) {
     counter ++;
     questionsObject = animal.questions;
-    console.log(questionsObject);
+    // console.log(questionsObject);
     if (counter == 1) {
       attenTalk.innerText = questionsObject.one;
     }
@@ -42,6 +43,7 @@ QuizUI.prototype = {
     } 
     else if (counter == 3) {
       attenTalk.innerText = questionsObject.three
+      finalQuestion = true;
     }
     else { console.log("finished!")
     addAnimalToDb();
@@ -49,13 +51,20 @@ QuizUI.prototype = {
   },
 
   answerQuestion: function(animal, button) {
-    if (animal.name == button) {
-      attenTalk.innerText = "Correct";
+    attenUI = new AttenUI();
+    if (animal.name === button && !finalQuestion) {
+      attenUI.answerCorrectText(animal);
       // addAnimalToDb();
       // renderNotebookAnimal();
+    } else if (animal.name !== button && !finalQuestion){
+      
+      attenUI.wrongText();
+
+      // console.log(this)
+      // this.changeAttenTalk(animal);
+      // console.log("string of attenUI.wrongText");
     } else {
-      this.changeAttenTalk(animal);
-      console.log("string of attenUI.wrongText");
+      attenUI.finalWrongText(animal);
     }
   }
 }

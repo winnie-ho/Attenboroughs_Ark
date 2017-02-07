@@ -18,9 +18,9 @@ db.animals.insert([
   name: "African Elephant",
   country: "West Africa",
   questions: {
-    "one": "this animal seems to be very Large!",
-    "two": "this animal has a very tough skin!",
-    "three": "this animal has a long nose and is very wrinkled, even more so than I am!"
+    one: "this animal seems to be very Large!",
+    two: "this animal has a very tough skin!",
+    three: "this animal has a long nose and is very wrinkled, even more so than I am!"
   },
   answerText: "I remember encountering this animal before, and I'm sure that she remembers me too! an African Elephant has an exceptional memory after all! Lets take a picture and leave her to catch up with her heard.",
   image: "http://www.pngall.com/wp-content/uploads/2016/06/Elephant-PNG.png",
@@ -32,9 +32,9 @@ db.animals.insert([
   country: "Nepal",
 
   questions: {
-    "one": "This animal appears to be a type of large cat",
-    "two": "This animal has a thick white coat, with black or brown spots",
-    "three": "This animal makes its home high in the mountains, in the snowy landscapes"
+    one: "This animal appears to be a type of large cat",
+    two: "This animal has a thick white coat, with black or brown spots",
+    three: "This animal makes its home high in the mountains, in the snowy landscapes"
   },
   answerText: "I have seen this animal before! This reclusive animal is a Snow Leopard, it's thick fur helps protect it in the cold climates where it lives, this is a vary difficult animal to find, let us take a picture and quietly walk away so we can leave her to go and hunt.",
   image: "http://orig12.deviantart.net/9a07/f/2013/324/b/d/snow_leopard_png_by_laki10-d6v11th.png",
@@ -46,9 +46,9 @@ buttonValues: ["Tahr", "Marmot", "Brown Bear", "Red Panda", "Snow Leopard", "Yak
   name: "Jaguar",
   country: "Mexico",
   questions: {
-    "one": "This animal appears to be a type of large Cat",
-    "two": "This big cat loves playing in the water!",
-    "three": "this cat will sometimes be seen climbing a tree so as to leap down onto it's prey."
+    one: "This animal appears to be a type of large Cat",
+    two: "This big cat loves playing in the water!",
+    three: "this cat will sometimes be seen climbing a tree so as to leap down onto it's prey."
   },
   answerText:"I remember seeing this animal on a trip into the forest once, it's a Jaguar! This big cat lives mostly alone, roaming around its territory. When it roars it sounds almost like a chesty cough",
   image: "http://www.pngall.com/wp-content/uploads/2016/04/Jaguar-PNG-Picture.png",

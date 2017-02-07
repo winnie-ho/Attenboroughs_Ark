@@ -15,7 +15,7 @@ var app = function() {
   var animals = new Animals();
   animals.allAPI(function(result){ 
     animal = result[0];
-    console.log(animal.buttonValues)
+    // console.log(animal.buttonValues)
   })
 
   attenUI.startText();
@@ -32,11 +32,11 @@ var app = function() {
 ////////////Question Buttons
 
     var answerButton = document.querySelectorAll(".animalNameButton");
-    console.log(answerButton)
+    // console.log(answerButton)
 
     var answerButtonsClickBehavour = function() {
       var firedButton = this.innerText;
-      console.log(firedButton)
+      // console.log(firedButton)
       quizUI.answerQuestion(animal, firedButton);
     }
 
