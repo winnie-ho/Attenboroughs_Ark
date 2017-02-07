@@ -11,7 +11,8 @@ MapWrapper.prototype = {
   addMarker: function(coords){
     var marker = new google.maps.Marker({
       position: coords,
-      map: this.googleMap
+      map: this.googleMap,
+      animation: google.maps.Animation.DROP
     });
     console.log("marker added");
     return marker;
@@ -79,7 +80,13 @@ MapWrapper.prototype = {
       var centre = {lat: position.coords.latitude, lng: position.coords.longitude}; 
       this.googleMap.setCenter(centre); 
       var marker = this.addMarker(centre);
-      var infoWindow = this.addInfoWindow(this.googleMap, marker, "<h2>Home</h2>");
+
+      var infoWindow = new google.maps.InfoWindow({
+            content: "<h2>Home</h2>",
+          });
+
+
+      // var infoWindow = this.addInfoWindow(this.googleMap, marker, "<h2>Home</h2>");
       infoWindow.open(this.googleMap, marker);
     }.bind(this));
   }
