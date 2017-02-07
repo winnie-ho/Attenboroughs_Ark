@@ -12,15 +12,7 @@ var AttenUI = function(){
 
 AttenUI.prototype = {
   goButton: function(countryObject){
-    console.log(this.buttons)
-    // this.buttons.style.display = "initial";
-
-    // var newCountry = {
-    //   name: countryObject.name,
-    //   coords: [countryObject.coords[0], countryObject.coords[1]],
-    //   arrivalText: countryObject.arrivalText,
-    //   stamp: countryObject.stamp
-    // }
+    // console.log(this.buttons)
 
     attenTalk.innerText = countryObject.arrivalText;
 

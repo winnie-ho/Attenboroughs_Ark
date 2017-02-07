@@ -58,7 +58,7 @@ UI.prototype = {
     var selectedCountry = document.querySelector("#selector");
     var countryObject = JSON.parse(selectedCountry.value);
     var self = this;
-
+    attenUI.goButton(countryObject)
     console.log(this);
     this.addCountryToDb(function(){
 
