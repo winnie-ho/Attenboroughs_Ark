@@ -40,7 +40,7 @@ h5{
 
 p{
   font-family: futura;
-  font-size: 14px;
+  font-size: 18px;
   color: #06436A;
   text-align: center;
 }
@@ -106,19 +106,24 @@ hr{
 #select-container{
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-content: center;
   height: 40px;
+  margin-right: 10px;
 }
 
 #countries{
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-content: center;
 }
 
 #button{
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding-top: 12px;
   padding-left: 10px;
 }
@@ -128,11 +133,9 @@ hr{
   display: flex;
   flex-direction: column;
   border-radius: 3px;
-/*  border: 1px white solid;
-*/  height: 596px;
+  height: 596px;
   margin: 2px;
 }
-
 
 #att-container{
   display: flex;
@@ -142,8 +145,7 @@ hr{
   margin: 5px;
   height: 563px;
   padding: 5px;
-/*  border: 1px white solid;
-*/}
+}
 
 #att-display{
   display: flex;
@@ -195,7 +197,7 @@ hr{
   border-radius: 3px;
   height: 290px;
   margin: 2px;
-  transition: all .3s ease-in-out;
+  transition: all .4s ease-in-out;
 }
 
 
@@ -230,8 +232,7 @@ bottom: 200px;
 }
 
 #notebook{
-/*  border: red dashed 1px;
-*/  display: flex;
+  display: flex;
   flex-direction: column;
   margin-top: 15px;
   padding-left: 60px;
@@ -243,22 +244,17 @@ bottom: 200px;
 }
 
 #contentDiv{
-/*  border: blue dashed 1px;
-*/  display: flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
 #flagsDiv{
-/*  border: red dashed 1px;
-*/
   display: flex;
   flex-direction: column;
 }
 
 #photosDiv{
-/*  border: red dashed 1px;
-*/
   display: flex;
   flex-direction: column;
 }

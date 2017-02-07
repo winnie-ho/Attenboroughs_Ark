@@ -46,8 +46,12 @@ var app = function() {
 //   }
 
 
-  // var mountainSounds = document.querySelector("#savannah")
-  // mountainSounds.play();
+  var answerQuestionOne = document.querySelector(".animalNameButton");
+  answerQuestionOne.onclick = quizUI.answerQuestionOne();
+
+
+  var mountainSounds = document.querySelector("#savannah")
+  mountainSounds.play();
 
   
 }
