@@ -4,10 +4,10 @@ var Country = require("../models/country.js");
 var Animals = require("../models/animals.js");
 var Animal = require("../models/animal.js");
 // console.log(UI);
-// var ui = new UI();
-
+// var MasterUI = require("./masterUI");
 var AttenUI = require("./attenUI.js");
 
+// var masterUI = new MasterUI();
 var counter = 0;
 var finalQuestion = false;
 
@@ -72,15 +72,13 @@ answerQuestion: function(animal, button) {
   var nextButton = document.querySelector("#next-button");
   var attenUI = new AttenUI();
   var ui = new UI();
-
-
   
   console.log(AttenUI)
   if (animal.name === button && !finalQuestion) {
     attenUI.answerCorrectText(animal);
     nextButton.style.visibility = "hidden";
 
-    ui.addAnimalToDb(function(){
+    masterUI.ui.addAnimalToDb(function(){
       var animals = new Animals;
       animals.allVisited(function(result){
         ui.renderNotebookAnimal(result);
@@ -98,7 +96,7 @@ answerQuestion: function(animal, button) {
       attenUI.finalWrongText(animal);
       nextButton.style.visibility = "hidden";
 
-      ui.addAnimalToDb(function(){
+      masterUI.ui.addAnimalToDb(function(){
         var animals = new Animals;
         animals.allVisited(function(result){
           ui.renderNotebookAnimal(result);
@@ -109,7 +107,7 @@ answerQuestion: function(animal, button) {
       attenUI.answerCorrectText(animal);
       nextButton.style.visibility = "hidden";
 
-      ui.addAnimalToDb(function(){
+      masterUI.ui.addAnimalToDb(function(){
         var animals = new Animals;
         animals.allVisited(function(result){
           ui.renderNotebookAnimal(result);

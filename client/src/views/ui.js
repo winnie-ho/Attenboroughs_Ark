@@ -11,6 +11,7 @@ var quizUI = new QuizUI();
 // var QuizUI = new QuizUI();
 
 var UI = function(){ 
+  document.innerHTML = ""
   var goButton = document.querySelector("#go-button");
   goButton.onclick = this.handleGoButton.bind(this);
 
@@ -34,17 +35,21 @@ this.map = new MapWrapper(centre, 2);
 
 UI.prototype = {
   renderCountriesList: function(countriesAPI){
-    var countriesDiv = document.querySelector("#countries");
-    var selectLabel = document.createElement("h3");
-    selectLabel.innerText = "SELECT A COUNTRY: ";
-    var countriesSelect = document.createElement("select");
-    countriesSelect.id = "selector";
+
+    // console.log(this)
+
+    // var countriesDiv = document.querySelector("#countries");
+    // var selectLabel = document.createElement("h3");
+    // selectLabel.innerText = "SELECT A COUNTRY: ";
+    var countriesSelect = document.querySelector("#selector");
+    countriesSelect.innerHTML = ""
+    // countriesSelect.id = "selector";
     var unselectable = document.createElement("option");
     unselectable.innerText = "Country:"
     unselectable.disabled = true;
     unselectable.selected = true;
-    countriesDiv.appendChild(selectLabel);
-    selectLabel.appendChild(countriesSelect);
+    // countriesDiv.appendChild(selectLabel);
+    // countriesDiv.appendChild(countriesSelect);
     countriesSelect.appendChild(unselectable);
 
     for (var country of countriesAPI){
@@ -52,8 +57,8 @@ UI.prototype = {
       countryChoice.innerText = country.name;
       countryChoice.value = JSON.stringify(country);
 
-      countriesDiv.appendChild(selectLabel);
-      selectLabel.appendChild(countriesSelect);
+      // countriesDiv.appendChild(selectLabel);
+      // selectLabel.appendChild(countriesSelect);
       countriesSelect.appendChild(countryChoice);
     }
   },
@@ -116,12 +121,12 @@ UI.prototype = {
     });
 
     // add animal to animalsVisited collection in db
-    this.addAnimalToDb(function(){
-      var animals = new Animals;
-      animals.allVisited(function(result){
-        self.renderNotebookAnimal(result);
-      }.bind(this));
-    });    
+    // this.addAnimalToDb(function(){
+    //   var animals = new Animals;
+    //   animals.allVisited(function(result){
+    //     self.renderNotebookAnimal(result);
+    //   }.bind(this));
+    // });    
 
     // pan to the selected country on the map
     this.map.panTo(countryObject.coords[0], countryObject.coords[1]);
