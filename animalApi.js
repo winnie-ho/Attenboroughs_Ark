@@ -5,9 +5,9 @@ db.animals.insert([
   name: "Giant Panda",
   country: "China",
   questions: {
-    1: "this animal seems to be Black and White.",
-    2: "this animal eats almost only bamboo!",
-    3: "this animal appears to be a species of bear!"
+    one: "this animal seems to be Black and White.",
+    two: "this animal eats almost only bamboo!",
+    three: "this animal appears to be a species of bear!"
   },
   answerText: "I seem to remember coming across this large bear upon my previous travels in the mountains of central China, It seems to be a Giant Panda! Let's take a picture of this Panda and leave him in peace",
   image: "http://multimedia.scmp.com/widgets/jia-jia/images/JiaJia.png",
