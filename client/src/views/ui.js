@@ -251,7 +251,7 @@ UI.prototype = {
     },
 
     handleResetButton: function(){
-      window.location.reload();
+      // window.location.reload();
       var self = this;
 
       this.countries.makeDeleteRequest("/countries", function(){
@@ -269,7 +269,6 @@ UI.prototype = {
           self.renderNotebookAnimal(result);
         }.bind(this));
       });
-      this.map.refreshMap(this.map);
   }
 }
 
