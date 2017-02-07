@@ -23,14 +23,28 @@ var app = function() {
 
   var nextButton = document.querySelector("#next-button");
   // nextButton.onclick = ui.handleNextButton();
-  console.log("1")
+  // console.log("1")
   nextButton.onclick = function(){
     quizUI.createAnswerButtons(animal);
-  }
-  console.log("3")
+    quizUI.changeAttenTalk(animal);
+    // console.log("3")
 
-  // var answerQuestionOne = document.querySelector(".animalNameButton");
-  // answerQuestionOne.onclick = quizUI.answerQuestionOne();
+////////////Question Buttons
+
+    var answerButton = document.querySelectorAll(".animalNameButton");
+    console.log(answerButton)
+
+    var answerButtonsClickBehavour = function() {
+      var firedButton = this.innerText;
+      console.log(firedButton)
+      quizUI.answerQuestion(animal, firedButton);
+    }
+
+    for (var i = 0; i < answerButton.length; i++) {
+      answerButton[i].onclick = answerButtonsClickBehavour;
+    }
+  }
+
 
   // var mountainSounds = document.querySelector("#savannah")
   // mountainSounds.play();
