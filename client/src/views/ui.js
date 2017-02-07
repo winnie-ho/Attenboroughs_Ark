@@ -39,6 +39,14 @@ UI.prototype = {
     selectLabel.innerText = "SELECT A COUNTRY: ";
     var countriesSelect = document.createElement("select");
     countriesSelect.id = "selector";
+    var unselectable = document.createElement("option");
+    unselectable.innerText = "Country:"
+    unselectable.disabled = true;
+    unselectable.selected = true;
+    countriesDiv.appendChild(selectLabel);
+    selectLabel.appendChild(countriesSelect);
+    countriesSelect.appendChild(unselectable);
+
     for (var country of countriesAPI){
       var countryChoice = document.createElement("option");
       countryChoice.innerText = country.name;
@@ -68,9 +76,13 @@ UI.prototype = {
     });
 
     var nextButton = document.querySelector("#next-button");
+    var buttonDiv = document.querySelector("#QButtons");
+    buttonDiv.style.visibility = "hidden";
       // nextButton.onclick = ui.handleNextButton();
       // console.log("1")
       nextButton.onclick = function(){
+        // console.log(this)
+
         quizUI.createAnswerButtons(animalObject);
         quizUI.changeAttenTalk(animalObject);
         // console.log("3")
@@ -82,8 +94,11 @@ UI.prototype = {
 
         var answerButtonsClickBehavour = function() {
           var firedButton = this.innerText;
+          buttonDiv.style.visibility = "hidden";
+          nextButton.style.visibility = "visible";
           // console.log(firedButton)
           quizUI.answerQuestion(animalObject, firedButton);
+
         }
 
         for (var i = 0; i < answerButton.length; i++) {

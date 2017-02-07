@@ -17,6 +17,10 @@ AttenUI.prototype = {
     attenTalk.innerText = countryObject.arrivalText;
 
   },
+  initiateQuestions: function(){
+    this.initiateText = "I think I hear an animal up ahead, Why don't you help me work out what it is?";
+    attenTalk.innerText = this.initiateText;
+  },
   startText: function(){
     this.startText = "Welcome. To a Journey around the globe with me, David Attenborough. \n On this journey, we are going to see some of the worlds most endangered animals, and together we shall keep a journal, taking note of these animals and the countries we find them in. \n To choose where to travel, use the dropdown bar at the top to choose a location to visit, and press 'EXPLORE'. \n Let's start our expedition!",
 

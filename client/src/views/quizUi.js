@@ -32,28 +32,42 @@ QuizUI.prototype = {
   },
 
   changeAttenTalk: function(animal) {
+    attenUI = new AttenUI();
+    var buttonDiv = document.querySelector("#QButtons");
+    var nextButton = document.querySelector("#next-button");
     counter ++;
     questionsObject = animal.questions;
     // console.log(questionsObject);
-    if (counter == 1) {
+    if(counter === 1){
+      attenUI.initiateQuestions();
+    }
+    else if (counter === 2) {
+      nextButton.style.visibility = "hidden";
+      buttonDiv.style.visibility = "visible";
       attenTalk.innerText = questionsObject.one;
     }
-    else if (counter == 2) {
+    else if (counter === 3) {
+      nextButton.style.visibility = "hidden";
+      buttonDiv.style.visibility = "visible";
       attenTalk.innerText = questionsObject.two;
     } 
-    else if (counter == 3) {
+    else if (counter === 4) {
+      nextButton.style.visibility = "hidden";
+      buttonDiv.style.visibility = "visible";
       attenTalk.innerText = questionsObject.three
       finalQuestion = true;
     }
-    else { console.log("finished!")
-    addAnimalToDb();
+    else { console.log("problem!")
+    // addAnimalToDb();
     }
   },
 
   answerQuestion: function(animal, button) {
+    var nextButton = document.querySelector("#next-button");
     attenUI = new AttenUI();
     if (animal.name === button && !finalQuestion) {
       attenUI.answerCorrectText(animal);
+      nextButton.style.visibility = "hidden";
       // addAnimalToDb();
       // renderNotebookAnimal();
     } else if (animal.name !== button && !finalQuestion){
@@ -65,8 +79,10 @@ QuizUI.prototype = {
       // console.log("string of attenUI.wrongText");
     } else if (animal.name !== button && finalQuestion){
       attenUI.finalWrongText(animal);
+      nextButton.style.visibility = "hidden";
     } else if (animal.name === button && finalQuestion){
       attenUI.answerCorrectText(animal);
+      nextButton.style.visibility = "hidden";
     }
   }
 }
