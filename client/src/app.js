@@ -12,38 +12,38 @@ var app = function() {
   var attenUI = new AttenUI();
   var quizUI = new QuizUI();
 
-  var animals = new Animals();
-  animals.allAPI(function(result){ 
-    animal = result[0];
-    // console.log(animal.buttonValues)
-  })
+  // var animals = new Animals();
+  // animals.allAPI(function(result){ 
+  //   animal = result[0];
+  //   // console.log(animal.buttonValues)
+  // })
 
   attenUI.startText();
 
 
-  var nextButton = document.querySelector("#next-button");
-  // nextButton.onclick = ui.handleNextButton();
-  // console.log("1")
-  nextButton.onclick = function(){
-    quizUI.createAnswerButtons(animal);
-    quizUI.changeAttenTalk(animal);
-    // console.log("3")
+//   var nextButton = document.querySelector("#next-button");
+//   // nextButton.onclick = ui.handleNextButton();
+//   // console.log("1")
+//   nextButton.onclick = function(){
+//     quizUI.createAnswerButtons(animal);
+//     quizUI.changeAttenTalk(animal);
+//     // console.log("3")
 
-////////////Question Buttons
+// ////////////Question Buttons
 
-    var answerButton = document.querySelectorAll(".animalNameButton");
-    // console.log(answerButton)
+//     var answerButton = document.querySelectorAll(".animalNameButton");
+//     // console.log(answerButton)
 
-    var answerButtonsClickBehavour = function() {
-      var firedButton = this.innerText;
-      // console.log(firedButton)
-      quizUI.answerQuestion(animal, firedButton);
-    }
+//     var answerButtonsClickBehavour = function() {
+//       var firedButton = this.innerText;
+//       // console.log(firedButton)
+//       quizUI.answerQuestion(animal, firedButton);
+//     }
 
-    for (var i = 0; i < answerButton.length; i++) {
-      answerButton[i].onclick = answerButtonsClickBehavour;
-    }
-  }
+//     for (var i = 0; i < answerButton.length; i++) {
+//       answerButton[i].onclick = answerButtonsClickBehavour;
+//     }
+//   }
 
 
   // var mountainSounds = document.querySelector("#savannah")

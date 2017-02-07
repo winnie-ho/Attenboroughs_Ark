@@ -5,7 +5,9 @@ var Animal = require("../models/animal.js");
 var MapWrapper = require("../models/mapWrapper.js");
 
 var AttenUI = require("./attenUI.js");
+var QuizUI = require("./quizUI.js");
 var attenUI = new AttenUI();
+var quizUI = new QuizUI();
 // var QuizUI = new QuizUI();
 
 var UI = function(){ 
@@ -37,15 +39,15 @@ UI.prototype = {
     selectLabel.innerText = "SELECT A COUNTRY: ";
     var countriesSelect = document.createElement("select");
     countriesSelect.id = "selector";
-      for (var country of countriesAPI){
-        var countryChoice = document.createElement("option");
-        countryChoice.innerText = country.name;
-        countryChoice.value = JSON.stringify(country);
+    for (var country of countriesAPI){
+      var countryChoice = document.createElement("option");
+      countryChoice.innerText = country.name;
+      countryChoice.value = JSON.stringify(country);
 
-        countriesDiv.appendChild(selectLabel);
-        selectLabel.appendChild(countriesSelect);
-        countriesSelect.appendChild(countryChoice);
-      }
+      countriesDiv.appendChild(selectLabel);
+      selectLabel.appendChild(countriesSelect);
+      countriesSelect.appendChild(countryChoice);
+    }
   },
 
   handleGoButton: function(){
@@ -53,7 +55,41 @@ UI.prototype = {
     var countryObject = JSON.parse(selectedCountry.value);
     var self = this;
     attenUI.goButton(countryObject)
-    console.log(this);
+    var animals = new Animals();
+    // console.log(this);
+    var animalObject = null;
+
+    animals.allAPI(function(animalsAPI){ 
+      for(var animal of animalsAPI){
+        if (animal.country === countryObject.name) {
+          animalObject = animal;
+        }
+      }
+    });
+
+    var nextButton = document.querySelector("#next-button");
+      // nextButton.onclick = ui.handleNextButton();
+      // console.log("1")
+      nextButton.onclick = function(){
+        quizUI.createAnswerButtons(animalObject);
+        quizUI.changeAttenTalk(animalObject);
+        // console.log("3")
+
+    ////////////Question Buttons
+
+    var answerButton = document.querySelectorAll(".animalNameButton");
+        // console.log(answerButton)
+
+        var answerButtonsClickBehavour = function() {
+          var firedButton = this.innerText;
+          // console.log(firedButton)
+          quizUI.answerQuestion(animalObject, firedButton);
+        }
+
+        for (var i = 0; i < answerButton.length; i++) {
+          answerButton[i].onclick = answerButtonsClickBehavour;
+        }
+      }
 
 
     // add country to countriesVisited collection in db
@@ -65,12 +101,12 @@ UI.prototype = {
     });
 
     // add animal to animalsVisited collection in db
-      this.addAnimalToDb(function(){
-        var animals = new Animals;
-        animals.allVisited(function(result){
-          self.renderNotebookAnimal(result);
-        }.bind(this));
-      });    
+    this.addAnimalToDb(function(){
+      var animals = new Animals;
+      animals.allVisited(function(result){
+        self.renderNotebookAnimal(result);
+      }.bind(this));
+    });    
 
     // pan to the selected country on the map
     this.map.panTo(countryObject.coords[0], countryObject.coords[1]);
@@ -120,17 +156,17 @@ UI.prototype = {
           }
         });
 
-        animals.allVisited(function(animalsVisited){
-          var matches = 0;
-          var arrayLength = animalsVisited.length
-          for(var animal of animalsVisited){
-            if (animal.name !== animalObject.name) {
-              matches ++;
-            }
-          }
+    animals.allVisited(function(animalsVisited){
+      var matches = 0;
+      var arrayLength = animalsVisited.length
+      for(var animal of animalsVisited){
+        if (animal.name !== animalObject.name) {
+          matches ++;
+        }
+      }
 
-          if (matches === arrayLength){
-            console.log(animalObject.name + " has been visited before. Not added to DB");
+      if (matches === arrayLength){
+        console.log(animalObject.name + " has been visited before. Not added to DB");
             // add country to countriesVisited collection in db
             var newAnimal = {
               name: animalObject.name,
@@ -143,7 +179,7 @@ UI.prototype = {
             animals.makePost("/animals", newAnimal, function(data){
             });
           }
-      }); 
+        }); 
     callback(); 
   },
 
@@ -170,23 +206,23 @@ UI.prototype = {
       var arrayLength = countriesVisited.length;
 
       for(var country of countriesVisited){
-          if (country.name !== countryObject.name){
-            matches ++ ;
-          }
+        if (country.name !== countryObject.name){
+          matches ++ ;
         }
+      }
 
       if(matches === arrayLength){
           // add country to countriesVisited collection in db
-            var newCountry = {
-              name: countryObject.name,
-              coords: [countryObject.coords[0], countryObject.coords[1]],
-              arrivalText: countryObject.arrivalText,
-              countryFlag: countryObject.countryFlag
-            }
+          var newCountry = {
+            name: countryObject.name,
+            coords: [countryObject.coords[0], countryObject.coords[1]],
+            arrivalText: countryObject.arrivalText,
+            countryFlag: countryObject.countryFlag
+          }
           countries.makePost("/countries", newCountry, function(data){
           });
-      }       
-    }); 
+        }       
+      }); 
     callback(); 
   },
 
@@ -224,9 +260,9 @@ UI.prototype = {
          pathCoords.push({lat: country.coords[0], lng: country.coords[1]});
        } 
        this.map.addPolyline(pathCoords);
-  },
+     },
 
-  renderNotebookAnimal: function(animalList){
+     renderNotebookAnimal: function(animalList){
       // filtering out the unique visited animals for photos (may have been visited more than once).
       var visitedAnimals = [];
       for (var animal of animalList){
@@ -250,28 +286,28 @@ UI.prototype = {
            notebookPhotos.appendChild(animalNote);
            animalNote.appendChild(photo);
          }
-    },
+       },
 
-    handleResetButton: function(){
-      window.location.reload();
-      var self = this;
+       handleResetButton: function(){
+        window.location.reload();
+        var self = this;
 
-      this.countries.makeDeleteRequest("/countries", function(){
-        console.log("countriesVisited dropped");
-        var countries = new Countries;
-        countries.allVisited(function(result){
-          self.renderNotebookCountry(result);
-        }.bind(this));
-      });
+        this.countries.makeDeleteRequest("/countries", function(){
+          console.log("countriesVisited dropped");
+          var countries = new Countries;
+          countries.allVisited(function(result){
+            self.renderNotebookCountry(result);
+          }.bind(this));
+        });
 
-      this.animals.makeDeleteRequest("/animals", function(){
-        console.log("animalsVisited dropped");
-        var animals = new Animals;
-        animals.allVisited(function(result){
-          self.renderNotebookAnimal(result);
-        }.bind(this));
-      });
-  }
-}
+        this.animals.makeDeleteRequest("/animals", function(){
+          console.log("animalsVisited dropped");
+          var animals = new Animals;
+          animals.allVisited(function(result){
+            self.renderNotebookAnimal(result);
+          }.bind(this));
+        });
+      }
+    }
 
-module.exports = UI;
+    module.exports = UI;
