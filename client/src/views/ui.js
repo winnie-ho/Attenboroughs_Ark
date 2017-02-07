@@ -251,7 +251,7 @@ UI.prototype = {
     },
 
     handleResetButton: function(){
-      // window.location.reload();
+      window.location.reload();
       var self = this;
 
       this.countries.makeDeleteRequest("/countries", function(){

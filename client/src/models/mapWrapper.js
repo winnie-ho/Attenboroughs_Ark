@@ -9,8 +9,16 @@ var MapWrapper = function(coords, zoom) {
 
 MapWrapper.prototype = {
   addMarker: function(coords){
+    var icon = {
+        url: "/resources/Plane-icon.png",
+        scaledSize: new google.maps.Size(40, 40),
+        origin: new google.maps.Point(0, 10),
+        anchor: new google.maps.Point(30, 10)
+    };
+
     var marker = new google.maps.Marker({
       position: coords,
+      icon: icon,
       map: this.googleMap
     });
     console.log("marker added");
