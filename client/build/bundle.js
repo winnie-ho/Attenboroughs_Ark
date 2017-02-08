@@ -46,59 +46,27 @@
 
 	var UI = __webpack_require__(1);
 	var AttenUI = __webpack_require__(7);
-	var QuizUI = __webpack_require__(9);
+	var QuizUI = __webpack_require__(8);
 	var Animals = __webpack_require__(4);
+	var MapWrapper = __webpack_require__(6);
 	
 	var animal = null;
 	
 	var app = function() {
-	  var ui = new UI();
 	
+	  //creates the map
+	  mapDiv = document.querySelector("#mapDiv");
+	  var centre = {lat: 56, lng: -3 };
+	  this.map = new MapWrapper(centre, 3);
+	  this.map.geoLocate();
+	
+	  var ui = new UI(this.map);
+	  ui.addHereToDB();
 	
 	  var attenUI = new AttenUI();
 	  var quizUI = new QuizUI();
 	
-	  // var animals = new Animals();
-	  // animals.allAPI(function(result){ 
-	  //   animal = result[0];
-	  //   // console.log(animal.buttonValues)
-	  // })
-	
 	  attenUI.startText();
-	
-	
-	//   var nextButton = document.querySelector("#next-button");
-	//   // nextButton.onclick = ui.handleNextButton();
-	//   // console.log("1")
-	//   nextButton.onclick = function(){
-	//     quizUI.createAnswerButtons(animal);
-	//     quizUI.changeAttenTalk(animal);
-	//     // console.log("3")
-	
-	// ////////////Question Buttons
-	
-	//     var answerButton = document.querySelectorAll(".animalNameButton");
-	//     // console.log(answerButton)
-	
-	//     var answerButtonsClickBehavour = function() {
-	//       var firedButton = this.innerText;
-	//       // console.log(firedButton)
-	//       quizUI.answerQuestion(animal, firedButton);
-	//     }
-	
-	//     for (var i = 0; i < answerButton.length; i++) {
-	//       answerButton[i].onclick = answerButtonsClickBehavour;
-	//     }
-	//   }
-	
-	
-	  var answerQuestionOne = document.querySelector(".animalNameButton");
-	  answerQuestionOne.onclick = quizUI.answerQuestionOne();
-	
-	
-	  var mountainSounds = document.querySelector("#savannah")
-	  mountainSounds.play();
-	
 	  
 	}
 	
@@ -114,16 +82,20 @@
 	var Animal = __webpack_require__(5);
 	var MapWrapper = __webpack_require__(6);
 	
+	
 	var AttenUI = __webpack_require__(7);
 	var QuizUI = __webpack_require__(8);
 	var attenUI = new AttenUI();
 	var quizUI = new QuizUI();
 	// var QuizUI = new QuizUI();
 	
-	var UI = function(){ 
+	var UI = function(map){ 
+	  // document.innerHTML = ""
 	  var goButton = document.querySelector("#go-button");
 	  goButton.onclick = this.handleGoButton.bind(this);
 	
+	  // var africaSound = document.querySelector("#savannah")
+	  // africaSound.play();
 	
 	  var resetButton = document.querySelector("#reset-button");
 	  resetButton.onclick = this.handleResetButton.bind(this);
@@ -135,27 +107,57 @@
 	    this.renderCountriesList(result);
 	  }.bind(this));
 	
-	  
-	//creates the map
-	mapDiv = document.querySelector("#mapDiv");
-	var centre = {lat: 20, lng: 0 };
-	this.map = new MapWrapper(centre, 2);
+	
+	
+	
+	this.animals.allVisited(function(result){
+	  this.renderNotebookAnimal(result);
+	}.bind(this));
+	
+	
+	this.countries.allVisited(function(result){
+	  this.renderNotebookCountry(result);
+	}.bind(this));
+	
 	}
 	
 	UI.prototype = {
+	  addHereToDB: function(){
+	    var countries = new Countries;
+	    countries.allVisited(function(countriesVisited){
+	      if (countriesVisited.length === 0){
+	
+	        navigator.geolocation.getCurrentPosition(function(position) {
+	        // add dummy country "here" to countriesVisited collection in db
+	        var here = {
+	          name: "here",
+	          coords: [position.coords.latitude, position.coords.longitude],
+	          arrivalText: "",
+	          countryFlag: ""
+	        }
+	
+	        countries.makePost("/countries", here, function(data){
+	        });
+	      });
+	      }
+	    })
+	  },
+	
 	  renderCountriesList: function(countriesAPI){
-	    var countriesDiv = document.querySelector("#countries");
-	    var selectLabel = document.createElement("h3");
-	    selectLabel.innerText = "SELECT A COUNTRY: ";
-	    var countriesSelect = document.createElement("select");
-	    countriesSelect.id = "selector";
+	
+	    var countriesSelect = document.querySelector("#selector");
+	    countriesSelect.innerHTML = ""
+	
+	    var unselectable = document.createElement("option");
+	    unselectable.innerText = "Country:"
+	    unselectable.disabled = true;
+	    unselectable.selected = true;
+	    countriesSelect.appendChild(unselectable);
+	
 	    for (var country of countriesAPI){
 	      var countryChoice = document.createElement("option");
 	      countryChoice.innerText = country.name;
 	      countryChoice.value = JSON.stringify(country);
-	
-	      countriesDiv.appendChild(selectLabel);
-	      selectLabel.appendChild(countriesSelect);
 	      countriesSelect.appendChild(countryChoice);
 	    }
 	  },
@@ -166,7 +168,6 @@
 	    var self = this;
 	    attenUI.goButton(countryObject)
 	    var animals = new Animals();
-	    // console.log(this);
 	    var animalObject = null;
 	
 	    animals.allAPI(function(animalsAPI){ 
@@ -178,22 +179,25 @@
 	    });
 	
 	    var nextButton = document.querySelector("#next-button");
-	      // nextButton.onclick = ui.handleNextButton();
-	      // console.log("1")
-	      nextButton.onclick = function(){
-	        quizUI.createAnswerButtons(animalObject);
-	        quizUI.changeAttenTalk(animalObject);
-	        // console.log("3")
+	    var buttonDiv = document.querySelector("#QButtons");
+	    buttonDiv.style.visibility = "hidden";
+	    nextButton.style.visibility = "visible";
+	    nextButton.onclick = function(){
+	      console.log("hi there")
+	      quizUI.createAnswerButtons(animalObject);
+	      quizUI.changeAttenTalk(animalObject);
 	
 	    ////////////Question Buttons
 	
 	    var answerButton = document.querySelectorAll(".animalNameButton");
-	        // console.log(answerButton)
 	
-	        var answerButtonsClickBehavour = function() {
-	          var firedButton = this.innerText;
+	    var answerButtonsClickBehavour = function() {
+	      var firedButton = this.innerText;
+	      buttonDiv.style.visibility = "hidden";
+	      nextButton.style.visibility = "visible";
 	          // console.log(firedButton)
 	          quizUI.answerQuestion(animalObject, firedButton);
+	
 	        }
 	
 	        for (var i = 0; i < answerButton.length; i++) {
@@ -201,6 +205,35 @@
 	        }
 	      }
 	
+	    ///Audio
+	
+	    var myAudio = document.getElementById("myAudio");
+	    var isPlaying = false;
+	
+	    var togglePlay = function(countryObject) {
+	      if (isPlaying) {
+	        myAudio.stop()
+	      }
+	      switch (countryObject.name) {
+	        case "West Africa":
+	        document.getElementById("myAudio").src="../resources/savannah.mp3";
+	        myAudio.play();
+	        break;
+	        case "China":
+	        document.getElementById("myAudio").src="../resources/mountainsOfChina.mp3";
+	        myAudio.play();
+	        break;
+	      }
+	    }
+	
+	    togglePlay(countryObject);
+	
+	    myAudio.onplaying = function() {
+	      isPlaying = true;
+	    };
+	    myAudio.onpause = function() {
+	      isPlaying = false;
+	    };
 	
 	    // add country to countriesVisited collection in db
 	    this.addCountryToDb(function(){
@@ -210,43 +243,25 @@
 	      }.bind(this));
 	    });
 	
-	    // add animal to animalsVisited collection in db
-	    this.addAnimalToDb(function(){
-	      var animals = new Animals;
-	      animals.allVisited(function(result){
-	        self.renderNotebookAnimal(result);
-	      }.bind(this));
-	    });    
-	
 	    // pan to the selected country on the map
-	    this.map.panTo(countryObject.coords[0], countryObject.coords[1]);
-	
-	    
-	    // attenUI.goButton(countryObject);
-	
-	    // // initiate arrival text
-	    // var attDiv = document.querySelector("#attenborough");
-	    // attDiv.innerHTML = "";
-	    // var arrivalText = document.createElement("p");
-	    // arrivalText.innerText = countryObject.arrivalText;
-	    // attDiv.appendChild(arrivalText);
+	    map.panTo(countryObject.coords[0], countryObject.coords[1]);
 	
 	  },
 	
-	  addAnimalToDb: function(callback){
-	    var selectedCountry = document.querySelector("#selector");
-	    var countryObject = JSON.parse(selectedCountry.value);
+	  addAnimalToDb: function(animalObject, callback){
+	    // var selectedCountry = document.querySelector("#selector");
+	    // var countryObject = JSON.parse(selectedCountry.value);
 	    var animals = new Animals();
 	
-	    var animalObject = null;
+	    var animalObject = animalObject;
 	
-	    animals.allAPI(function(animalsAPI){ 
-	      for(var animal of animalsAPI){
-	        if (animal.country === countryObject.name) {
-	          animalObject = animal;
-	        }
-	      }
-	    });
+	    // animals.allAPI(function(animalsAPI){ 
+	    //   for(var animal of animalsAPI){
+	    //     if (animal.country === countryObject.name) {
+	    //       animalObject = animal;
+	    //     }
+	    //   }
+	    // });
 	
 	    animals.allVisited(function(animalsVisited){
 	      if (animalsVisited.length === 0){
@@ -343,10 +358,10 @@
 	    var visitedCountriesFlags = [];
 	    for (var country of countryList){
 	     visitedCountriesFlags.push(country.countryFlag);
-	     var marker = this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
+	     var marker = map.addMarker({lat: country.coords[0], lng: country.coords[1]});
 	
 	         // add the info window to the map
-	         this.map.addInfoWindow(this.map, marker, country.name);
+	         map.addInfoWindow(this.map, marker, "<h2>" + country.name + "</h2>");
 	       }
 	
 	       var filterVisitedCountries = visitedCountriesFlags.filter(function(country, index, countryList){
@@ -369,58 +384,58 @@
 	       for (var country of countryList){
 	         pathCoords.push({lat: country.coords[0], lng: country.coords[1]});
 	       } 
-	       this.map.addPolyline(pathCoords);
+	       map.addPolyline(pathCoords);
 	     },
 	
 	     renderNotebookAnimal: function(animalList){
-	      // filtering out the unique visited animals for photos (may have been visited more than once).
-	      var visitedAnimals = [];
-	      for (var animal of animalList){
-	       visitedAnimals.push(animal);
-	     }
-	     console.log("animals visited", visitedAnimals);
+	   // filtering out the unique visited animals for photos (may have been visited more than once).
+	   var visitedAnimals = [];
+	   for (var animal of animalList){
+	    visitedAnimals.push(animal);
+	  }
+	  console.log("animals visited", visitedAnimals);
 	
-	     var filterVisitedAnimals = visitedAnimals.filter(function(animal, index, animalList){
-	       return visitedAnimals.indexOf(animal) === index;
-	     });
+	  var filterVisitedAnimals = visitedAnimals.filter(function(animal, index, animalList){
+	    return visitedAnimals.indexOf(animal) === index;
+	  });
 	
-	         //filling the notebook with visitedAnimals images
-	         var notebookPhotos = document.querySelector("#photosDiv");
-	         notebookPhotos.innerHTML = "";
-	         for(var animal of filterVisitedAnimals){
-	           var animalNote = document.createElement("h5");
-	           animalNote.innerText = animal.name + "\n";
-	           var photo = document.createElement("img");
-	           photo.id = "photo"
-	           photo.src = animal.image;
-	           notebookPhotos.appendChild(animalNote);
-	           animalNote.appendChild(photo);
-	         }
-	       },
-	
-	       handleResetButton: function(){
-	        window.location.reload();
-	        var self = this;
-	
-	        this.countries.makeDeleteRequest("/countries", function(){
-	          console.log("countriesVisited dropped");
-	          var countries = new Countries;
-	          countries.allVisited(function(result){
-	            self.renderNotebookCountry(result);
-	          }.bind(this));
-	        });
-	
-	        this.animals.makeDeleteRequest("/animals", function(){
-	          console.log("animalsVisited dropped");
-	          var animals = new Animals;
-	          animals.allVisited(function(result){
-	            self.renderNotebookAnimal(result);
-	          }.bind(this));
-	        });
-	      }
+	    //filling the notebook with visitedAnimals images
+	    var notebookPhotos = document.querySelector("#photosDiv");
+	    notebookPhotos.innerHTML = "";
+	    for(var animal of filterVisitedAnimals){
+	      var animalNote = document.createElement("h5");
+	      animalNote.innerText = animal.name + "\n";
+	      var photo = document.createElement("img");
+	      photo.id = "photo"
+	      photo.src = animal.image;
+	      notebookPhotos.appendChild(animalNote);
+	      animalNote.appendChild(photo);
 	    }
+	  },
 	
-	    module.exports = UI;
+	  handleResetButton: function(){
+	    window.location.reload();
+	    var self = this;
+	
+	    this.countries.makeDeleteRequest("/countries", function(){
+	      console.log("countriesVisited dropped");
+	      var countries = new Countries;
+	      countries.allVisited(function(result){
+	        self.renderNotebookCountry(result);
+	      }.bind(this));
+	    });
+	
+	    this.animals.makeDeleteRequest("/animals", function(){
+	      console.log("animalsVisited dropped");
+	      var animals = new Animals;
+	      animals.allVisited(function(result){
+	        self.renderNotebookAnimal(result);
+	      }.bind(this));
+	    });
+	  }
+	}
+	
+	module.exports = UI;
 
 /***/ },
 /* 2 */
@@ -619,17 +634,10 @@
 	
 	MapWrapper.prototype = {
 	  addMarker: function(coords){
-	    // var icon = {
-	    //     url: "/resources/Plane-icon.png",
-	    //     scaledSize: new google.maps.Size(40, 40),
-	    //     origin: new google.maps.Point(0, 10),
-	    //     anchor: new google.maps.Point(30, 10)
-	    // };
-	
 	    var marker = new google.maps.Marker({
 	      position: coords,
-	      // icon: icon,
-	      map: this.googleMap
+	      map: this.googleMap,
+	      animation: google.maps.Animation.DROP
 	    });
 	    console.log("marker added");
 	    return marker;
@@ -644,7 +652,7 @@
 	       strokeColor: "red",
 	       fillColor: "red",
 	       fillOpacity: 1,
-	       strokeWeight: 1,
+	       strokeWeight: 0.5,
 	       rotation: 270
 	     };
 	
@@ -658,7 +666,7 @@
 	      geodesic: true,
 	      strokeColor: '#FF0000',
 	      strokeOpacity: 1.0,
-	      strokeWeight: 2,
+	      strokeWeight: 1,
 	      icons: [iconPlane],
 	      map: this.googleMap
 	    });
@@ -680,58 +688,33 @@
 	
 	  panTo: function(lat, lng){
 	    this.googleMap.panTo(new google.maps.LatLng(lat,lng));
+	    this.googleMap.setZoom(2);
 	  },
 	
 	  addInfoWindow: function(map, marker, contentString){
 	    var infoWindow = new google.maps.InfoWindow({
-	          content: contentString
+	          content: contentString,
 	        });
 	      marker.addListener("click", function(){
 	      infoWindow.open(this.googleMap, marker);
 	    })
+	  },
+	
+	  geoLocate: function(){
+	    navigator.geolocation.getCurrentPosition(function(position) {
+	      var centre = {lat: position.coords.latitude, lng: position.coords.longitude}; 
+	      this.googleMap.setCenter(centre); 
+	      var marker = this.addMarker(centre);
+	
+	      var infoWindow = new google.maps.InfoWindow({
+	            content: "<h2>Home</h2>",
+	          });
+	
+	
+	      // var infoWindow = this.addInfoWindow(this.googleMap, marker, "<h2>Home</h2>");
+	      infoWindow.open(this.googleMap, marker);
+	    }.bind(this));
 	  }
-	
-	  // geoLocate: function(runArray){
-	
-	  //   console.log(runArray);
-	  //   navigator.geolocation.getCurrentPosition(function(position) {
-	  //     var centre = {lat: position.coords.latitude, lng: position.coords.longitude}; 
-	  //     this.googleMap.setCenter(centre); 
-	  //     var marker = this.addMarker(centre);
-	  //     var nearRuns = document.querySelector("#near-runs");
-	  //     this.addInfoWindow(this.googleMap, marker, "You Are Here")
-	  //     for (var run of runArray){
-	  //       if (Math.sqrt(Math.pow((run.start_latlng[0] - position.coords.latitude),2))< 0.005){
-	  //         var runMarker = this.addMarker({lat: run.start_latlng[0], lng: run.start_latlng[1]});
-	  //         this.addInfoWindow(this.googleMap, runMarker, run.name);
-	  //         var nearRunsInfo = document.createElement("p");
-	  //         nearRunsInfo.innerText = run.name + " | " + ((run.distance/1000).toFixed(2)) + "km";
-	  //         nearRuns.appendChild(nearRunsInfo);
-	  //         var division = document.createElement("hr");
-	  //         nearRuns.appendChild(division);
-	  //         console.log(run.start_latlng[0])
-	  //         console.log(position.coords.latitude);
-	  //         console.log(run.start_latlng[0]-position.coords.latitude)
-	  //         console.log(run.name + "added");
-	
-	  //       } else if (Math.sqrt(Math.pow((run.start_latlng[1] - position.coords.longitude),2)) < 0.005){
-	  //         var runMarker = this.addMarker({lat: run.start_latlng[0], lng: run.start_latlng[1]});
-	  //         this.addInfoWindow(this.googleMap, runMarker, run.name);
-	  //         var nearRunsInfo = document.createElement("p");
-	  //         nearRunsInfo.innerText = run.name + " | " + ((run.distance/1000).toFixed(2)) + "km";
-	  //         nearRuns.appendChild(nearRunsInfo);
-	  //         var division = document.createElement("hr");
-	  //         nearRuns.appendChild(division);
-	  //         console.log(run.start_latlng[1])
-	  //         console.log(position.coords.longitude);
-	  //         console.log(run.start_latlng[1]-position.coords.longitude);
-	  //         console.log(run.name + "added");
-	  //       }
-	  //     }
-	  //   }.bind(this)); 
-	  // }
-	
-	
 	}
 	
 	module.exports = MapWrapper;
@@ -751,33 +734,39 @@
 	var AttenUI = function(){
 	  var attenTalk = document.querySelector("#attenTalk");
 	  this.buttons = document.querySelector("#control-container");
-	  // console.log(this.buttons)
 	}
 	
 	AttenUI.prototype = {
 	  goButton: function(countryObject){
-	    // console.log(this.buttons)
-	
 	    attenTalk.innerText = countryObject.arrivalText;
-	
 	  },
+	
+	  initiateQuestions: function(){
+	    this.initiateText = "I think I hear an animal up ahead, Why don't you help me work out what it is by using the buttons which will appear below?";
+	    attenTalk.innerText = this.initiateText;
+	  },
+	
 	  startText: function(){
 	    this.startText = "Welcome. To a Journey around the globe with me, David Attenborough. \n On this journey, we are going to see some of the worlds most endangered animals, and together we shall keep a journal, taking note of these animals and the countries we find them in. \n To choose where to travel, use the dropdown bar at the top to choose a location to visit, and press 'EXPLORE'. \n Let's start our expedition!",
 	
 	    attenTalk.innerText = this.startText;
 	  },
+	
 	  wrongText: function(){
 	    this.wrongText = "I don't think that animal is quite right! How about another guess?";
 	    attenTalk.innerText = this.wrongText;
 	  },
+	
 	  reasoningText: function(){
-	    this.reasoningText = "The reason for our expedition, is that animals are going extinct faster and faster, there are species your grandparents may have seen, which you will never get the chance to! This is mostly because of towns and cities getting bigger, and taking up the spaces where the animals used to make home. If we don't do something about this, your grandchilderen might not have many animals to learn about and see!";
+	    this.reasoningText = "The reason for our expedition, is that animals are going extinct faster and faster, there are species your grandparents may have seen, which you will never get the chance to! \n This is mostly because of towns and cities getting bigger, and taking up the spaces where the animals used to make home. \n If we don't do something about this, your grandchilderen might not have many animals to learn about and see!";
 	    attenTalk.innerText = this.reasoningText;
 	  },
+	
 	  finalWrongText: function(animalObject){
 	    this.finalWrongText = animalObject.answerText;
 	    attenTalk.innerText = this.finalWrongText;
 	  },
+	  
 	  answerCorrectText: function(animalObject){
 	    this.answerCorrectText = animalObject.finishingText;
 	    attenTalk.innerText = this.answerCorrectText;
@@ -790,24 +779,23 @@
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
+	
 	var Countries = __webpack_require__(2);
 	var Country = __webpack_require__(3);
 	var Animals = __webpack_require__(4);
 	var Animal = __webpack_require__(5);
 	var AttenUI = __webpack_require__(7);
-	var UI = __webpack_require__(1);
-	
 	var counter = 0;
 	var finalQuestion = false;
 	
+	
 	var QuizUI = function(){
 	
-	  // var next = document.querySelector("#next-button");
-	  // nextButton.onclick = this.handleNextButton.bind(this);
 	}
 	
 	QuizUI.prototype = {
 	  createAnswerButtons: function(animal){
+	    // console.log(AttenUI)
 	    var buttonDiv = document.querySelector("#QButtons");
 	    buttonDiv.innerHTML = "";
 	
@@ -824,121 +812,92 @@
 	  },
 	
 	  changeAttenTalk: function(animal) {
-	    counter ++;
-	    questionsObject = animal.questions;
-	    // console.log(questionsObject);
-	    if (counter == 1) {
-	      attenTalk.innerText = questionsObject.one;
-	    }
-	    else if (counter == 2) {
-	      attenTalk.innerText = questionsObject.two;
-	    } 
-	    else if (counter == 3) {
-	      attenTalk.innerText = questionsObject.three
-	      finalQuestion = true;
-	    }
-	    else { console.log("finished!")
-	    addAnimalToDb();
-	    }
-	  },
 	
-	  answerQuestion: function(animal, button) {
 	    attenUI = new AttenUI();
-	    if (animal.name === button && !finalQuestion) {
-	      attenUI.answerCorrectText(animal);
-	      // addAnimalToDb();
-	      // renderNotebookAnimal();
-	    } else if (animal.name !== button && !finalQuestion){
-	      
-	      attenUI.wrongText();
-	
-	      // console.log(this)
-	      // this.changeAttenTalk(animal);
-	      // console.log("string of attenUI.wrongText");
-	    } else if (animal.name !== button && finalQuestion){
-	      attenUI.finalWrongText(animal);
-	    } else if (animal.name === button && finalQuestion){
-	      attenUI.answerCorrectText(animal);
-	    }
-	  }
-	}
-	
-	
-	module.exports = QuizUI;
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Countries = __webpack_require__(2);
-	var Country = __webpack_require__(3);
-	var Animals = __webpack_require__(4);
-	var Animal = __webpack_require__(5);
-	var AttenUI = __webpack_require__(7);
-	var UI = __webpack_require__(1);
-	
-	var counter = 0;
-	var finalQuestion = false;
-	
-	var QuizUI = function(){
-	
-	  // var next = document.querySelector("#next-button");
-	  // nextButton.onclick = this.handleNextButton.bind(this);
-	}
-	
-	QuizUI.prototype = {
-	  createAnswerButtons: function(animal){
 	    var buttonDiv = document.querySelector("#QButtons");
-	    buttonDiv.innerHTML = "";
-	
-	    var qAnswers = animal.buttonValues;
-	
-	    for (var answer of qAnswers) {
-	      var answerButtons = document.querySelector("#QButtons");
-	      var answerButton = document.createElement("button");
-	      answerButton.id = "answerButton";
-	      answerButton.classList.add("animalNameButton");
-	      answerButton.innerText = answer;
-	      answerButtons.appendChild(answerButton);
-	    }
-	  },
-	
-	  changeAttenTalk: function(animal) {
+	    var nextButton = document.querySelector("#next-button");
 	    counter ++;
 	    questionsObject = animal.questions;
 	    // console.log(questionsObject);
-	    if (counter == 1) {
+	    if(counter === 1){
+	      attenUI.initiateQuestions();
+	    }
+	    else if (counter === 2) {
+	      nextButton.style.visibility = "hidden";
+	      buttonDiv.style.visibility = "visible";
 	      attenTalk.innerText = questionsObject.one;
 	    }
-	    else if (counter == 2) {
+	    else if (counter === 3) {
+	      nextButton.style.visibility = "hidden";
+	      buttonDiv.style.visibility = "visible";
 	      attenTalk.innerText = questionsObject.two;
 	    } 
-	    else if (counter == 3) {
+	    else if (counter === 4) {
+	      nextButton.style.visibility = "hidden";
+	      buttonDiv.style.visibility = "visible";
 	      attenTalk.innerText = questionsObject.three
 	      finalQuestion = true;
 	    }
 	    else { console.log("finished!")
-	    addAnimalToDb();
+	    // addAnimalToDb();
 	    }
 	  },
 	
 	  answerQuestion: function(animal, button) {
-	    attenUI = new AttenUI();
+	    var UI = __webpack_require__(1);
+	    var nextButton = document.querySelector("#next-button");
+	    var attenUI = new AttenUI();
+	    var ui = new UI();
+	    // console.log("this" + this)
+	
+	  // console.log(ui)
+	    console.log(AttenUI)
 	    if (animal.name === button && !finalQuestion) {
 	      attenUI.answerCorrectText(animal);
-	      // addAnimalToDb();
-	      // renderNotebookAnimal();
+	      // nextButton.style.visibility = "hidden";
+	    console.log("correct 1 2")
+	      ui.addAnimalToDb(animal, function(){
+	        // console.log("Here I am")
+	        var animals = new Animals;
+	        animals.allVisited(function(result){
+	          // console.log("Here" + ui)
+	          ui.renderNotebookAnimal(result);
+	        });
+	      }); 
+	      counter = 0; 
 	    } else if (animal.name !== button && !finalQuestion){
-	      
+	    // counter ++;
 	      attenUI.wrongText();
-	
-	      // console.log(this)
-	      // this.changeAttenTalk(animal);
-	      // console.log("string of attenUI.wrongText");
 	    } else if (animal.name !== button && finalQuestion){
+	
 	      attenUI.finalWrongText(animal);
+	      nextButton.style.visibility = "hidden";
+	  // console.log("all wrong")
+	      ui.addAnimalToDb(animal, function(){
+	        // console.log("Here I am")
+	        var animals = new Animals;
+	        animals.allVisited(function(result){
+	          // console.log("Here" + ui)
+	          ui.renderNotebookAnimal(result);
+	        });
+	      });  
+	  counter = 0;
+	  finalQuestion = false;
 	    } else if (animal.name === button && finalQuestion){
+	
 	      attenUI.answerCorrectText(animal);
+	      nextButton.style.visibility = "hidden";
+	  // console.log("correct 3")
+	      ui.addAnimalToDb(animal, function(){
+	        // console.log("Here I am")
+	        var animals = new Animals;
+	        animals.allVisited(function(result){
+	          // console.log("Here" + ui)
+	          ui.renderNotebookAnimal(result);
+	        });
+	      });  
+	  counter = 0;
+	  finalQuestion = false;
 	    }
 	  }
 	}
