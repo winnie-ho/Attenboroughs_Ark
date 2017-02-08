@@ -11,7 +11,7 @@ var quizUI = new QuizUI();
 // var QuizUI = new QuizUI();
 
 var UI = function(){ 
-  document.innerHTML = ""
+  // document.innerHTML = ""
   var goButton = document.querySelector("#go-button");
   goButton.onclick = this.handleGoButton.bind(this);
 
@@ -72,8 +72,9 @@ UI.prototype = {
     var nextButton = document.querySelector("#next-button");
     var buttonDiv = document.querySelector("#QButtons");
     buttonDiv.style.visibility = "hidden";
+    nextButton.style.visibility = "visible";
     nextButton.onclick = function(){
-
+      console.log("hi there")
       quizUI.createAnswerButtons(animalObject);
       quizUI.changeAttenTalk(animalObject);
 
@@ -108,20 +109,20 @@ UI.prototype = {
 
   },
 
-  addAnimalToDb: function(callback){
-    var selectedCountry = document.querySelector("#selector");
-    var countryObject = JSON.parse(selectedCountry.value);
+  addAnimalToDb: function(animalObject, callback){
+    // var selectedCountry = document.querySelector("#selector");
+    // var countryObject = JSON.parse(selectedCountry.value);
     var animals = new Animals();
 
-    var animalObject = null;
+    var animalObject = animalObject;
 
-    animals.allAPI(function(animalsAPI){ 
-      for(var animal of animalsAPI){
-        if (animal.country === countryObject.name) {
-          animalObject = animal;
-        }
-      }
-    });
+    // animals.allAPI(function(animalsAPI){ 
+    //   for(var animal of animalsAPI){
+    //     if (animal.country === countryObject.name) {
+    //       animalObject = animal;
+    //     }
+    //   }
+    // });
 
     animals.allVisited(function(animalsVisited){
       if (animalsVisited.length === 0){

@@ -14,7 +14,7 @@ var QuizUI = function(){
 
 QuizUI.prototype = {
   createAnswerButtons: function(animal){
-    console.log(AttenUI)
+    // console.log(AttenUI)
     var buttonDiv = document.querySelector("#QButtons");
     buttonDiv.innerHTML = "";
 
@@ -31,6 +31,7 @@ QuizUI.prototype = {
   },
 
   changeAttenTalk: function(animal) {
+
     attenUI = new AttenUI();
     var buttonDiv = document.querySelector("#QButtons");
     var nextButton = document.querySelector("#next-button");
@@ -66,46 +67,56 @@ QuizUI.prototype = {
     var nextButton = document.querySelector("#next-button");
     var attenUI = new AttenUI();
     var ui = new UI();
+    // console.log("this" + this)
 
-  
+  // console.log(ui)
     console.log(AttenUI)
     if (animal.name === button && !finalQuestion) {
       attenUI.answerCorrectText(animal);
-      nextButton.style.visibility = "hidden";
-  
-      ui.addAnimalToDb(function(){
+      // nextButton.style.visibility = "hidden";
+    console.log("correct 1 2")
+      ui.addAnimalToDb(animal, function(){
+        // console.log("Here I am")
         var animals = new Animals;
         animals.allVisited(function(result){
+          // console.log("Here" + ui)
           ui.renderNotebookAnimal(result);
         });
-      });  
+      }); 
+      counter = 0; 
     } else if (animal.name !== button && !finalQuestion){
-  
+    // counter ++;
       attenUI.wrongText();
     } else if (animal.name !== button && finalQuestion){
 
       attenUI.finalWrongText(animal);
       nextButton.style.visibility = "hidden";
-  
-      ui.addAnimalToDb(function(){
+  // console.log("all wrong")
+      ui.addAnimalToDb(animal, function(){
+        // console.log("Here I am")
         var animals = new Animals;
         animals.allVisited(function(result){
+          // console.log("Here" + ui)
           ui.renderNotebookAnimal(result);
         });
       });  
-  
+  counter = 0;
+  finalQuestion = false;
     } else if (animal.name === button && finalQuestion){
 
       attenUI.answerCorrectText(animal);
       nextButton.style.visibility = "hidden";
-  
-      ui.addAnimalToDb(function(){
+  // console.log("correct 3")
+      ui.addAnimalToDb(animal, function(){
+        // console.log("Here I am")
         var animals = new Animals;
         animals.allVisited(function(result){
+          // console.log("Here" + ui)
           ui.renderNotebookAnimal(result);
         });
       });  
-  
+  counter = 0;
+  finalQuestion = false;
     }
   }
 }
