@@ -8,6 +8,7 @@ var animal = null;
 
 var app = function() {
 
+
   //creates the map
   mapDiv = document.querySelector("#mapDiv");
   var centre = {lat: 56, lng: -3 };
@@ -16,6 +17,10 @@ var app = function() {
 
   var ui = new UI(this.map);
   ui.addHereToDB();
+
+  var nextButton = document.querySelector("#next-button");
+  nextButton.style.visibility = "hidden";
+
 
   var attenUI = new AttenUI();
   var quizUI = new QuizUI();

@@ -30,7 +30,12 @@ var UI = function(map){
   }.bind(this));
 
 
-
+//creates the map
+// mapDiv = document.querySelector("#mapDiv");
+// var centre = {lat: 56, lng: -3 };
+// this.map = new MapWrapper(centre, 3);
+// this.map.geoLocate();
+// this.addHereToDB();
 
 this.animals.allVisited(function(result){
   this.renderNotebookAnimal(result);
@@ -40,6 +45,11 @@ this.animals.allVisited(function(result){
 this.countries.allVisited(function(result){
   this.renderNotebookCountry(result);
 }.bind(this));
+  
+//creates the map
+// mapDiv = document.querySelector("#mapDiv");
+// var centre = {lat: 20, lng: 0 };
+// this.map = new MapWrapper(centre, 2);
 
 }
 
