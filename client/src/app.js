@@ -2,12 +2,20 @@ var UI = require("./views/ui");
 var AttenUI = require("./views/attenUI.js");
 var QuizUI = require("./views/quizUI.js");
 var Animals = require("./models/animals.js");
+var MapWrapper = require("./models/MapWrapper.js");
 
 var animal = null;
 
 var app = function() {
 
-  var ui = new UI();
+  //creates the map
+  mapDiv = document.querySelector("#mapDiv");
+  var centre = {lat: 56, lng: -3 };
+  this.map = new MapWrapper(centre, 3);
+  this.map.geoLocate();
+
+  var ui = new UI(this.map);
+  ui.addHereToDB();
 
   var attenUI = new AttenUI();
   var quizUI = new QuizUI();

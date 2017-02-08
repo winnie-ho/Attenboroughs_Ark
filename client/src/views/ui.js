@@ -4,13 +4,14 @@ var Animals = require("../models/animals.js");
 var Animal = require("../models/animal.js");
 var MapWrapper = require("../models/mapWrapper.js");
 
+
 var AttenUI = require("./attenUI.js");
 var QuizUI = require("./quizUI.js");
 var attenUI = new AttenUI();
 var quizUI = new QuizUI();
 // var QuizUI = new QuizUI();
 
-var UI = function(){ 
+var UI = function(map){ 
   // document.innerHTML = ""
   var goButton = document.querySelector("#go-button");
   goButton.onclick = this.handleGoButton.bind(this);
@@ -30,12 +31,6 @@ var UI = function(){
 
 
 
-//creates the map
-mapDiv = document.querySelector("#mapDiv");
-var centre = {lat: 56, lng: -3 };
-this.map = new MapWrapper(centre, 3);
-this.map.geoLocate();
-this.addHereToDB();
 
 this.animals.allVisited(function(result){
   this.renderNotebookAnimal(result);
@@ -171,7 +166,7 @@ myAudio.onpause = function() {
     });
 
     // pan to the selected country on the map
-    this.map.panTo(countryObject.coords[0], countryObject.coords[1]);
+    map.panTo(countryObject.coords[0], countryObject.coords[1]);
 
   },
 
@@ -285,10 +280,10 @@ myAudio.onpause = function() {
     var visitedCountriesFlags = [];
     for (var country of countryList){
      visitedCountriesFlags.push(country.countryFlag);
-     var marker = this.map.addMarker({lat: country.coords[0], lng: country.coords[1]});
+     var marker = map.addMarker({lat: country.coords[0], lng: country.coords[1]});
 
          // add the info window to the map
-         this.map.addInfoWindow(this.map, marker, "<h2>" + country.name + "</h2>");
+         map.addInfoWindow(this.map, marker, "<h2>" + country.name + "</h2>");
        }
 
        var filterVisitedCountries = visitedCountriesFlags.filter(function(country, index, countryList){
@@ -311,7 +306,7 @@ myAudio.onpause = function() {
        for (var country of countryList){
          pathCoords.push({lat: country.coords[0], lng: country.coords[1]});
        } 
-       this.map.addPolyline(pathCoords);
+       map.addPolyline(pathCoords);
      },
 
      renderNotebookAnimal: function(animalList){
