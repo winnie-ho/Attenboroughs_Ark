@@ -71,7 +71,6 @@ UI.prototype = {
   },
 
   renderCountriesList: function(countriesAPI){
-
     var countriesSelect = document.querySelector("#selector");
     countriesSelect.innerHTML = ""
 
@@ -148,6 +147,14 @@ var togglePlay = function(countryObject) {
     break;
     case "China":
     document.getElementById("myAudio").src="../resources/mountainsOfChina.mp3";
+    myAudio.play();
+    break;
+    case "Mexico":
+    document.getElementById("myAudio").src="../resources/mexicanSounds.mp3";
+    myAudio.play();
+    break;
+    case "Nepal":
+    document.getElementById("myAudio").src="../resources/nepalCalm.mp3";
     myAudio.play();
     break;
   }
