@@ -29,7 +29,6 @@ var UI = function(){
   }.bind(this));
 
 
-
 //creates the map
 mapDiv = document.querySelector("#mapDiv");
 var centre = {lat: 56, lng: -3 };
@@ -45,6 +44,11 @@ this.animals.allVisited(function(result){
 this.countries.allVisited(function(result){
   this.renderNotebookCountry(result);
 }.bind(this));
+  
+//creates the map
+// mapDiv = document.querySelector("#mapDiv");
+// var centre = {lat: 20, lng: 0 };
+// this.map = new MapWrapper(centre, 2);
 
 }
 

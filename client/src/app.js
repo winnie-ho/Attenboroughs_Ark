@@ -7,6 +7,8 @@ var animal = null;
 
 var app = function() {
 
+  var nextButton = document.querySelector("#next-button");
+  nextButton.style.visibility = "hidden";
   var ui = new UI();
 
   var attenUI = new AttenUI();
