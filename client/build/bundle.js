@@ -63,11 +63,13 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
+/* 0 */,
+/* 1 */,
+/* 2 */
 /***/ (function(module, exports) {
 
 var Country = function(options){
@@ -84,12 +86,77 @@ Country.prototype = {
 module.exports = Country;
 
 /***/ }),
-/* 1 */
+/* 3 */,
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Countries = __webpack_require__(2);
-var Country = __webpack_require__(0);
-var MapWrapper = __webpack_require__(3);
+var Country = __webpack_require__(2);
+
+var Countries = function(){
+
+}
+
+Countries.prototype = {
+  makeRequest: function(url, callback){
+    var request = new XMLHttpRequest();
+    request.open("GET", url);
+    request.onload = callback;
+    request.send();
+  },
+
+  makePost: function(url, newData, callback){
+    var data = JSON.stringify(newData);
+    var request = new XMLHttpRequest();
+    request.open("POST", url);
+    request.setRequestHeader("Content-type", "application/json");
+    request.onload = callback;
+    request.send(data);
+  },
+
+  all: function(callback){
+  var self = this;
+    this.makeRequest("https://restcountries.eu/rest/v1/all", function() {
+      if (this.status !== 200){
+        return;
+      }
+      var jsonString = this.responseText;
+      var result = JSON.parse(jsonString);
+      console.log(result);
+      callback(result);
+    });
+  }, 
+
+  allDB: function(callback){
+    var self = this;
+    this.makeRequest("http://localhost:3000/api", function(){
+      if(this.status !== 200) return;
+      var jsonString = this.responseText;
+      var results = JSON.parse(jsonString);
+      var countriesDB = self.populateBucketList(results);
+      callback(countriesDB);
+    })
+  },
+
+  populateBucketList: function(results){
+    var blCountries = [];
+    for (var result of results){
+      var country = new Country (result);
+      blCountries.push(country);
+    }
+    return blCountries;
+  }
+
+}
+
+module.exports = Countries;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Countries = __webpack_require__(4);
+var Country = __webpack_require__(2);
+var MapWrapper = __webpack_require__(6);
 
 var UI = function(){
   this.countries = new Countries();
@@ -166,71 +233,7 @@ UI.prototype = {
 module.exports = UI;
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Country = __webpack_require__(0);
-
-var Countries = function(){
-
-}
-
-Countries.prototype = {
-  makeRequest: function(url, callback){
-    var request = new XMLHttpRequest();
-    request.open("GET", url);
-    request.onload = callback;
-    request.send();
-  },
-
-  makePost: function(url, newData, callback){
-    var data = JSON.stringify(newData);
-    var request = new XMLHttpRequest();
-    request.open("POST", url);
-    request.setRequestHeader("Content-type", "application/json");
-    request.onload = callback;
-    request.send(data);
-  },
-
-  all: function(callback){
-  var self = this;
-    this.makeRequest("https://restcountries.eu/rest/v1/all", function() {
-      if (this.status !== 200){
-        return;
-      }
-      var jsonString = this.responseText;
-      var result = JSON.parse(jsonString);
-      console.log(result);
-      callback(result);
-    });
-  }, 
-
-  allDB: function(callback){
-    var self = this;
-    this.makeRequest("http://localhost:3000/api", function(){
-      if(this.status !== 200) return;
-      var jsonString = this.responseText;
-      var results = JSON.parse(jsonString);
-      var countriesDB = self.populateBucketList(results);
-      callback(countriesDB);
-    })
-  },
-
-  populateBucketList: function(results){
-    var blCountries = [];
-    for (var result of results){
-      var country = new Country (result);
-      blCountries.push(country);
-    }
-    return blCountries;
-  }
-
-}
-
-module.exports = Countries;
-
-/***/ }),
-/* 3 */
+/* 6 */
 /***/ (function(module, exports) {
 
 var MapWrapper = function(coords, zoom) {
@@ -323,10 +326,12 @@ module.exports = MapWrapper;
 
 
 /***/ }),
-/* 4 */
+/* 7 */,
+/* 8 */,
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var UI = __webpack_require__(1);
+var UI = __webpack_require__(5);
 
 var app = function() {
   var ui = new UI();
