@@ -59,18 +59,34 @@ UI.prototype = {
 
 
 ///Audio
-    var backgroundSound = document.getElementById("myAudio");
-    var isPlaying = false;
 
-    switch (countryObject.name) {
-      case "West Africa":
-        var backgroundSound = document.querySelector("#savannah");
-        backgroundSound.play();
-      case "China":
-        var backgroundSound = document.querySelector("#chinaMountain")
-        backgroundSound.play();
-    }
+var myAudio = document.getElementById("myAudio");
+var isPlaying = false;
+
+var togglePlay = function(countryObject) {
+  if (isPlaying) {
+    myAudio.stop()
   }
+  switch (countryObject.name) {
+    case "West Africa":
+    document.getElementById("myAudio").src="../resources/savannah.mp3";
+    myAudio.play();
+    break;
+    case "China":
+    document.getElementById("myAudio").src="../resources/mountainsOfChina.mp3";
+    myAudio.play();
+    break;
+  }
+}
+
+togglePlay(countryObject);
+
+myAudio.onplaying = function() {
+  isPlaying = true;
+};
+myAudio.onpause = function() {
+  isPlaying = false;
+};
 
     // add country to countriesVisited collection in db
     this.addCountryToDb(function(){
