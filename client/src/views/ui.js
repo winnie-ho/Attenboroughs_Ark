@@ -66,7 +66,6 @@ UI.prototype = {
   },
 
   renderCountriesList: function(countriesAPI){
-
     var countriesSelect = document.querySelector("#selector");
     countriesSelect.innerHTML = ""
 
@@ -132,21 +131,29 @@ UI.prototype = {
     var myAudio = document.getElementById("myAudio");
     var isPlaying = false;
 
-    var togglePlay = function(countryObject) {
-      if (isPlaying) {
-        myAudio.stop()
-      }
-      switch (countryObject.name) {
-        case "West Africa":
-        document.getElementById("myAudio").src="../resources/savannah.mp3";
-        myAudio.play();
-        break;
-        case "China":
-        document.getElementById("myAudio").src="../resources/mountainsOfChina.mp3";
-        myAudio.play();
-        break;
-      }
-    }
+var togglePlay = function(countryObject) {
+  if (isPlaying) {
+    myAudio.stop()
+  }
+  switch (countryObject.name) {
+    case "West Africa":
+    document.getElementById("myAudio").src="../resources/savannah.mp3";
+    myAudio.play();
+    break;
+    case "China":
+    document.getElementById("myAudio").src="../resources/mountainsOfChina.mp3";
+    myAudio.play();
+    break;
+    case "Mexico":
+    document.getElementById("myAudio").src="../resources/mexicanSounds.mp3";
+    myAudio.play();
+    break;
+    case "Nepal":
+    document.getElementById("myAudio").src="../resources/nepalCalm.mp3";
+    myAudio.play();
+    break;
+  }
+}
 
     togglePlay(countryObject);
 

@@ -73,7 +73,7 @@ QuizUI.prototype = {
     console.log(AttenUI)
     if (animal.name === button && !finalQuestion) {
       attenUI.answerCorrectText(animal);
-      // nextButton.style.visibility = "hidden";
+      nextButton.style.visibility = "hidden";
     console.log("correct 1 2")
       ui.addAnimalToDb(animal, function(){
         // console.log("Here I am")
