@@ -1,8 +1,8 @@
 var Country = function(options){
   this.name = options.name;
-  this.capital = options.capital;
-  this.xcoord = options.xcoord;
-  this.ycoord = options.ycoord;
+  this.coords = options.coords;
+  this.arrivalText = options.arrivalText;
+  this.countryFlag = options.countryFlag;
 }
 
 Country.prototype = {

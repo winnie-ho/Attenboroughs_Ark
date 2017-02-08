@@ -7,7 +7,7 @@ var Countries = function(){
 Countries.prototype = {
   makeRequest: function(url, callback){
     var request = new XMLHttpRequest();
-    request.open("GET", url);
+    request.open("GET", url, false);
     request.onload = callback;
     request.send();
   },
@@ -21,37 +21,44 @@ Countries.prototype = {
     request.send(data);
   },
 
-  all: function(callback){
+  makeDeleteRequest: function(url, callback){
+    var request = new XMLHttpRequest();
+    request.open("DELETE", url);
+    request.setRequestHeader("Content-type", "application/json");
+    request.onload = callback;
+    request.send();
+  },
+
+  allVisited: function(callback){
   var self = this;
-    this.makeRequest("https://restcountries.eu/rest/v1/all", function() {
-      if (this.status !== 200){
-        return;
-      }
+    this.makeRequest("http://localhost:3000/countries", function() {
+      if (this.status !== 200)
+        return;      
       var jsonString = this.responseText;
       var result = JSON.parse(jsonString);
-      console.log(result);
       callback(result);
     });
   }, 
 
-  allDB: function(callback){
+  allAPI: function(callback){
     var self = this;
-    this.makeRequest("http://localhost:3000/api", function(){
-      if(this.status !== 200) return;
+    this.makeRequest("http://localhost:3000/countries/api", function(){
+      if(this.status !== 200) 
+        return;
       var jsonString = this.responseText;
       var results = JSON.parse(jsonString);
-      var countriesDB = self.populateBucketList(results);
-      callback(countriesDB);
+      var countriesAPI = self.populateDropDownList(results);
+      callback(countriesAPI);
     })
   },
 
-  populateBucketList: function(results){
-    var blCountries = [];
+  populateDropDownList: function(results){
+    var Countries = [];
     for (var result of results){
       var country = new Country (result);
-      blCountries.push(country);
+    Countries.push(country);
     }
-    return blCountries;
+    return Countries;
   }
 
 }

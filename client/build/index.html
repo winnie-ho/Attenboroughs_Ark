@@ -2,20 +2,63 @@
 <html>
 <head>
   <title>Attenborough's Ark</title>
+  <audio type="audio/mpeg" id="myAudio"></audio>
   <script src='bundle.js'></script>
   <script src = "https://maps.googleapis.com/maps/api/js"></script>
   <link rel="stylesheet" type="text/css" href="main.css">
-  <link rel="icon" href="http://www.schneider-electric.com/ww/en/Images/SE_facts_blue_Earth_arrow.png" />
+  <link rel="icon" href="resources/attenborough_head.png"/>
 </head>
 <body>
+<div id = header>
+<h4>planet.save(🌍)</h4>
 <h1>ATTENBOROUGH'S ARK</h1>
-  <div id = "select-container">
-    <div id = "countries"></div>
-    <div id = "button"><button id = "go-button">Go</button></div>
-  </div>
-  <div id = "main-container">
-    <div id = "ark"><h2>THE ARK</h2></div>
+<p>travel discover protect</p>
+</div>
+<hr>
+<div id = "main-container">
+  <div id = "lhs">
     <div id = "mapDiv"></div>
+    <div id = "notebook-frame">
+    <div id = "notebook">
+      <h3>NOTEBOOK</h3>
+      <div id = "contentDiv">
+        <div onload = "document.body.style.opacity='0.7'" id = "flagsDiv"></div>
+        <div id = "photosDiv"></div>
+      </div>
+    </div>
   </div>
+  </div>
+
+      <div id = "rhs">
+        <div id = "sub-container">
+          <div id = "select-container">
+            <div id = "countries">
+              <H3>SELECT A COUNTRY: <select id="selector"></select></H3>
+              
+            </div>
+            <div id = "button">
+              <button id = "go-button">Explore</button>
+              <button id = "reset-button">Restart Journey</button>
+            </div>
+          </div>
+          <div id = "att-container">
+          <div id = "att-display">
+          <div id = "att-image">
+          <img src="./resources/attenAnimals.png" height="450">
+          </div>
+            <div id = "attenborough">
+              <p id = "attenTalk"></p>
+            </div>
+          </div>
+            <div id = "control-container">
+              <div id = "QButtons">
+
+              </div>
+              <button id = "next-button">NEXT</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

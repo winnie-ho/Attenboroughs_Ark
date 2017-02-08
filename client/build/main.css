@@ -5,10 +5,9 @@ body{
 h1{
   font-family: Afrika T Ubuntu;
   text-align: center;
-  font-size: 45px;
+  font-size: 43px;
   color: #06436A;
-  margin-bottom: 0px;
-  margin-top: 10px;
+  margin: 0px;
 }
 
 h2{
@@ -26,15 +25,28 @@ h3{
   color: #06436A;
 }
 
+h4{
+  font-family: Andale Mono;
+  color: #2B5A23;
+  margin-top: 0px;
+  font-size: 16px;
+}
+
+h5{
+  font-family: futura;
+  font-size: 10px;
+  color: #06436A;
+}
+
 p{
   font-family: futura;
-  font-size: 14px;
+  font-size: 18px;
   color: #06436A;
+  text-align: center;
 }
 
 button{
   height: 25px;
-  width:40px;
   font-family: Afrika T Ubuntu;
   font-size: 15px;
   border: 0;
@@ -46,26 +58,20 @@ button{
 select{
   margin-left: 10px;
 }
-
-#select-container{
+#header{
+  height: 50px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-content: center;
-  height: 40px;
-  margin-bottom: 10px;
+  align-content: flex-end;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 5px;
 }
 
-#countries{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-content: center;
-}
-
-#button{
-  padding-top: 12px;
-  padding-left: 10px;
+hr{
+  border-width: 1px;
+  border-top: 2px solid #06436A;
+  border-bottom: none;
 }
 
 #main-container{
@@ -74,22 +80,193 @@ select{
     justify-content: center;
 }
 
-#ark{
-  border: solid 1px white;
+#rhs{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 650px;
+  padding-top: 5px;
+
+}
+
+#lhs{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 650px;
+  padding-top: 5px;
+}
+
+#bottom-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#select-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: center;
+  height: 40px;
+  margin-right: 10px;
+}
+
+#countries{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: center;
+}
+
+#button{
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 12px;
+  padding-left: 10px;
+}
+
+
+#sub-container{
+  display: flex;
+  flex-direction: column;
   border-radius: 3px;
-  width: 320px;
-  height: 530px;
+  height: 596px;
+  margin: 2px;
+}
+
+#att-container{
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  border-radius: 3px;
   margin: 5px;
-  padding-top: -10px;
-  padding-left: 20px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  height: 563px;
+  padding: 5px;
+}
+
+#att-display{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-left: -21px;
+  justify-content: space-between;
+}
+
+#attenborough{
+/*  border: white 1px dashed;
+*/  display: inline-flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  border-radius: 3px;
+  margin: 2px;
+  padding: 10px;
+  height:430px;
+  width: 480px;
+}
+
+#control-container{
+  margin: 2px;
+  margin-top: 17px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+#QButtons{
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
+}
+
+#answerButton{
+  width: 150px;
+  margin: 5px;
 }
 
 #mapDiv{
   border: solid 1px white;
   border-radius: 3px;
-  width: 920px;
-  height: 530px;
-  margin: 5px;
+  height: 280px;
+  margin: 2px;
+  transition: all .4s ease-in-out;
+}
+
+
+#mapDiv:hover {
+transform: scale(1);
+height: 500px;
+margin: -50px;
+margin-right: -150px;
+position: relative;
+left: 280px;
+}
+
+#notebook-frame{
+  background-image: url("./resources/notebook.png");
+  background-size: 625px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  padding-right: 12px;
+  padding-top: 1px;
+  margin-left:-10px;
+  margin-top: 0px;
+}
+
+#notebook-frame:hover {
+transform: scale(1.5);
+height: 400px;
+margin: 120px;
+margin-right: -200px;
+position: relative;
+left: 180px;
+bottom: 200px;
+}
+
+#notebook{
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  padding-left: 60px;
+  padding-top: 5px;
+  padding-right: 0px;
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#contentDiv{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#flagsDiv{
+  display: flex;
+  flex-direction: column;
+}
+
+#photosDiv{
+  display: flex;
+  flex-direction: column;
+}
+
+#flag{
+  margin: 3px;
+  width: 70px;
+}
+
+#photo{
+  margin: 3px;
+  width: 70px;
 }
