@@ -26,11 +26,19 @@ var UI = function(){
     this.renderCountriesList(result);
   }.bind(this));
 
+  this.animals.allVisited(function(result){
+    this.renderNotebookAnimal(result);
+  }.bind(this));
+
   
 //creates the map
 mapDiv = document.querySelector("#mapDiv");
 var centre = {lat: 20, lng: 0 };
 this.map = new MapWrapper(centre, 2);
+
+this.countries.allVisited(function(result){
+  this.renderNotebookCountry(result);
+}.bind(this));
 }
 
 UI.prototype = {
