@@ -46,7 +46,7 @@ QuizUI.prototype = {
       finalQuestion = true;
     }
     else { console.log("finished!")
-    addAnimalToDb();
+    // addAnimalToDb();
     }
   },
 
