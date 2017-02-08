@@ -127,35 +127,35 @@ UI.prototype = {
         }
       }
 
-///Audio
+    ///Audio
 
-var myAudio = document.getElementById("myAudio");
-var isPlaying = false;
+    var myAudio = document.getElementById("myAudio");
+    var isPlaying = false;
 
-var togglePlay = function(countryObject) {
-  if (isPlaying) {
-    myAudio.stop()
-  }
-  switch (countryObject.name) {
-    case "West Africa":
-    document.getElementById("myAudio").src="../resources/savannah.mp3";
-    myAudio.play();
-    break;
-    case "China":
-    document.getElementById("myAudio").src="../resources/mountainsOfChina.mp3";
-    myAudio.play();
-    break;
-  }
-}
+    var togglePlay = function(countryObject) {
+      if (isPlaying) {
+        myAudio.stop()
+      }
+      switch (countryObject.name) {
+        case "West Africa":
+        document.getElementById("myAudio").src="../resources/savannah.mp3";
+        myAudio.play();
+        break;
+        case "China":
+        document.getElementById("myAudio").src="../resources/mountainsOfChina.mp3";
+        myAudio.play();
+        break;
+      }
+    }
 
-togglePlay(countryObject);
+    togglePlay(countryObject);
 
-myAudio.onplaying = function() {
-  isPlaying = true;
-};
-myAudio.onpause = function() {
-  isPlaying = false;
-};
+    myAudio.onplaying = function() {
+      isPlaying = true;
+    };
+    myAudio.onpause = function() {
+      isPlaying = false;
+    };
 
     // add country to countriesVisited collection in db
     this.addCountryToDb(function(){
