@@ -54,6 +54,7 @@
 	
 	var app = function() {
 	
+	
 	  //creates the map
 	  mapDiv = document.querySelector("#mapDiv");
 	  var centre = {lat: 56, lng: -3 };
@@ -62,6 +63,10 @@
 	
 	  var ui = new UI(this.map);
 	  ui.addHereToDB();
+	
+	  var nextButton = document.querySelector("#next-button");
+	  nextButton.style.visibility = "hidden";
+	
 	
 	  var attenUI = new AttenUI();
 	  var quizUI = new QuizUI();
@@ -108,7 +113,12 @@
 	  }.bind(this));
 	
 	
-	
+	//creates the map
+	// mapDiv = document.querySelector("#mapDiv");
+	// var centre = {lat: 56, lng: -3 };
+	// this.map = new MapWrapper(centre, 3);
+	// this.map.geoLocate();
+	// this.addHereToDB();
 	
 	this.animals.allVisited(function(result){
 	  this.renderNotebookAnimal(result);
@@ -118,6 +128,11 @@
 	this.countries.allVisited(function(result){
 	  this.renderNotebookCountry(result);
 	}.bind(this));
+	  
+	//creates the map
+	// mapDiv = document.querySelector("#mapDiv");
+	// var centre = {lat: 20, lng: 0 };
+	// this.map = new MapWrapper(centre, 2);
 	
 	}
 	
@@ -144,7 +159,6 @@
 	  },
 	
 	  renderCountriesList: function(countriesAPI){
-	
 	    var countriesSelect = document.querySelector("#selector");
 	    countriesSelect.innerHTML = ""
 	
@@ -210,21 +224,29 @@
 	    var myAudio = document.getElementById("myAudio");
 	    var isPlaying = false;
 	
-	    var togglePlay = function(countryObject) {
-	      if (isPlaying) {
-	        myAudio.stop()
-	      }
-	      switch (countryObject.name) {
-	        case "West Africa":
-	        document.getElementById("myAudio").src="../resources/savannah.mp3";
-	        myAudio.play();
-	        break;
-	        case "China":
-	        document.getElementById("myAudio").src="../resources/mountainsOfChina.mp3";
-	        myAudio.play();
-	        break;
-	      }
-	    }
+	var togglePlay = function(countryObject) {
+	  if (isPlaying) {
+	    myAudio.stop()
+	  }
+	  switch (countryObject.name) {
+	    case "West Africa":
+	    document.getElementById("myAudio").src="../resources/savannah.mp3";
+	    myAudio.play();
+	    break;
+	    case "China":
+	    document.getElementById("myAudio").src="../resources/mountainsOfChina.mp3";
+	    myAudio.play();
+	    break;
+	    case "Mexico":
+	    document.getElementById("myAudio").src="../resources/mexicanSounds.mp3";
+	    myAudio.play();
+	    break;
+	    case "Nepal":
+	    document.getElementById("myAudio").src="../resources/nepalCalm.mp3";
+	    myAudio.play();
+	    break;
+	  }
+	}
 	
 	    togglePlay(countryObject);
 	
@@ -631,7 +653,6 @@
 	    });
 	}
 	
-	
 	MapWrapper.prototype = {
 	  addMarker: function(coords){
 	    var marker = new google.maps.Marker({
@@ -854,7 +875,7 @@
 	    console.log(AttenUI)
 	    if (animal.name === button && !finalQuestion) {
 	      attenUI.answerCorrectText(animal);
-	      // nextButton.style.visibility = "hidden";
+	      nextButton.style.visibility = "hidden";
 	    console.log("correct 1 2")
 	      ui.addAnimalToDb(animal, function(){
 	        // console.log("Here I am")
