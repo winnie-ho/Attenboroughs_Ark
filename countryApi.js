@@ -4,7 +4,7 @@ db.countries.insert([
 {
   name: "West Africa",
   coords: [4.1272853, 17.094727],
-  arrivalText: "This, is Africa. In particular, we are in the central African Republic, though the endangered species we are looking for on this adventure can be found all down the western coast of this vast continent. As we travel across this beautiful  landscape, there are many wonderous sights. From the Hippopotamous, with jaws around 15-18 times stronger than yours, to the small Fenec fox, who hunts for rodents at night. Let us journey on, and explore the reaches of Western Africa in search of our endangered species today. ",
+  arrivalText: "This, is Africa. In particular, we are in the central African Republic, though the endangered species we are looking for on this adventure can be found all down the western coast of this vast continent. As we travel across this beautiful landscape, there are many wonderous sights. From the Hippopotamous, with jaws around 15-18 times stronger than yours, to the small Fenec fox, who hunts for rodents at night. Let us journey on, and explore the reaches of Western Africa in search of our endangered species today. ",
   countryFlag: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Flag_of_the_Central_African_Republic.png"
 },
 {
@@ -22,7 +22,7 @@ db.countries.insert([
 {
   name: "Mexico",
   coords: [23.634501,-102.55278399999997],
-  arrivalText: "This, is Mexico, home to some of the most weird and wonderful animals of the Americas. Across Mexico there are varied climates, from intense heat on the lowlands in the north-west, to the much milder regions in the mountains of the central regions. This enables a large variety of wildlife to survive, though the expanse of cities in Mexico mean a lot of the wildlife here is losing their homes. Let us go and search for our endangered species today, in the hopes of allowing it's home to become a protected area.",
+  arrivalText: "This, is Mexico, home to some of the most weird and wonderful animals of the Americas. Across Mexico there are varied climates, from intense heat on the lowlands in the north-west, to the much milder regions in the mountains of the central regions. This enables a large variety of wildlife to survive, though the expanse of cities in Mexico mean a lot of the wildlife here are losing their homes. Let us go and search for our endangered species today, in the hopes of allowing its home to become a protected area.",
   countryFlag: "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Mexico.png"
 }
 

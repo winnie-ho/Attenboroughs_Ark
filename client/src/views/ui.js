@@ -30,7 +30,12 @@ var UI = function(map){
   }.bind(this));
 
 
-
+//creates the map
+// mapDiv = document.querySelector("#mapDiv");
+// var centre = {lat: 56, lng: -3 };
+// this.map = new MapWrapper(centre, 3);
+// this.map.geoLocate();
+// this.addHereToDB();
 
 this.animals.allVisited(function(result){
   this.renderNotebookAnimal(result);
@@ -40,6 +45,11 @@ this.animals.allVisited(function(result){
 this.countries.allVisited(function(result){
   this.renderNotebookCountry(result);
 }.bind(this));
+  
+//creates the map
+// mapDiv = document.querySelector("#mapDiv");
+// var centre = {lat: 20, lng: 0 };
+// this.map = new MapWrapper(centre, 2);
 
 }
 
@@ -66,7 +76,6 @@ UI.prototype = {
   },
 
   renderCountriesList: function(countriesAPI){
-
     var countriesSelect = document.querySelector("#selector");
     countriesSelect.innerHTML = ""
 
@@ -132,21 +141,29 @@ UI.prototype = {
     var myAudio = document.getElementById("myAudio");
     var isPlaying = false;
 
-    var togglePlay = function(countryObject) {
-      if (isPlaying) {
-        myAudio.stop()
-      }
-      switch (countryObject.name) {
-        case "West Africa":
-        document.getElementById("myAudio").src="../resources/savannah.mp3";
-        myAudio.play();
-        break;
-        case "China":
-        document.getElementById("myAudio").src="../resources/mountainsOfChina.mp3";
-        myAudio.play();
-        break;
-      }
-    }
+var togglePlay = function(countryObject) {
+  if (isPlaying) {
+    myAudio.stop()
+  }
+  switch (countryObject.name) {
+    case "West Africa":
+    document.getElementById("myAudio").src="../resources/savannah.mp3";
+    myAudio.play();
+    break;
+    case "China":
+    document.getElementById("myAudio").src="../resources/mountainsOfChina.mp3";
+    myAudio.play();
+    break;
+    case "Mexico":
+    document.getElementById("myAudio").src="../resources/mexicanSounds.mp3";
+    myAudio.play();
+    break;
+    case "Nepal":
+    document.getElementById("myAudio").src="../resources/nepalCalm.mp3";
+    myAudio.play();
+    break;
+  }
+}
 
     togglePlay(countryObject);
 
